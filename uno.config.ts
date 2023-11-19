@@ -28,21 +28,23 @@ export default defineConfig({
     },
     // portal
     {
-      'headline-bold-xxl': 'font-bold text-48px ',
-      'headline-bold-xl': 'font-bold text-36px ',
-      'headline-bold': 'font-bold text-28px ',
-      'headline-semibold-regular': 'font-semibold text-24px',
-      'paragraph-regular': 'font-normal text-16px line-height-150%',
-      'paragraph-medium': 'font-medium text-20px line-height-150%'
+      'headline-xxl': 'font-black text-120px ',
+      'headline-xl': 'font-black text-64px ',
+      'headline-large-italic': 'font-black font-italic text-40px',
+      'headline-large': 'font-black text-40px ',
+      'headline-medium': 'font-black text-24px',
+      'headline-regular': 'font-black text-16px',
+      'headline-small': 'font-black text-12px'
     },
     {
       'p-inner': 'px-100px'
     },
     //Universal
     {
-      'flex-col-center': 'flex flex-col items-center',
+      'flex-col-center': 'flex flex-col justify-center items-center',
       'flex-center': 'flex justify-center items-center',
-      'shadow-image': 'shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]'
+      'shadow-image': 'shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]',
+      'rd-regular': 'rd-5px'
     }
   ]
 })

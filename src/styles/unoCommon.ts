@@ -1,22 +1,15 @@
 export default {
   colors: {
     text: {
-      asPrimary: '#5A3A1B',
-      asSecondary: '#784B23',
-      asInverse: { '01': '#AC7B57', '02': '#B85E34', '03': '#F8F1E0', '04': '#FFFFFF' }
+      asPrimary: '#FFFFFF',
+      asSecondary: '#2C2727'
     },
     bg: {
-      asPrimary: '#5A3A1B',
-      asSecondary: '#784B23',
-      asInverse: { '01': '#AC7B57', '02': '#B85E34', '03': '#F8F1E0', '04': '#FFFFFF' },
+      asPrimary: '#2C2727',
+      asSecondary: '#E2E2E2',
       asMask: '#0000004d'
     },
-    b: {
-      asPrimary: '#5A3A1B',
-      asSecondary: '#784B23',
-      asInverse: { '01': '#AC7B57', '02': '#B85E34', '03': '#F8F1E0', '04': '#FFFFFF' },
-      asSidebarMenu: '#0000001d'
-    }
+    line: '#E2E2E2'
   },
   breakpoints: {
     sm: '375px',
