@@ -1,1 +1,1 @@
-// export default 'http://mercury-cake.local/'
+export default 'https://api.coingecko.com/api/v3'

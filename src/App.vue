@@ -1,9 +1,11 @@
 <template>
-  <div class="flex h-100vh w-full">
+  <div class="flex w-full">
     <header>
-      <SideBar />
+      <div class="hidden">
+        <SideBar />
+      </div>
     </header>
-    <main class="h-100vh overflow-y-hidden w-full bg-amber">
+    <main class="h-100% w-full bg-amber">
       <PageTitle />
       <RouterView />
     </main>
