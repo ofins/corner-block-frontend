@@ -1,11 +1,11 @@
 <template>
   <div class="flex w-full">
     <header>
-      <div class="hidden">
+      <div class="hidden md:flex">
         <SideBar />
       </div>
     </header>
-    <main class="h-100% w-full bg-amber">
+    <main class="h-100% w-full bg-bg-asPrimary">
       <PageTitle />
       <RouterView />
     </main>
