@@ -4,15 +4,24 @@
       <div class="mb-30px">
         <span class="c-text-asPrimary headline-regular">My Blocks</span>
       </div>
-      <TheBlock sizeType="size-L" :price="price" ticker="ronin" currency="usd" />
+      <TheBlock
+        sizeType="size-L"
+        :price="price"
+        :ticker="tickerList[0].ticker"
+        currency="usd"
+        :ticker-slot="1"
+        @update-ticker="handleUpdateTicker"
+      />
       <div class="grid grid-cols-2 gap-10px mt-5">
         <TheBlock
-          v-for="(value, ticker, index) in tickerData"
+          v-for="(value, key, index) in tickerList_medium"
           sizeType="size-M"
-          :ticker="ticker"
+          :ticker="value.ticker"
           :price="value.usd"
           currency="usd"
-          :key="index"
+          :key="value.tickerSlot"
+          :ticker-slot="value.tickerSlot"
+          @update-ticker="handleUpdateTicker"
         />
       </div>
       <div class="grid grid-cols-2 gap-10px mt-5">
@@ -47,7 +56,83 @@ import { useTicker } from '@/hooks/useTicker'
 const { fetchTickerPriceDataByName } = useTicker()
 const tickerData = ref()
 const price = ref(0)
-const tickerArray = ['ronin', 'ethereum', 'bitcoin', 'cardano']
+const tickerList = ref([
+  {
+    tickerSlot: 1,
+    ticker: ''
+  },
+  {
+    tickerSlot: 2,
+    ticker: ''
+  },
+  {
+    tickerSlot: 3,
+    ticker: ''
+  },
+  {
+    tickerSlot: 4,
+    ticker: ''
+  },
+  {
+    tickerSlot: 5,
+    ticker: ''
+  },
+  {
+    tickerSlot: 6,
+    ticker: ''
+  },
+  {
+    tickerSlot: 7,
+    ticker: ''
+  },
+  {
+    tickerSlot: 8,
+    ticker: ''
+  },
+  {
+    tickerSlot: 9,
+    ticker: ''
+  },
+  {
+    tickerSlot: 10,
+    ticker: ''
+  },
+  {
+    tickerSlot: 11,
+    ticker: ''
+  },
+  {
+    tickerSlot: 12,
+    ticker: ''
+  },
+  {
+    tickerSlot: 13,
+    ticker: ''
+  },
+  {
+    tickerSlot: 14,
+    ticker: ''
+  }
+])
+
+const tickerList_medium = tickerList.value.slice(1, 5)
+
+const handleUpdateTicker = (value: string, tickerSlot: number) => {
+  console.log(value, tickerSlot)
+  // tickerList.value = [
+  //   ...tickerList.value,
+  //   {
+  //     tickerSlot: tickerSlot,
+  //     ticker: value
+  //   }
+  // ]
+  tickerList.value.find((ticker) => {
+    if (ticker.tickerSlot === tickerSlot) {
+      ticker.ticker = value
+    }
+  })
+  console.log(tickerList.value)
+}
 
 onMounted(async () => {
   const ticker = 'ronin,ethereum,bitcoin,cardano'

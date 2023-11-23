@@ -1,19 +1,30 @@
 <template>
-  <div class="b-1px b-solid b-#E2E2E2 rd-regular flex-col-center" :class="sizeType">
+  <div class="b-1px b-solid b-line rd-regular flex-col-center" :class="sizeType">
     <span class="headline-medium c-text-asPrimary">
       {{ ticker }}
     </span>
+    <input type="text" name="" id="" @keyup.enter.prevent="onSubmit" />
     <span class="headline-regular font-normal c-text-asPrimary"> ${{ price }} </span>
   </div>
 </template>
 
 <script setup lang="ts">
-defineProps({
+import { ref, onUpdated } from 'vue'
+
+const props = defineProps({
   ticker: { type: String },
   currency: String,
   sizeType: String,
-  price: Number
+  price: Number,
+  tickerSlot: Number
 })
+
+const emit = defineEmits(['update-ticker'])
+
+const onSubmit = (e: any) => {
+  console.log(e.target.value)
+  emit('update-ticker', e.target.value, props.tickerSlot)
+}
 </script>
 
 <style scoped>
