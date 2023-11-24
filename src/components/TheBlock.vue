@@ -1,11 +1,22 @@
 <template>
-  <div class="b-1px b-solid b-line rd-regular flex-col-center" :class="sizeType">
-    <span class="headline-medium c-text-asPrimary">
+  <form
+    class="b-1px b-solid b-line rd-regular flex-col-center"
+    :class="sizeType"
+    @dblclick="handleIsShowInput"
+    @submit.prevent="onSubmit"
+  >
+    <span v-show="!isShowInput" class="headline-medium c-text-asPrimary">
       {{ ticker }}
     </span>
-    <input type="text" name="" id="" @keyup.enter.prevent="onSubmit" />
+    <input
+      ref="inputRef"
+      v-show="isShowInput"
+      type="text"
+      class="w-80px b-none bg-transparent c-text-asPrimary fw-700 text-20px b-transparent mb-8px"
+      @keyup.enter.prevent="onSubmit"
+    />
     <span class="headline-regular font-normal c-text-asPrimary"> ${{ price }} </span>
-  </div>
+  </form>
 </template>
 
 <script setup lang="ts">
@@ -16,14 +27,25 @@ const props = defineProps({
   currency: String,
   sizeType: String,
   price: Number,
-  tickerSlot: Number
+  tickerSlot: Number,
+  isShowInput: Boolean
 })
+
+const inputRef = ref<HTMLInputElement | null>(null)
 
 const emit = defineEmits(['update-ticker'])
 
 const onSubmit = (e: any) => {
   console.log(e.target.value)
   emit('update-ticker', e.target.value, props.tickerSlot)
+}
+
+const handleIsShowInput = async () => {
+  await emit('update-is-show-input', props.tickerSlot)
+  if (inputRef.value) {
+    inputRef.value.focus()
+    inputRef.value.value = ''
+  }
 }
 </script>
 
