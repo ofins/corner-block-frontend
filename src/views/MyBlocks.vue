@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-bg-asPrimary w-full h-full py-20px" @click="handleBackDrop">
+  <div class="bg-bg-asPrimary w-full h-full py-20px" @click="clickBackDrop">
     <div class="flex-col-center">
       <div class="mb-30px">
         <span class="c-text-asPrimary headline-regular">My Blocks</span>
@@ -17,7 +17,7 @@
         />
         <div class="grid grid-cols-2 gap-10px mt-5">
           <TheBlock
-            v-for="(value, key, index) in tickerList_medium"
+            v-for="value in tickerList_medium"
             sizeType="size-M"
             :is-show-input="value.isShowInput"
             :ticker="value.ticker"
@@ -31,7 +31,7 @@
         </div>
         <div class="grid grid-cols-2 gap-10px mt-5">
           <TheBlock
-            v-for="(value, key, index) in tickerList_small_one"
+            v-for="value in tickerList_small_one"
             sizeType="size-M"
             :is-show-input="value.isShowInput"
             :ticker="value.ticker"
@@ -82,8 +82,7 @@ const tickerList_medium = ref([])
 const tickerList_small_one = ref([])
 const tickerList_small_two = ref([])
 
-const retrieveFromLocalStorage = (dataName) => {
-  // Retrieve data from localStorage
+const retrieveFromLocalStorage = (dataName: string) => {
   const data = localStorage.getItem(dataName)
   if (data) {
     console.log('Data retrieved from localStorage:')
@@ -103,46 +102,54 @@ const handleUpdateTicker = async (value: string, tickerSlot: number) => {
   for (const item of tickerList.value) {
     if (item.tickerSlot === tickerSlot) {
       const res = await fetchTickerPriceDataByName(value, 'usd')
-      console.log(res[value].usd)
       item.ticker = value
-      console.log('run')
       item.price = res[value].usd
       item.isShowInput = false
     }
   }
-
-  console.log('before store')
-  console.log(tickerList.value)
-
   localStorage.setItem('tickerList', JSON.stringify(tickerList.value))
-  console.log(tickerList_medium.value)
 }
 
-const handleIsShowInput = (tickerSlot) => {
-  console.log(tickerSlot)
+const handleIsShowInput = (tickerSlot: number) => {
   for (const item of tickerList.value) {
-    if (item.tickerSlot === tickerSlot) {
-      item.isShowInput = true
-    } else {
-      item.isShowInput = false
-    }
+    item.tickerSlot === tickerSlot ? (item.isShowInput = true) : (item.isShowInput = false)
   }
-  console.log(tickerList.value)
 }
 
-const handleBackDrop = () => {
-  for(const item of tickerList.value) {
+const clickBackDrop = () => {
+  for (const item of tickerList.value) {
     item.isShowInput = false
   }
 }
 
+const changeTickerListIntoStrings = (list: any) => {
+  let tickerString = ''
+  for (const item of list) {
+    if (item.ticker) tickerString = tickerString.concat(item.ticker + ',')
+  }
+  return tickerString.slice(0, -1)
+}
+
+const updateAllTickers = (fetchedTickersObject: any) => {
+  for (let key in fetchedTickersObject) {
+    if (fetchedTickersObject.hasOwnProperty(key)) {
+      for (const item of tickerList.value) {
+        if (item.ticker === key) {
+          item.price = fetchedTickersObject[key]['usd']
+        }
+      }
+    }
+  }
+}
+
 onMounted(async () => {
-  const ticker = 'ronin,ethereum,bitcoin,cardano'
-  const currency = 'usd'
-  // tickerList.value = retrieveFromLocalStorage('tickerList')
-  // tickerData.value = await fetchTickerPriceDataByName(ticker, currency)
-  // console.log(tickerData.value)
-  // price.value = tickerData.value[ticker][currency]
+  const CURRENCY = 'usd'
+  const allTickers = await fetchTickerPriceDataByName(
+    changeTickerListIntoStrings(tickerList.value),
+    CURRENCY
+  )
+
+  updateAllTickers(allTickers)
 })
 </script>
 
