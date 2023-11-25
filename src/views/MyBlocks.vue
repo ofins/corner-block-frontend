@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-bg-asPrimary w-full h-full py-20px" @click="clickBackDrop">
+  <div class="bg-bg-asPrimary w-full h-full py-20px" @click="hideAllInputs">
     <div class="flex-col-center">
       <div class="mb-30px">
         <span class="c-text-asPrimary headline-regular">My Blocks</span>
@@ -68,19 +68,54 @@ import { onMounted, ref, computed } from 'vue'
 import { useTicker } from '@/hooks/useTicker'
 
 const { fetchTickerPriceDataByName } = useTicker()
-const tickerData = ref()
-const price = ref(0)
 const tickerList = ref([
   {
     tickerSlot: 1,
-    ticker: '',
+    ticker: 'ethereum',
+    price: 0,
+    isShowInput: false
+  },
+  {
+    tickerSlot: 2,
+    ticker: 'bitcoin',
+    price: 0,
+    isShowInput: false
+  },
+  {
+    tickerSlot: 3,
+    ticker: 'cardano',
+    price: 0,
+    isShowInput: false
+  },
+  {
+    tickerSlot: 4,
+    ticker: 'dogecoin',
+    price: 0,
+    isShowInput: false
+  },
+  {
+    tickerSlot: 5,
+    ticker: 'solana',
     price: 0,
     isShowInput: false
   }
 ])
+
 const tickerList_medium = ref([])
 const tickerList_small_one = ref([])
 const tickerList_small_two = ref([])
+
+const updateAllTickers = (fetchedTickersObject: any) => {
+  for (let key in fetchedTickersObject) {
+    if (fetchedTickersObject.hasOwnProperty(key)) {
+      for (const item of tickerList.value) {
+        if (item.ticker === key) {
+          item.price = fetchedTickersObject[key]['usd']
+        }
+      }
+    }
+  }
+}
 
 const retrieveFromLocalStorage = (dataName: string) => {
   const data = localStorage.getItem(dataName)
@@ -88,11 +123,13 @@ const retrieveFromLocalStorage = (dataName: string) => {
     console.log('Data retrieved from localStorage:')
     return JSON.parse(data)
   } else {
-    console.log('No data found in localStorage.')
+    console.log('localStorage Empty, set default list.')
+    localStorage.setItem('tickerList', JSON.stringify(tickerList.value))
+    updateAllTickers(tickerList.value)
   }
 }
 
-tickerList.value = retrieveFromLocalStorage('tickerList') ?? tickerList.value
+tickerList.value = retrieveFromLocalStorage('tickerList')
 
 tickerList_medium.value = tickerList.value.slice(1, 5)
 tickerList_small_one.value = tickerList.value.slice(5, 9)
@@ -116,7 +153,7 @@ const handleIsShowInput = (tickerSlot: number) => {
   }
 }
 
-const clickBackDrop = () => {
+const hideAllInputs = () => {
   for (const item of tickerList.value) {
     item.isShowInput = false
   }
@@ -128,18 +165,6 @@ const changeTickerListIntoStrings = (list: any) => {
     if (item.ticker) tickerString = tickerString.concat(item.ticker + ',')
   }
   return tickerString.slice(0, -1)
-}
-
-const updateAllTickers = (fetchedTickersObject: any) => {
-  for (let key in fetchedTickersObject) {
-    if (fetchedTickersObject.hasOwnProperty(key)) {
-      for (const item of tickerList.value) {
-        if (item.ticker === key) {
-          item.price = fetchedTickersObject[key]['usd']
-        }
-      }
-    }
-  }
 }
 
 onMounted(async () => {
