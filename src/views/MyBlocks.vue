@@ -71,7 +71,7 @@ const { fetchTickerPriceDataByName } = useTicker()
 const tickerList = ref([
   {
     tickerSlot: 1,
-    ticker: 'ethereum',
+    ticker: 'ronin',
     price: 0,
     isShowInput: false
   },
@@ -83,7 +83,7 @@ const tickerList = ref([
   },
   {
     tickerSlot: 3,
-    ticker: 'cardano',
+    ticker: 'ethereum',
     price: 0,
     isShowInput: false
   },
