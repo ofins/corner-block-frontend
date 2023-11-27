@@ -93,8 +93,8 @@ const tickerList = ref([
   },
   {
     tickerSlot: 4,
-    ticker: 'voxies',
-    tickerSymbol: 'VOXEL',
+    ticker: 'axie-infinity',
+    tickerSymbol: 'AXS',
     price: 0,
     isShowInput: false
   },
