@@ -4,8 +4,8 @@
       <div class="mb-30px">
         <span class="c-text-asPrimary headline-regular">My Blocks</span>
       </div>
-      <div class="lg:flex items-center">
-        <TheBlock
+      <div class="flex-col-center items-center">
+        <MainBlock
           :is-show-input="tickerList[0].isShowInput"
           sizeType="size-L"
           :price="tickerList[0].price"
@@ -15,7 +15,7 @@
           @update-ticker="handleUpdateTicker"
           @update-is-show-input="handleIsShowInput"
         />
-        <div class="grid grid-cols-2 gap-10px mt-5">
+        <div class="grid grid-cols-2 gap-20px mt-5">
           <TheBlock
             v-for="value in tickerList_medium"
             sizeType="size-M"
@@ -29,7 +29,7 @@
             @update-is-show-input="handleIsShowInput"
           />
         </div>
-        <div class="grid grid-cols-2 gap-10px mt-5">
+        <div class="grid grid-cols-2 gap-20px mt-5">
           <TheBlock
             v-for="value in tickerList_small_one"
             sizeType="size-M"
@@ -44,7 +44,7 @@
           />
         </div>
       </div>
-      <div class="grid grid-cols-2 gap-10px mt-5">
+      <div class="grid grid-cols-2 gap-20px mt-5">
         <TheBlock
           v-for="(value, key, index) in tickerList_small_two"
           sizeType="size-M"
@@ -64,6 +64,7 @@
 
 <script setup lang="ts">
 import TheBlock from '@/components/TheBlock.vue'
+import MainBlock from '@/components/MainBlock.vue'
 import { onMounted, ref, computed } from 'vue'
 import { useTicker } from '@/hooks/useTicker'
 

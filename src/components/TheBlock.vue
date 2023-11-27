@@ -1,21 +1,23 @@
 <template>
   <form
-    class="b-1px b-solid b-line rd-regular flex-col-center"
+    class="b-none rd-regular flex-col-center relative bg-gradient-to-b from-#A0C3FC to-#5E3268"
     :class="sizeType"
     @dblclick="handleIsShowInput"
     @submit.prevent="onSubmit"
   >
-    <span v-show="!isShowInput" class="headline-medium c-text-asPrimary">
-      {{ ticker }}
-    </span>
-    <input
-      ref="inputRef"
-      v-show="isShowInput"
-      type="text"
-      class="w-80px b-none bg-transparent c-text-asPrimary fw-700 text-20px b-transparent mb-8px"
-      @keyup.enter.prevent="onSubmit"
-    />
-    <span class="headline-regular font-normal c-text-asPrimary"> ${{ price }} </span>
+    <div class="absolute bg-bg-asPrimary w-95% h-95% top-50% translate-y--50% left-50% translate-x--50% rd-regular flex-col-center">
+      <span v-show="!isShowInput" class="headline-medium c-text-asInverse-01">
+        {{ ticker }}
+      </span>
+      <input
+        ref="inputRef"
+        v-show="isShowInput"
+        type="text"
+        class="w-80px b-none bg-transparent c-text-asPrimary fw-700 text-20px b-transparent mb-8px"
+        @keyup.enter.prevent="onSubmit"
+      />
+      <span class="headline-regular font-normal c-text-asPrimary mt-8px"> ${{ price }} </span>
+    </div>
   </form>
 </template>
 
@@ -55,8 +57,8 @@ const handleIsShowInput = async () => {
   height: 310px;
 }
 .size-M {
-  width: 150px;
-  height: 150px;
+  width: 140px;
+  height: 140px;
 }
 .size-S {
   width: 150px;

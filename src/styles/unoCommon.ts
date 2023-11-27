@@ -2,14 +2,17 @@ export default {
   colors: {
     text: {
       asPrimary: '#FFFFFF',
-      asSecondary: '#2C2727'
+      asSecondary: '#232326',
+      asInverse: {
+        '01': '#6A6A6A'
+      }
     },
     bg: {
-      asPrimary: '#2C2727',
-      asSecondary: '#E2E2E2',
+      asPrimary: '#232326',
+      asSecondary: '#D9D9D9',
       asMask: '#0000004d'
     },
-    line: '#E2E2E2'
+    line: '#D9D9D9'
   },
   breakpoints: {
     sm: '375px',
