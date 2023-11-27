@@ -7,7 +7,7 @@
   >
     <span
       v-show="!isShowInput"
-      class="headline-xl c-text-asPrimary shadow-text"
+      class="headline-xl c-text-asPrimary shadow-text uppercase"
       style="letter-spacing: 6px"
     >
       {{ tickerSymbol }}

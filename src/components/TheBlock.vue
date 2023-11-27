@@ -10,7 +10,7 @@
     >
       <span
         v-show="!isShowInput"
-        class="headline-medium c-text-asInverse-01"
+        class="headline-medium c-text-asInverse-01 uppercase"
         style="letter-spacing: 2px"
       >
         {{ tickerSymbol }}
