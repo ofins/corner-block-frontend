@@ -2,7 +2,7 @@
   <div class="bg-bg-asPrimary w-full h-full py-20px" @click="hideAllInputs">
     <div class="flex-col-center">
       <div class="mb-30px">
-        <span class="c-text-asPrimary headline-regular">My Blocks</span>
+        <span class="c-text-asPrimary headline-regular">My Bags</span>
       </div>
       <div class="flex-col-center items-center">
         <MainBlock
