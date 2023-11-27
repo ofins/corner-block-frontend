@@ -73,30 +73,35 @@ const tickerList = ref([
   {
     tickerSlot: 1,
     ticker: 'ronin',
+    tickerSymbol: 'ron',
     price: 0,
     isShowInput: false
   },
   {
     tickerSlot: 2,
     ticker: 'bitcoin',
+    tickerSymbol: 'btc',
     price: 0,
     isShowInput: false
   },
   {
     tickerSlot: 3,
     ticker: 'ethereum',
+    tickerSymbol: 'eth',
     price: 0,
     isShowInput: false
   },
   {
     tickerSlot: 4,
-    ticker: 'dogecoin',
+    ticker: 'voxies',
+    tickerSymbol: 'voxel',
     price: 0,
     isShowInput: false
   },
   {
     tickerSlot: 5,
     ticker: 'solana',
+    tickerSymbol: 'sol',
     price: 0,
     isShowInput: false
   }
