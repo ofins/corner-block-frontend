@@ -73,35 +73,35 @@ const tickerList = ref([
   {
     tickerSlot: 1,
     ticker: 'ronin',
-    tickerSymbol: 'ron',
+    tickerSymbol: 'RON',
     price: 0,
     isShowInput: false
   },
   {
     tickerSlot: 2,
     ticker: 'bitcoin',
-    tickerSymbol: 'btc',
+    tickerSymbol: 'BTC',
     price: 0,
     isShowInput: false
   },
   {
     tickerSlot: 3,
     ticker: 'ethereum',
-    tickerSymbol: 'eth',
+    tickerSymbol: 'ETH',
     price: 0,
     isShowInput: false
   },
   {
     tickerSlot: 4,
     ticker: 'voxies',
-    tickerSymbol: 'voxel',
+    tickerSymbol: 'VOXEL',
     price: 0,
     isShowInput: false
   },
   {
     tickerSlot: 5,
     ticker: 'solana',
-    tickerSymbol: 'sol',
+    tickerSymbol: 'SOL',
     price: 0,
     isShowInput: false
   }
@@ -132,6 +132,7 @@ const retrieveFromLocalStorage = (dataName: string) => {
     console.log('localStorage Empty, set default list.')
     localStorage.setItem('tickerList', JSON.stringify(tickerList.value))
     updateAllTickers(tickerList.value)
+    window.location.reload()
   }
 }
 
