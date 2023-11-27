@@ -9,7 +9,7 @@
           :is-show-input="tickerList[0].isShowInput"
           sizeType="size-L"
           :price="tickerList[0].price"
-          :ticker="tickerList[0].ticker"
+          :tickerSymbol="tickerList[0].tickerSymbol"
           currency="usd"
           :ticker-slot="tickerList[0].tickerSlot"
           @update-ticker="handleUpdateTicker"
@@ -20,7 +20,7 @@
             v-for="value in tickerList_medium"
             sizeType="size-M"
             :is-show-input="value.isShowInput"
-            :ticker="value.ticker"
+            :tickerSymbol="value.tickerSymbol"
             :price="value.price"
             currency="usd"
             :key="value.tickerSlot"
@@ -34,7 +34,7 @@
             v-for="value in tickerList_small_one"
             sizeType="size-M"
             :is-show-input="value.isShowInput"
-            :ticker="value.ticker"
+            :tickerSymbol="value.tickerSymbol"
             :price="value.price"
             currency="usd"
             :key="value.tickerSlot"
@@ -49,7 +49,7 @@
           v-for="(value, key, index) in tickerList_small_two"
           sizeType="size-M"
           :is-show-input="value.isShowInput"
-          :ticker="value.ticker"
+          :tickerSymbol="value.tickerSymbol"
           :price="value.price"
           currency="usd"
           :key="value.tickerSlot"
@@ -68,7 +68,7 @@ import MainBlock from '@/components/MainBlock.vue'
 import { onMounted, ref, computed } from 'vue'
 import { useTicker } from '@/hooks/useTicker'
 
-const { fetchTickerPriceDataByName } = useTicker()
+const { fetchTickerPriceDataByName, fetchTickerDetailByName } = useTicker()
 const tickerList = ref([
   {
     tickerSlot: 1,
@@ -139,9 +139,11 @@ tickerList_small_two.value = tickerList.value.slice(9, 14)
 const handleUpdateTicker = async (value: string, tickerSlot: number) => {
   for (const item of tickerList.value) {
     if (item.tickerSlot === tickerSlot) {
-      const res = await fetchTickerPriceDataByName(value, 'usd')
-      item.ticker = value
-      item.price = res[value].usd
+      const data = await fetchTickerDetailByName(value)
+      console.log(data.market_data.current_price.usd, data.symbol)
+      item.ticker = data.name
+      item.tickerSymbol = data.symbol.toUpperCase()
+      item.price = data.market_data.current_price.usd
       item.isShowInput = false
     }
   }

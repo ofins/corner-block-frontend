@@ -1,12 +1,16 @@
 <template>
   <form
-    class="style-1 b-none rd-regular flex-col-center"
+    class="style-1 b-none rd-regular flex-col-center cursor-pointer"
     :class="sizeType"
     @dblclick="handleIsShowInput"
     @submit.prevent="onSubmit"
   >
-    <span v-show="!isShowInput" class="headline-xl c-text-asPrimary shadow-text">
-      {{ ticker }}
+    <span
+      v-show="!isShowInput"
+      class="headline-xl c-text-asPrimary shadow-text"
+      style="letter-spacing: 6px"
+    >
+      {{ tickerSymbol }}
     </span>
     <input
       ref="inputRef"
@@ -25,7 +29,7 @@
 import { ref, onUpdated } from 'vue'
 
 const props = defineProps({
-  ticker: { type: String },
+  tickerSymbol: { type: String },
   currency: String,
   sizeType: String,
   price: Number,
@@ -71,4 +75,3 @@ const handleIsShowInput = async () => {
     linear-gradient(180deg, #ff7b7b 0%, rgba(255, 255, 255, 0) 100%);
 }
 </style>
-

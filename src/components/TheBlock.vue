@@ -1,13 +1,19 @@
 <template>
   <form
-    class="b-none rd-regular flex-col-center relative bg-gradient-to-b from-#A0C3FC to-#5E3268"
+    class="b-none rd-regular flex-col-center relative bg-gradient-to-b from-#A0C3FC to-#5E3268 cursor-pointer"
     :class="sizeType"
     @dblclick="handleIsShowInput"
     @submit.prevent="onSubmit"
   >
-    <div class="absolute bg-bg-asPrimary w-95% h-95% top-50% translate-y--50% left-50% translate-x--50% rd-regular flex-col-center">
-      <span v-show="!isShowInput" class="headline-medium c-text-asInverse-01">
-        {{ ticker }}
+    <div
+      class="absolute bg-bg-asPrimary w-95% h-95% top-50% translate-y--50% left-50% translate-x--50% rd-regular flex-col-center"
+    >
+      <span
+        v-show="!isShowInput"
+        class="headline-medium c-text-asInverse-01"
+        style="letter-spacing: 2px"
+      >
+        {{ tickerSymbol }}
       </span>
       <input
         ref="inputRef"
@@ -25,7 +31,7 @@
 import { ref, onUpdated } from 'vue'
 
 const props = defineProps({
-  ticker: { type: String },
+  tickerSymbol: { type: String },
   currency: String,
   sizeType: String,
   price: Number,
