@@ -1,13 +1,12 @@
 <template>
   <form
-    class="style-1 b-none rd-regular flex-col-center cursor-pointer"
-    :class="sizeType"
+    class="style-1 b-none rd-regular flex-col-center cursor-pointer w-300px h-300px lg:w-400px lg-h-400px"
     @dblclick="handleIsShowInput"
     @submit.prevent="onSubmit"
   >
     <span
       v-show="!isShowInput"
-      class="headline-xl c-text-asPrimary shadow-text uppercase"
+      class="headline-xl c-text-asPrimary shadow-text uppercase mb-16px lg:mb-24px"
       style="letter-spacing: 6px"
     >
       {{ tickerSymbol }}

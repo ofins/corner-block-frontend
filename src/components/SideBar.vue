@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex flex-col gap-3 bg-bg-asPrimary h-100vh fixed z-2 pl-15px pt-15px">
+  <nav class="flex flex-col gap-3 bg-bg-asPrimary h-100vh fixed top-5% z-2 px-15px pt-15px">
     <RouterLink to="/">
       <div class="w-50px h-50px bg-transparent b-solid b-line b-1px rd-4px flex-col-center">
         <img src="/icons/icons8-cube-100.png" class="w-30px" />

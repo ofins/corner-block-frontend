@@ -1,7 +1,6 @@
 <template>
   <form
-    class="b-none rd-regular flex-col-center relative bg-gradient-to-b from-#A0C3FC to-#5E3268 cursor-pointer"
-    :class="sizeType"
+    class="b-none rd-regular flex-col-center relative bg-gradient-to-b from-#A0C3FC to-#5E3268 cursor-pointer w-140px h-140px lg:w-180px lg:h-180px"
     @dblclick="handleIsShowInput"
     @submit.prevent="onSubmit"
   >
