@@ -44,6 +44,7 @@ export default defineConfig({
       'flex-col-center': 'flex flex-col justify-center items-center',
       'flex-center': 'flex justify-center items-center',
       'shadow-image': 'shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]',
+      'shadow-text':' text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]',
       'rd-regular': 'rd-5px'
     }
   ]
