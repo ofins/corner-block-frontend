@@ -4,7 +4,9 @@
       <div class="mb-42px">
         <!-- <span class="c-text-asPrimary headline-regular">My Bags</span> -->
       </div>
-      <div class="flex-col-center items-center lg:flex-row lg:justify-center lg:gap-10 max-w-1000px w-full">
+      <div
+        class="flex-col-center items-center lg:flex-row lg:justify-center lg:gap-10 max-w-1000px w-full"
+      >
         <MainBlock
           :is-show-input="tickerList[0].isShowInput"
           sizeType="size-L"
@@ -29,20 +31,20 @@
             @update-is-show-input="handleIsShowInput"
           />
         </div>
-        <!-- <div class="grid grid-cols-2 gap-20px mt-5">
-          <TheBlock
-            v-for="value in tickerList_small_one"
-            sizeType="size-M"
-            :is-show-input="value.isShowInput"
-            :tickerSymbol="value.tickerSymbol"
-            :price="value.price"
-            currency="usd"
-            :key="value.tickerSlot"
-            :ticker-slot="value.tickerSlot"
-            @update-ticker="handleUpdateTicker"
-            @update-is-show-input="handleIsShowInput"
-          />
-        </div> -->
+      </div>
+      <div class="flex gap-20px mt-30px <lg:w-300px <lg:flex-wrap">
+        <TheBlock
+          v-for="value in tickerList_small_one"
+          sizeType="size-S"
+          :is-show-input="value.isShowInput"
+          :tickerSymbol="value.tickerSymbol"
+          :price="value.price"
+          currency="usd"
+          :key="value.tickerSlot"
+          :ticker-slot="value.tickerSlot"
+          @update-ticker="handleUpdateTicker"
+          @update-is-show-input="handleIsShowInput"
+        />
       </div>
       <!-- <div class="grid grid-cols-2 gap-20px mt-5">
         <TheBlock
@@ -67,45 +69,10 @@ import TheBlock from '@/components/TheBlock.vue'
 import MainBlock from '@/components/MainBlock.vue'
 import { onMounted, ref, computed } from 'vue'
 import { useTicker } from '@/hooks/useTicker'
+import { defaultTickerList } from '@/settings/tickerList'
 
 const { fetchTickerPriceDataByName, fetchTickerDetailByName } = useTicker()
-const tickerList = ref([
-  {
-    tickerSlot: 1,
-    ticker: 'ronin',
-    tickerSymbol: 'RON',
-    price: 0,
-    isShowInput: false
-  },
-  {
-    tickerSlot: 2,
-    ticker: 'bitcoin',
-    tickerSymbol: 'BTC',
-    price: 0,
-    isShowInput: false
-  },
-  {
-    tickerSlot: 3,
-    ticker: 'ethereum',
-    tickerSymbol: 'ETH',
-    price: 0,
-    isShowInput: false
-  },
-  {
-    tickerSlot: 4,
-    ticker: 'axie-infinity',
-    tickerSymbol: 'AXS',
-    price: 0,
-    isShowInput: false
-  },
-  {
-    tickerSlot: 5,
-    ticker: 'solana',
-    tickerSymbol: 'SOL',
-    price: 0,
-    isShowInput: false
-  }
-])
+const tickerList = ref(defaultTickerList)
 
 const tickerList_medium = ref([])
 const tickerList_small_one = ref([])
@@ -139,8 +106,8 @@ const retrieveFromLocalStorage = (dataName: string) => {
 tickerList.value = retrieveFromLocalStorage('tickerList')
 
 tickerList_medium.value = tickerList.value.slice(1, 5)
-tickerList_small_one.value = tickerList.value.slice(5, 9)
-tickerList_small_two.value = tickerList.value.slice(9, 14)
+tickerList_small_one.value = tickerList.value.slice(5, 11)
+// tickerList_small_two.value = tickerList.value.slice(9, 14)
 
 const handleUpdateTicker = async (value: string, tickerSlot: number) => {
   for (const item of tickerList.value) {

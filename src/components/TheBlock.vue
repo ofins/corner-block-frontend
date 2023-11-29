@@ -1,6 +1,7 @@
 <template>
   <form
-    class="b-none rd-regular flex-col-center relative bg-gradient-to-b from-#A0C3FC to-#5E3268 cursor-pointer w-140px h-140px lg:w-180px lg:h-180px"
+    class="b-none rd-regular flex-col-center relative bg-gradient-to-b from-#A0C3FC to-#5E3268 cursor-pointer"
+    :class="sizeType"
     @dblclick="handleIsShowInput"
     @submit.prevent="onSubmit"
   >
@@ -10,6 +11,7 @@
       <span
         v-show="!isShowInput"
         class="headline-medium c-text-asInverse-01 uppercase"
+        :class="{ 'headline-regular': sizeType === 'size-S' }"
         style="letter-spacing: 2px"
       >
         {{ tickerSymbol }}
@@ -21,7 +23,12 @@
         class="w-80px b-none bg-transparent c-text-asPrimary fw-700 text-20px b-transparent mb-8px"
         @keyup.enter.prevent="onSubmit"
       />
-      <span class="headline-regular font-normal c-text-asPrimary mt-8px"> ${{ price }} </span>
+      <span
+        class="headline-regular font-normal c-text-asPrimary mt-8px"
+        :class="{ 'headline-small': sizeType === 'size-S' }"
+      >
+        ${{ price }}
+      </span>
     </div>
   </form>
 </template>
@@ -64,9 +71,19 @@ const handleIsShowInput = async () => {
 .size-M {
   width: 140px;
   height: 140px;
+
+  @media (min-width: 1024px) {
+    width: 180px;
+    height: 180px;
+  }
 }
 .size-S {
-  width: 150px;
-  height: 150px;
+  width: 123px;
+  height: 123px;
+
+  @media (max-width: 1024px) {
+    width: 140px;
+    height: 140px;
+  }
 }
 </style>
