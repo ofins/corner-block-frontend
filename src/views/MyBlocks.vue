@@ -16,7 +16,7 @@
           :ticker-slot="tickerList[0].tickerSlot"
           :block-detail-data="blockDetailData"
           :toggle-block-detail="toggleBlockDetail"
-          @update-ticker="handleUpdateTicker"
+          @update-ticker="handleInputNewTicker"
           @update-is-show-input="handleIsShowInput"
         />
         <div class="grid grid-cols-2 gap-20px mt-5 lg:mt-0 lg:gap-40px">
@@ -30,7 +30,7 @@
             :key="value.tickerSlot"
             :ticker-slot="value.tickerSlot"
             @handle-toggle-block-detail="handleToggleBlockDetail"
-            @update-ticker="handleUpdateTicker"
+            @update-ticker="handleInputNewTicker"
             @update-is-show-input="handleIsShowInput"
           />
         </div>
@@ -45,7 +45,7 @@
           currency="usd"
           :key="value.tickerSlot"
           :ticker-slot="value.tickerSlot"
-          @update-ticker="handleUpdateTicker"
+          @update-ticker="handleInputNewTicker"
           @update-is-show-input="handleIsShowInput"
         />
       </div>
@@ -59,7 +59,7 @@
           currency="usd"
           :key="value.tickerSlot"
           :ticker-slot="value.tickerSlot"
-          @update-ticker="handleUpdateTicker"
+          @update-ticker="handleInputNewTicker"
           @update-is-show-input="handleIsShowInput"
         />
       </div> -->
@@ -73,111 +73,23 @@ import MainBlock from '@/components/MainBlock.vue'
 import { onMounted, ref, computed } from 'vue'
 import { useTicker } from '@/hooks/useTicker'
 import { defaultTickerList } from '@/settings/tickerList'
+import { useBlock } from '@/hooks/useBlock'
 
 const { fetchTickerPriceDataByName, fetchTickerDetailByName } = useTicker()
-const tickerList = ref(defaultTickerList)
-const toggleBlockDetail = ref<boolean>()
 
-const tickerList_medium = ref([])
-const tickerList_small_one = ref([])
-const tickerList_small_two = ref([])
-// const blockDetailData = ref({
-//   marketCap: 420,
-//   symbol: 'RON',
-//   circulatingSupply: 69,
-//   totalSupply: 420,
-//   weekHigh: 2,
-//   weekLow: 0.6,
-//   dayHigh: 1.1,
-//   dayLow: 0.98,
-//   ranking: 155
-// })
-
-const blockDetailData = ref()
-
-const updateAllTickers = (fetchedTickersObject: any) => {
-  for (let key in fetchedTickersObject) {
-    if (fetchedTickersObject.hasOwnProperty(key)) {
-      for (const item of tickerList.value) {
-        if (item.ticker === key) {
-          item.price = fetchedTickersObject[key]['usd']
-        }
-      }
-    }
-  }
-}
-
-const retrieveFromLocalStorage = (dataName: string) => {
-  const data = localStorage.getItem(dataName)
-  if (data) {
-    console.log('Data retrieved from localStorage:')
-    return JSON.parse(data)
-  } else {
-    console.log('localStorage Empty, set default list.')
-    localStorage.setItem('tickerList', JSON.stringify(tickerList.value))
-    updateAllTickers(tickerList.value)
-    window.location.reload()
-  }
-}
-
-tickerList.value = retrieveFromLocalStorage('tickerList')
-
-tickerList_medium.value = tickerList.value.slice(1, 5)
-tickerList_small_one.value = tickerList.value.slice(5, 11)
-// tickerList_small_two.value = tickerList.value.slice(9, 14)
-
-const handleUpdateTicker = async (value: string, tickerSlot: number) => {
-  for (const item of tickerList.value) {
-    if (item.tickerSlot === tickerSlot) {
-      const data = await fetchTickerDetailByName(value)
-      console.log(data.market_data.current_price.usd, data.symbol)
-      item.ticker = data.name
-      item.tickerSymbol = data.symbol.toUpperCase()
-      item.price = data.market_data.current_price.usd
-      item.isShowInput = false
-    }
-  }
-  localStorage.setItem('tickerList', JSON.stringify(tickerList.value))
-}
-
-const handleIsShowInput = (tickerSlot: number) => {
-  for (const item of tickerList.value) {
-    item.tickerSlot === tickerSlot ? (item.isShowInput = true) : (item.isShowInput = false)
-  }
-}
-
-const hideAllInputs = () => {
-  for (const item of tickerList.value) {
-    item.isShowInput = false
-  }
-}
-
-const changeTickerListIntoStrings = (list: any) => {
-  let tickerString = ''
-  for (const item of list) {
-    if (item.ticker) tickerString = tickerString.concat(item.ticker + ',')
-  }
-  return tickerString.slice(0, -1)
-}
-
-const getTickerDetailBySlot = (val: number): Promise<any> => {
-  const ticker = tickerList.value.find((item) => item.tickerSlot === val)
-
-  if (!ticker) {
-    return Promise.reject(new Error('Ticker not found for the given slot.'))
-  }
-
-  return fetchTickerDetailByName(ticker.ticker)
-    .then((data) => Promise.resolve(data))
-    .catch((error) => Promise.reject(error))
-}
-
-const handleToggleBlockDetail = async (tickerSlot: number) => {
-  console.log(tickerSlot)
-  blockDetailData.value = await getTickerDetailBySlot(tickerSlot)
-  console.log(blockDetailData.value)
-  toggleBlockDetail.value = !toggleBlockDetail.value
-}
+const {
+  tickerList,
+  tickerList_medium,
+  tickerList_small_one,
+  toggleBlockDetail,
+  blockDetailData,
+  handleInputNewTicker,
+  handleIsShowInput,
+  hideAllInputs,
+  changeTickerListIntoStrings,
+  handleToggleBlockDetail,
+  updateAllTickers
+} = useBlock()
 
 onMounted(async () => {
   const CURRENCY = 'usd'
