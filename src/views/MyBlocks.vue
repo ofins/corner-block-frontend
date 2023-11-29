@@ -18,6 +18,7 @@
           :toggle-block-detail="toggleBlockDetail"
           @update-ticker="handleInputNewTicker"
           @update-is-show-input="handleIsShowInput"
+          @handle-toggle-block-detail="handleToggleBlockDetail"
         />
         <div class="grid grid-cols-2 gap-20px mt-5 lg:mt-0 lg:gap-40px">
           <TheBlock

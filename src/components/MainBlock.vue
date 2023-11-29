@@ -30,14 +30,13 @@
     <BlockDetail
       :market-cap="blockDetailData?.market_data.market_cap.usd"
       :symbol="blockDetailData?.symbol"
-      :week-high="blockDetailData?.weekHigh"
-      :week-low="blockDetailData?.weekLow"
-      :day-high="blockDetailData?.dayHigh"
-      :day-low="blockDetailData?.dayLow"
-      :ranking="blockDetailData?.ranking"
+      :day-high="blockDetailData?.market_data.high_24h.usd"
+      :day-low="blockDetailData?.market_data.low_24h.usd"
+      :market-cap-rank="blockDetailData?.market_data.market_cap_rank"
       :circulating-supply="blockDetailData?.circulatingSupply"
-      :total-supply="blockDetailData?.totalSupply"
-      @handle-toggle-block-detail="handleToggleBlockDetail"
+      :percentage-change-seven-days="blockDetailData?.market_data.price_change_percentage_7d"
+      :total-supply="blockDetailData?.total_supply"
+      @handle-toggle-block-detail="emit('handleToggleBlockDetail', tickerSlot)"
     />
   </div>
 </template>
@@ -59,7 +58,7 @@ const props = defineProps({
 
 const inputRef = ref<HTMLInputElement | null>(null)
 
-const emit = defineEmits(['update-ticker'])
+const emit = defineEmits(['update-ticker', 'handleToggleBlockDetail'])
 
 const onSubmit = (e: any) => {
   console.log(e.target.value)
@@ -73,7 +72,6 @@ const handleIsShowInput = async () => {
     inputRef.value.value = ''
   }
 }
-
 </script>
 
 <style scoped>

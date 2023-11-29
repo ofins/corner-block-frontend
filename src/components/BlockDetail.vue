@@ -3,8 +3,13 @@
     class="flex-col-center cursor-pointer w-full h-full bg-bg-asSecondary"
     @click="handleToggleBlockDetail"
   >
-    <span class="headline-xl">
+    <span class="flex-col-center w-full h-full">
       {{ marketCap }}
+      {{ marketCapRank }}
+      {{ symbol }}
+      {{ dayHigh }}
+      {{ dayLow }}
+      {{ percentageChangeSevenDays }}
     </span>
   </div>
 </template>
@@ -25,14 +30,6 @@ defineProps({
     type: Number,
     default: null
   },
-  weekHigh: {
-    type: Number,
-    default: null
-  },
-  weekLow: {
-    type: Number,
-    default: null
-  },
   dayHigh: {
     type: Number,
     default: null
@@ -41,13 +38,17 @@ defineProps({
     type: Number,
     default: null
   },
-  ranking: {
+  marketCapRank: {
     type: Number,
     default: null
   },
   symbol: {
     type: String,
     default: 'N/A'
+  },
+  percentageChangeSevenDays: {
+    type: Number,
+    default: null
   }
 })
 
