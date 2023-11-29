@@ -14,6 +14,8 @@
           :tickerSymbol="tickerList[0].tickerSymbol"
           currency="usd"
           :ticker-slot="tickerList[0].tickerSlot"
+          :block-detail-data="blockDetailData"
+          :toggle-block-detail="toggleBlockDetail"
           @update-ticker="handleUpdateTicker"
           @update-is-show-input="handleIsShowInput"
         />
@@ -27,6 +29,7 @@
             currency="usd"
             :key="value.tickerSlot"
             :ticker-slot="value.tickerSlot"
+            @handle-toggle-block-detail="handleToggleBlockDetail"
             @update-ticker="handleUpdateTicker"
             @update-is-show-input="handleIsShowInput"
           />
@@ -73,10 +76,24 @@ import { defaultTickerList } from '@/settings/tickerList'
 
 const { fetchTickerPriceDataByName, fetchTickerDetailByName } = useTicker()
 const tickerList = ref(defaultTickerList)
+const toggleBlockDetail = ref<boolean>()
 
 const tickerList_medium = ref([])
 const tickerList_small_one = ref([])
 const tickerList_small_two = ref([])
+// const blockDetailData = ref({
+//   marketCap: 420,
+//   symbol: 'RON',
+//   circulatingSupply: 69,
+//   totalSupply: 420,
+//   weekHigh: 2,
+//   weekLow: 0.6,
+//   dayHigh: 1.1,
+//   dayLow: 0.98,
+//   ranking: 155
+// })
+
+const blockDetailData = ref()
 
 const updateAllTickers = (fetchedTickersObject: any) => {
   for (let key in fetchedTickersObject) {
@@ -141,6 +158,25 @@ const changeTickerListIntoStrings = (list: any) => {
     if (item.ticker) tickerString = tickerString.concat(item.ticker + ',')
   }
   return tickerString.slice(0, -1)
+}
+
+const getTickerDetailBySlot = (val: number): Promise<any> => {
+  const ticker = tickerList.value.find((item) => item.tickerSlot === val)
+
+  if (!ticker) {
+    return Promise.reject(new Error('Ticker not found for the given slot.'))
+  }
+
+  return fetchTickerDetailByName(ticker.ticker)
+    .then((data) => Promise.resolve(data))
+    .catch((error) => Promise.reject(error))
+}
+
+const handleToggleBlockDetail = async (tickerSlot: number) => {
+  console.log(tickerSlot)
+  blockDetailData.value = await getTickerDetailBySlot(tickerSlot)
+  console.log(blockDetailData.value)
+  toggleBlockDetail.value = !toggleBlockDetail.value
 }
 
 onMounted(async () => {

@@ -1,6 +1,9 @@
 <template>
   <form
-    class="style-1 b-none rd-regular flex-col-center cursor-pointer w-300px h-300px lg:w-400px lg-h-400px"
+    v-if="!toggleBlockDetail"
+    class="style-1 b-none rd-regular flex-col-center cursor-pointer"
+    :class="sizeType"
+    @click="handleToggleBlockDetail"
     @dblclick="handleIsShowInput"
     @submit.prevent="onSubmit"
   >
@@ -22,10 +25,26 @@
       <span class="headline-medium font-black c-text-asInverse-01"> ${{ price }} </span>
     </div>
   </form>
+  <!-- block details -->
+  <div v-else :class="sizeType" class="rd-regular overflow-hidden">
+    <BlockDetail
+      :market-cap="blockDetailData?.market_data.market_cap.usd"
+      :symbol="blockDetailData?.symbol"
+      :week-high="blockDetailData?.weekHigh"
+      :week-low="blockDetailData?.weekLow"
+      :day-high="blockDetailData?.dayHigh"
+      :day-low="blockDetailData?.dayLow"
+      :ranking="blockDetailData?.ranking"
+      :circulating-supply="blockDetailData?.circulatingSupply"
+      :total-supply="blockDetailData?.totalSupply"
+      @handle-toggle-block-detail="handleToggleBlockDetail"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onUpdated } from 'vue'
+import BlockDetail from './BlockDetail.vue'
 
 const props = defineProps({
   tickerSymbol: { type: String },
@@ -33,7 +52,9 @@ const props = defineProps({
   sizeType: String,
   price: Number,
   tickerSlot: Number,
-  isShowInput: Boolean
+  isShowInput: Boolean,
+  blockDetailData: Object,
+  toggleBlockDetail: Boolean
 })
 
 const inputRef = ref<HTMLInputElement | null>(null)
@@ -52,12 +73,18 @@ const handleIsShowInput = async () => {
     inputRef.value.value = ''
   }
 }
+
 </script>
 
 <style scoped>
 .size-L {
   width: 300px;
   height: 300px;
+
+  @media (min-width: 1024px) {
+    width: 400px;
+    height: 400px;
+  }
 }
 .size-M {
   width: 150px;

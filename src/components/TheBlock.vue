@@ -4,6 +4,7 @@
     :class="sizeType"
     @dblclick="handleIsShowInput"
     @submit.prevent="onSubmit"
+    @click="emit('handleToggleBlockDetail', tickerSlot)"
   >
     <div
       class="absolute bg-bg-asPrimary w-95% h-95% top-50% translate-y--50% left-50% translate-x--50% rd-regular flex-col-center"
@@ -47,7 +48,7 @@ const props = defineProps({
 
 const inputRef = ref<HTMLInputElement | null>(null)
 
-const emit = defineEmits(['update-ticker'])
+const emit = defineEmits(['update-ticker', 'handleToggleBlockDetail'])
 
 const onSubmit = (e: any) => {
   console.log(e.target.value)
