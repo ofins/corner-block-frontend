@@ -6,12 +6,11 @@ import { defaultTickerList } from '@/settings/tickerList'
 
 export const useBlock = () => {
   const { fetchTickerPriceDataByName, fetchTickerDetailByName } = useTicker()
+
   const tickerList = ref(defaultTickerList)
   const toggleBlockDetail = ref<boolean>()
-
   const tickerList_medium = ref([])
   const tickerList_small_one = ref([])
-
   const blockDetailData = ref()
 
   const updateAllTickers = (fetchedTickersObject: any) => {

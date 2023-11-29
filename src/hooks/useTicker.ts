@@ -19,7 +19,6 @@ export const useTicker = () => {
       if (response.status !== 200) {
         throw new Error(`status-code:${response.status}`)
       }
-      console.log(response.data.symbol)
       return response.data
     } catch (error) {
       console.error(error)

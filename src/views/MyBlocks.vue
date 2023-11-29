@@ -12,7 +12,7 @@
           sizeType="size-L"
           :price="tickerList[0].price"
           :tickerSymbol="tickerList[0].tickerSymbol"
-          currency="usd"
+          :currency="currency"
           :ticker-slot="tickerList[0].tickerSlot"
           :block-detail-data="blockDetailData"
           :toggle-block-detail="toggleBlockDetail"
@@ -26,7 +26,7 @@
             :is-show-input="value.isShowInput"
             :tickerSymbol="value.tickerSymbol"
             :price="value.price"
-            currency="usd"
+            :currency="currency"
             :key="value.tickerSlot"
             :ticker-slot="value.tickerSlot"
             @handle-toggle-block-detail="handleToggleBlockDetail"
@@ -42,7 +42,7 @@
           :is-show-input="value.isShowInput"
           :tickerSymbol="value.tickerSymbol"
           :price="value.price"
-          currency="usd"
+          :currency="currency"
           :key="value.tickerSlot"
           :ticker-slot="value.tickerSlot"
           @update-ticker="handleInputNewTicker"
@@ -56,7 +56,7 @@
           :is-show-input="value.isShowInput"
           :tickerSymbol="value.tickerSymbol"
           :price="value.price"
-          currency="usd"
+          currency="currency"
           :key="value.tickerSlot"
           :ticker-slot="value.tickerSlot"
           @update-ticker="handleInputNewTicker"
@@ -74,8 +74,11 @@ import { onMounted, ref, computed } from 'vue'
 import { useTicker } from '@/hooks/useTicker'
 import { defaultTickerList } from '@/settings/tickerList'
 import { useBlock } from '@/hooks/useBlock'
+import { useAppStore } from '@/stores/app'
+import { storeToRefs } from 'pinia'
 
 const { fetchTickerPriceDataByName, fetchTickerDetailByName } = useTicker()
+const { currency } = storeToRefs(useAppStore())
 
 const {
   tickerList,
@@ -92,10 +95,9 @@ const {
 } = useBlock()
 
 onMounted(async () => {
-  const CURRENCY = 'usd'
   const allTickers = await fetchTickerPriceDataByName(
     changeTickerListIntoStrings(tickerList.value),
-    CURRENCY
+    currency.value
   )
 
   updateAllTickers(allTickers)
