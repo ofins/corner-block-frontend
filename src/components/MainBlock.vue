@@ -33,9 +33,9 @@
       :day-high="blockDetailData?.market_data.high_24h.usd"
       :day-low="blockDetailData?.market_data.low_24h.usd"
       :market-cap-rank="blockDetailData?.market_data.market_cap_rank"
-      :circulating-supply="blockDetailData?.circulatingSupply"
+      :circulating-supply="blockDetailData?.market_data.circulating_supply"
       :percentage-change-seven-days="blockDetailData?.market_data.price_change_percentage_7d"
-      :total-supply="blockDetailData?.total_supply"
+      :total-supply="blockDetailData?.market_data.total_supply"
       @handle-toggle-block-detail="emit('handleToggleBlockDetail', tickerSlot)"
     />
   </div>
