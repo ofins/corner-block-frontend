@@ -32,7 +32,7 @@ const handleToggleSideBar = () => {
 watch(
   () => route.path,
   (newParams) => {
-    title.value = newParams === '/my-blocks' ? 'My Bags' : 'Block By Block'
+    title.value = newParams === '/my-blocks' ? 'My Bags' : 'CornerBlock'
   }
 )
 </script>

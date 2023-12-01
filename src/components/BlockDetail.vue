@@ -3,16 +3,10 @@
     class="relative flex-col-center cursor-pointer w-full h-full bg-bg-asSecondary"
     @click="handleToggleBlockDetail"
   >
-    <div class="w-65% h-65% absolute b-l-solid">
-      <span class="absolute top-0 left-0 ml-4px">
-        ${{ dayHigh }}
-      </span>
-      <span class="absolute bottom-0 left-0 ml-4px">
-        ${{ dayLow }}
-      </span>
-      <span class="absolute top-0 right-0">
-        #{{ marketCapRank }}
-      </span>
+    <div class="w-65% h-65% absolute b-l-solid headline-regular">
+      <span class="absolute top-0 left-0 ml-4px"> ${{ dayHigh }} </span>
+      <span class="absolute bottom-0 left-0 ml-4px"> ${{ dayLow }} </span>
+      <span class="absolute top-0 right-0"> #{{ marketCapRank }} </span>
       <div class="absolute bottom-0 right-0">
         <span>
           {{ abbreviateNumber(circulatingSupply) }}
@@ -23,21 +17,24 @@
         </span>
       </div>
     </div>
-    <div class="flex-col-center w-full h-full headline-large">
-      <span>
-        ${{ abbreviateNumber(marketCap) }}
-      </span>
-      <span class="headline-medium mt-16px">
+    <div class="flex-col-center w-full h-full font-black text-52px text-style-1">
+      {{ abbreviateNumber(marketCap) }}
+      <!-- <span
+        class="headline-medium mt-16px"
+        :class="{
+          'c-confirm': percentageChangeSevenDays > 0,
+          'c-alert': percentageChangeSevenDays < 0
+        }"
+      >
         {{ percentageChangeSevenDays.toFixed(2) }}%
-      </span>
+      </span> -->
     </div>
   </div>
-
 </template>
 
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
-import { abbreviateNumber, test } from '@/util/number'
+import { abbreviateNumber } from '@/util/number'
 
 const props = defineProps({
   marketCap: {
@@ -81,4 +78,15 @@ const handleToggleBlockDetail = () => {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.text-style-1 {
+  color: white; /* Color of the hollow inside */
+  background-color: transparent; /* Background color (color of the outline) */
+  -webkit-background-clip: text; /* Make background apply only to the text content */
+  background-clip: text;
+  -webkit-text-fill-color: transparent; /* Hide the text fill color */
+  text-fill-color: transparent;
+  -webkit-text-stroke: 1.3px black; /* Width and color of the outline */
+  text-stroke: 1.3px black;
+}
+</style>

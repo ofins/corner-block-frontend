@@ -1,5 +1,7 @@
 export default {
   colors: {
+    alert: '#cc0000',
+    confirm: '#2f7c0d',
     text: {
       asPrimary: '#FFFFFF',
       asSecondary: '#232326',

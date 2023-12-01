@@ -13,6 +13,8 @@ export const useBlock = () => {
   const tickerList_small_one = ref([])
   const blockDetailData = ref()
 
+  const MAIN_SLOT = 1
+
   const updateAllTickers = (fetchedTickersObject: any) => {
     for (const key in fetchedTickersObject) {
       if (fetchedTickersObject.hasOwnProperty(key)) {
@@ -89,7 +91,9 @@ export const useBlock = () => {
 
   const handleToggleBlockDetail = async (tickerSlot: number) => {
     blockDetailData.value = await getTickerDetailBySlot(tickerSlot)
-    toggleBlockDetail.value = !toggleBlockDetail.value
+    console.log(blockDetailData.value)
+    if (tickerSlot === MAIN_SLOT) toggleBlockDetail.value = !toggleBlockDetail.value
+    else toggleBlockDetail.value = true
   }
 
   return {

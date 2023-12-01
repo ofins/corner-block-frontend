@@ -3,7 +3,7 @@
     v-if="!toggleBlockDetail"
     class="style-1 b-none rd-regular flex-col-center cursor-pointer"
     :class="sizeType"
-    @click="handleToggleBlockDetail"
+    @click="emit('handleToggleBlockDetail', tickerSlot)"
     @dblclick="handleIsShowInput"
     @submit.prevent="onSubmit"
   >
