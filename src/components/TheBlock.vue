@@ -1,19 +1,26 @@
 <template>
   <form
-    class="b-none rd-regular flex-col-center relative bg-gradient-to-b from-#A0C3FC to-#5E3268 cursor-pointer"
-    :class="sizeType"
+    class="b-none rd-regular flex-col-center relative bg-gradient-to-b from-#A0C3FC to-#5E3268 cursor-pointer d-transition hover:shadow-[0px_0px_15px_#A0C3FC]"
+    :class="[
+      sizeType,
+      {
+        'headline-regular': sizeType === 'size-S',
+        'shadow-[0px_0px_10px_5px_#A0C3FC]!': isBlockSelected,
+        'scale-95': isClicked
+      }
+    ]"
     @dblclick="handleIsShowInput"
     @submit.prevent="onSubmit"
-    @click="emit('handleToggleBlockDetail', tickerSlot)"
+    @click="handleClick"
   >
     <div
       class="absolute bg-bg-asPrimary w-95% h-95% top-50% translate-y--50% left-50% translate-x--50% rd-regular flex-col-center"
     >
       <span
         v-show="!isShowInput"
-        class="headline-medium c-text-asInverse-01 uppercase"
-        :class="{ 'headline-regular': sizeType === 'size-S' }"
+        class="headline-medium c-text-asInverse-01 uppercase p-4px text-center min-w-80%"
         style="letter-spacing: 2px"
+        :class="{ 'headline-regular': sizeType === 'size-S' }"
       >
         {{ tickerSymbol }}
       </span>
@@ -43,10 +50,12 @@ const props = defineProps({
   sizeType: String,
   price: Number,
   tickerSlot: Number,
-  isShowInput: Boolean
+  isShowInput: Boolean,
+  isBlockSelected: Boolean
 })
 
 const inputRef = ref<HTMLInputElement | null>(null)
+const isClicked = ref(false)
 
 const emit = defineEmits(['update-ticker', 'handleToggleBlockDetail'])
 
@@ -61,6 +70,14 @@ const handleIsShowInput = async () => {
     inputRef.value.focus()
     inputRef.value.value = ''
   }
+}
+
+const handleClick = () => {
+  emit('handleToggleBlockDetail', props.tickerSlot)
+  isClicked.value = true
+  setTimeout(() => {
+    isClicked.value = false
+  }, 300)
 }
 </script>
 
@@ -86,5 +103,9 @@ const handleIsShowInput = async () => {
     width: 140px;
     height: 140px;
   }
+}
+
+.d-transition {
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 </style>

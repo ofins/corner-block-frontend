@@ -30,9 +30,10 @@
             :currency="currency"
             :key="value.tickerSlot"
             :ticker-slot="value.tickerSlot"
-            @handle-toggle-block-detail="handleToggleBlockDetail"
+            :is-block-selected="value.isBlockSelected"
             @update-ticker="handleInputNewTicker"
             @update-is-show-input="handleIsShowInput"
+            @handle-toggle-block-detail="handleToggleBlockDetail"
           />
         </div>
       </div>
@@ -46,8 +47,10 @@
           :currency="currency"
           :key="value.tickerSlot"
           :ticker-slot="value.tickerSlot"
+          :is-block-selected="value.isBlockSelected"
           @update-ticker="handleInputNewTicker"
           @update-is-show-input="handleIsShowInput"
+          @handle-toggle-block-detail="handleToggleBlockDetail"
         />
       </div>
       <!-- <div class="grid grid-cols-2 gap-20px mt-5">

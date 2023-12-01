@@ -1,6 +1,6 @@
 <template>
   <form
-    v-if="!toggleBlockDetail"
+    v-show="!toggleBlockDetail"
     class="style-1 b-none rd-regular flex-col-center cursor-pointer"
     :class="sizeType"
     @click="emit('handleToggleBlockDetail', tickerSlot)"
@@ -26,7 +26,7 @@
     </div>
   </form>
   <!-- block details -->
-  <div v-else :class="sizeType" class="rd-regular overflow-hidden">
+  <div v-show="toggleBlockDetail" :class="sizeType" class="rd-regular overflow-hidden">
     <BlockDetail
       :market-cap="blockDetailData?.market_data.market_cap.usd"
       :symbol="blockDetailData?.symbol"
@@ -97,5 +97,15 @@ const handleIsShowInput = async () => {
   background: linear-gradient(169deg, #61e3ff 1.63%, rgba(0, 209, 255, 0) 92.06%),
     linear-gradient(225deg, #ff00b8 1.45%, #ffc700 99.36%),
     linear-gradient(180deg, #ff7b7b 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

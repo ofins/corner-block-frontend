@@ -56,6 +56,7 @@ export const useBlock = () => {
       }
     }
     localStorage.setItem('tickerList', JSON.stringify(tickerList.value))
+    handleToggleBlockDetail(tickerSlot)
   }
 
   const handleIsShowInput = (tickerSlot: number) => {
@@ -90,10 +91,14 @@ export const useBlock = () => {
   }
 
   const handleToggleBlockDetail = async (tickerSlot: number) => {
+    console.log(tickerSlot)
     blockDetailData.value = await getTickerDetailBySlot(tickerSlot)
-    console.log(blockDetailData.value)
-    if (tickerSlot === MAIN_SLOT) toggleBlockDetail.value = !toggleBlockDetail.value
-    else toggleBlockDetail.value = true
+
+    tickerList.value.forEach((item) => {
+      item.isBlockSelected = item.tickerSlot === tickerSlot
+    })
+
+    toggleBlockDetail.value = tickerSlot === MAIN_SLOT ? !toggleBlockDetail.value : true
   }
 
   return {
