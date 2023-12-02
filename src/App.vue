@@ -14,10 +14,12 @@
       <PageTitle />
       <RouterView />
     </main>
+    <ModalsContainer />
   </div>
 </template>
 
 <script setup lang="ts">
+import { ModalsContainer } from 'vue-final-modal'
 import { RouterLink, RouterView } from 'vue-router'
 import SideBar from '@/components/SideBar.vue'
 import PageTitle from '@/components/PageTitle.vue'

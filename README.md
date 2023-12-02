@@ -1,7 +1,4 @@
-## Possible Incoming Features
-1. Users can add the number of coins they own for each so it will show their total unrealized amount, saved in LS.
-
-## Version
+## Versions Log
 
 ### 2023.11.28
 - feat: home page
