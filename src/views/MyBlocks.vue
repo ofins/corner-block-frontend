@@ -67,8 +67,10 @@
           @update-is-show-input="handleIsShowInput"
         />
       </div> -->
+      <button @click="show = true">click</button>
     </div>
   </div>
+  <TickerInputTableModal v-model="show" @confirm="confirm" @update:ticker-list="updateTickerList" />
 </template>
 
 <script setup lang="ts">
@@ -80,9 +82,11 @@ import { defaultTickerList } from '@/settings/tickerList'
 import { useBlock } from '@/hooks/useBlock'
 import { useAppStore } from '@/stores/app'
 import { storeToRefs } from 'pinia'
+import TickerInputTableModal from '@/components/modal/TickerInputTableModal.vue'
 
 const { fetchTickerPriceDataByName, fetchTickerDetailByName } = useTicker()
 const { currency } = storeToRefs(useAppStore())
+const show = ref(false)
 
 const {
   tickerList,
@@ -95,8 +99,35 @@ const {
   hideAllInputs,
   changeTickerListIntoStrings,
   handleToggleBlockDetail,
-  updateAllTickers
+  updateAllTickers,
 } = useBlock()
+
+const confirm = () => {
+  show.value = false
+}
+
+const updateTickerList = async (dataList) => {
+  const newEditDataList = dataList
+  console.log(newEditDataList)
+  newEditDataList.forEach((item) => {
+    if (item.ticker) {
+      tickerList.value.map((tickerList) => {
+        if (tickerList.tickerSlot === item.tickerSlot) {
+          tickerList.ticker = item.ticker
+          updateTickerNameBySymbol(tickerList.tickerSlot, allCoinsList)
+        }
+      })
+    }
+  })
+
+  // console.log(tickerList.value)
+  // const allTickers = await fetchTickerPriceDataByName(
+  //   changeTickerListIntoStrings(tickerList.value),
+  //   currency.value
+  // )
+
+  // updateAllTickers(allTickers)
+}
 
 onMounted(async () => {
   const allTickers = await fetchTickerPriceDataByName(

@@ -22,7 +22,7 @@
         style="letter-spacing: 2px"
         :class="{ 'headline-regular': sizeType === 'size-S' }"
       >
-        {{ tickerSymbol }}
+        {{ tickerSymbol ? tickerSymbol : NO_TICKER_DEFAULT }}
       </span>
       <input
         ref="inputRef"
@@ -32,6 +32,7 @@
         @keyup.enter.prevent="onSubmit"
       />
       <span
+        v-show="price"
         class="headline-regular font-normal c-text-asPrimary mt-8px"
         :class="{ 'headline-small': sizeType === 'size-S' }"
       >
@@ -54,6 +55,7 @@ const props = defineProps({
   isBlockSelected: Boolean
 })
 
+const NO_TICKER_DEFAULT = 'dbl click to add'
 const inputRef = ref<HTMLInputElement | null>(null)
 const isClicked = ref(false)
 
