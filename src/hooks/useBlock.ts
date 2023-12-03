@@ -60,12 +60,6 @@ export const useBlock = () => {
     handleToggleBlockDetail(tickerSlot)
   }
 
-  const hideAllInputs = () => {
-    tickerList.value.forEach((item) => {
-      item.isShowInput = false
-    })
-  }
-
   const changeTickerListIntoStrings = (list: any) => {
     return list
       .filter((item: any) => item.ticker)
@@ -88,7 +82,6 @@ export const useBlock = () => {
         return item
       }
     })
-    console.log(tickerList.value)
   }
 
   const getTickerDetailBySlot = (slot: number): Promise<any> => {
@@ -115,7 +108,6 @@ export const useBlock = () => {
     toggleBlockDetail,
     blockDetailData,
     handleInputNewTicker,
-    hideAllInputs,
     changeTickerListIntoStrings,
     handleToggleBlockDetail,
     updateAllTickers,

@@ -95,7 +95,6 @@ const {
   toggleBlockDetail,
   blockDetailData,
   handleInputNewTicker,
-  hideAllInputs,
   changeTickerListIntoStrings,
   handleToggleBlockDetail,
   updateAllTickers,
@@ -108,6 +107,12 @@ const confirm = () => {
 
 const handleIsShowInput = (slot: number) => {
   editTickerListProperty(slot, 'isShowInput', true)
+}
+
+const hideAllInputs = () => {
+  tickerList.value.forEach((item) => {
+    editTickerListProperty(item.tickerSlot, 'isShowInput', false)
+  })
 }
 
 const updateTickerList = async (dataList) => {
