@@ -15,6 +15,9 @@ export const useBlock = () => {
 
   const MAIN_SLOT = 1
   const TICKER_NAME = 'ticker'
+  const TICKER_SYMBOL = 'tickerSymbol'
+  const TICKER_PRICE = 'price'
+  const TICKER_SHOWINPUT = 'isShowInput'
 
   const updateAllTickers = (fetchedTickers: any) => {
     for (const key in fetchedTickers) {
@@ -46,19 +49,6 @@ export const useBlock = () => {
   tickerList_medium.value = tickerList.value.slice(1, 5)
   tickerList_small_one.value = tickerList.value.slice(5, 11)
 
-  const handleInputNewTicker = async (value: string, tickerSlot: number) => {
-    for (const item of tickerList.value) {
-      if (item.tickerSlot === tickerSlot) {
-        const data = await fetchTickerDetailByName(value)
-        item.ticker = data.name
-        item.tickerSymbol = data.symbol.toUpperCase()
-        item.price = data.market_data.current_price.usd
-        item.isShowInput = false
-      }
-    }
-    localStorage.setItem('tickerList', JSON.stringify(tickerList.value))
-    handleToggleBlockDetail(tickerSlot)
-  }
 
   const changeTickerListIntoStrings = (list: any) => {
     return list
@@ -67,6 +57,7 @@ export const useBlock = () => {
       .join(',')
   }
 
+  // get, set tickerList
   const getTickerPropertyBySlot = (slot: number, key) => {
     const ticker = tickerList.value.find((item) => item.tickerSlot === slot)
     if (ticker) {
@@ -84,8 +75,8 @@ export const useBlock = () => {
     })
   }
 
-  const getTickerDetailBySlot = (slot: number): Promise<any> => {
-    return fetchTickerDetailByName(getTickerPropertyBySlot(slot, TICKER_NAME))
+  const getTickerDetailBySlot = async (slot: number): Promise<any> => {
+    return await fetchTickerDetailByName(getTickerPropertyBySlot(slot, TICKER_NAME))
       .then((data) => Promise.resolve(data))
       .catch((error) => Promise.reject(error))
   }
@@ -107,7 +98,10 @@ export const useBlock = () => {
     tickerList_small_one,
     toggleBlockDetail,
     blockDetailData,
-    handleInputNewTicker,
+    TICKER_NAME,
+    TICKER_PRICE,
+    TICKER_SHOWINPUT,
+    TICKER_SYMBOL,
     changeTickerListIntoStrings,
     handleToggleBlockDetail,
     updateAllTickers,

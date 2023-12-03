@@ -94,7 +94,10 @@ const {
   tickerList_small_one,
   toggleBlockDetail,
   blockDetailData,
-  handleInputNewTicker,
+  TICKER_NAME,
+  TICKER_PRICE,
+  TICKER_SHOWINPUT,
+  TICKER_SYMBOL,
   changeTickerListIntoStrings,
   handleToggleBlockDetail,
   updateAllTickers,
@@ -113,6 +116,19 @@ const hideAllInputs = () => {
   tickerList.value.forEach((item) => {
     editTickerListProperty(item.tickerSlot, 'isShowInput', false)
   })
+}
+
+const handleInputNewTicker = async (value: string, slot: number) => {
+  const data = await fetchTickerDetailByName(value)
+  if (data) {
+    editTickerListProperty(slot, TICKER_SYMBOL, data.symbol.toUpperCase())
+    editTickerListProperty(slot, TICKER_NAME, data.name)
+    editTickerListProperty(slot, TICKER_PRICE, data.market_data.current_price.usd)
+    editTickerListProperty(slot, TICKER_SHOWINPUT, false)
+    localStorage.setItem('tickerList', JSON.stringify(tickerList.value))
+    handleToggleBlockDetail(slot)
+  }
+
 }
 
 const updateTickerList = async (dataList) => {
