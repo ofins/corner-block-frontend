@@ -78,7 +78,6 @@ import TheBlock from '@/components/TheBlock.vue'
 import MainBlock from '@/components/MainBlock.vue'
 import { onMounted, ref, computed } from 'vue'
 import { useTicker } from '@/hooks/useTicker'
-import { defaultTickerList } from '@/settings/tickerList'
 import { useBlock } from '@/hooks/useBlock'
 import { useAppStore } from '@/stores/app'
 import { storeToRefs } from 'pinia'
@@ -98,9 +97,8 @@ const {
   TICKER_PRICE,
   TICKER_SHOWINPUT,
   TICKER_SYMBOL,
-  compileAllTickerNamesToString,
   handleToggleBlockDetail,
-  setAllTickerPrice,
+  setAllTickersDetail,
   editTickerListProperty,
   setAllTickerNames
 } = useBlock()
@@ -126,6 +124,7 @@ const handleInputNewTicker = async (value: string, slot: number) => {
     editTickerListProperty(slot, TICKER_NAME, data.name)
     editTickerListProperty(slot, TICKER_PRICE, data.market_data.current_price.usd)
     editTickerListProperty(slot, TICKER_SHOWINPUT, false)
+
     localStorage.setItem('tickerList', JSON.stringify(tickerList.value))
     handleToggleBlockDetail(slot)
   }
@@ -135,12 +134,11 @@ const updateTickerList = (dataList: any) => {
   const newEditDataList = dataList.filter((item: any) => item.ticker)
 
   setAllTickerNames(newEditDataList)
-  setAllTickerPrice()
-  console.log(tickerList.value)
+  setAllTickersDetail()
 }
 
 onMounted(() => {
-  setAllTickerPrice()
+  setAllTickersDetail()
 })
 </script>
 

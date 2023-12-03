@@ -5,9 +5,10 @@ import { useTicker } from '@/hooks/useTicker'
 import { defaultTickerList } from '@/settings/tickerList'
 
 export const useBlock = () => {
-  const { fetchTickerPriceDataByName, fetchTickerDetailByName } = useTicker()
+  const { fetchTickerPriceDataByName, fetchTickerDetailByName, fetchMultiTickersDetailByName } =
+    useTicker()
 
-  const tickerList = ref(defaultTickerList)
+  const tickerList = ref()
   const toggleBlockDetail = ref<boolean>()
   const tickerList_medium = ref([])
   const tickerList_small_one = ref([])
@@ -20,22 +21,23 @@ export const useBlock = () => {
   const TICKER_SHOWINPUT = 'isShowInput'
   const TICKER_IS_BLOCKSELECTED = 'isBlockSelected'
   const CURRENCY = 'usd'
+  const LOCAL_STORAGE_TICKERLIST = 'tickerList'
 
-  const retrieveFromLocalStorage = (dataName: string) => {
-    const data = localStorage.getItem(dataName)
+  const retrieveFromLocalStorage = () => {
+    const data = localStorage.getItem(LOCAL_STORAGE_TICKERLIST)
     if (data) {
       console.log('Data retrieved from localStorage:')
-      return JSON.parse(data)
+      tickerList.value = JSON.parse(data)
+      // setAllTickersDetail()
     } else {
       console.log('localStorage Empty, set default list.')
-      localStorage.setItem('tickerList', JSON.stringify(tickerList.value))
-      setAllTickerPrice()
+      localStorage.setItem(LOCAL_STORAGE_TICKERLIST, JSON.stringify(defaultTickerList))
+      setAllTickersDetail()
       window.location.reload()
     }
   }
 
-  tickerList.value = retrieveFromLocalStorage('tickerList')
-
+  retrieveFromLocalStorage()
   tickerList_medium.value = tickerList.value.slice(1, 5)
   tickerList_small_one.value = tickerList.value.slice(5, 11)
 
@@ -48,24 +50,22 @@ export const useBlock = () => {
       .join(',')
   }
 
-  const setAllTickerPrice = async () => {
-    const allTickersPriceList = await fetchTickerPriceDataByName(
+  const setAllTickersDetail = async () => {
+    const allTickersDetailList = await fetchMultiTickersDetailByName(
       compileAllTickerNamesToString(tickerList.value),
       CURRENCY
     )
 
     tickerList.value.forEach((item) => {
-      if (allTickersPriceList[item.ticker.toLowerCase()])
-        item.price = allTickersPriceList[item.ticker.toLowerCase()][CURRENCY]
+      const ticker = allTickersDetailList.find(
+        (ticker: any) => ticker.id === item.ticker.toLowerCase()
+      )
+      if (ticker) {
+        item.price = ticker.current_price
+        item.tickerSymbol = ticker.symbol.toUpperCase()
+      }
     })
   }
-
-  // const setAllTickerSymbols = (inputData) => {
-  //   tickerList.value.forEach((item) => {
-  //     const newTicker = inputData.find((input) => input.tickerSlot === item.tickerSlot)
-  //     if (newTicker) item.tickerSymbol = newTicker.ticker
-  //   })
-  // }
 
   const setAllTickerNames = (inputData) => {
     tickerList.value.forEach((item) => {
@@ -118,7 +118,7 @@ export const useBlock = () => {
     TICKER_SYMBOL,
     compileAllTickerNamesToString,
     handleToggleBlockDetail,
-    setAllTickerPrice,
+    setAllTickersDetail,
     editTickerListProperty,
     setAllTickerNames
   }
