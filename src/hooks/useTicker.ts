@@ -1,4 +1,4 @@
-import { getTickerPrice, getTickerDetail } from '@/api/ticker'
+import { getTickerPrice, getTickerDetail, getMultiTickersDetail } from '@/api/ticker'
 
 export const useTicker = () => {
   const fetchTickerPriceDataByName = async (tickerParams: string, currency: string) => {
@@ -25,8 +25,21 @@ export const useTicker = () => {
     }
   }
 
+  const fetchMultiTickersDetailByName = async (tickers: string, currency: string) => {
+    try {
+      const response = await getMultiTickersDetail(tickers.toLowerCase(), currency)
+      if (response.status !== 200) {
+        throw new Error(`status-code:${response.status}`)
+      }
+      return response.data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return {
     fetchTickerPriceDataByName,
-    fetchTickerDetailByName
+    fetchTickerDetailByName,
+    fetchMultiTickersDetailByName
   }
 }
