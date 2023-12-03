@@ -14,13 +14,14 @@ export const useBlock = () => {
   const blockDetailData = ref()
 
   const MAIN_SLOT = 1
+  const TICKER_NAME = 'ticker'
 
-  const updateAllTickers = (fetchedTickersObject: any) => {
-    for (const key in fetchedTickersObject) {
-      if (fetchedTickersObject.hasOwnProperty(key)) {
+  const updateAllTickers = (fetchedTickers: any) => {
+    for (const key in fetchedTickers) {
+      if (fetchedTickers.hasOwnProperty(key)) {
         for (const item of tickerList.value) {
           if (item.ticker === key) {
-            item.price = fetchedTickersObject[key]['usd']
+            item.price = fetchedTickers[key]['usd']
           }
         }
       }
@@ -78,14 +79,15 @@ export const useBlock = () => {
       .join(',')
   }
 
-  const getTickerDetailBySlot = (val: number): Promise<any> => {
-    const ticker = tickerList.value.find((item) => item.tickerSlot === val)
-
-    if (!ticker) {
-      return Promise.reject(new Error('Ticker not found for the given slot.'))
+  const getTickerPropertyBySlot = (slot: number, key) => {
+    const ticker = tickerList.value.find((item) => item.tickerSlot === slot)
+    if (ticker) {
+      return ticker[key]
     }
+  }
 
-    return fetchTickerDetailByName(ticker.ticker)
+  const getTickerDetailBySlot = (slot: number): Promise<any> => {
+    return fetchTickerDetailByName(getTickerPropertyBySlot(slot, TICKER_NAME))
       .then((data) => Promise.resolve(data))
       .catch((error) => Promise.reject(error))
   }
