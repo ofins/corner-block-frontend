@@ -18,18 +18,8 @@ export const useBlock = () => {
   const TICKER_SYMBOL = 'tickerSymbol'
   const TICKER_PRICE = 'price'
   const TICKER_SHOWINPUT = 'isShowInput'
-
-  const updateAllTickers = (fetchedTickers: any) => {
-    for (const key in fetchedTickers) {
-      if (fetchedTickers.hasOwnProperty(key)) {
-        for (const item of tickerList.value) {
-          if (item.ticker === key) {
-            item.price = fetchedTickers[key]['usd']
-          }
-        }
-      }
-    }
-  }
+  const TICKER_IS_BLOCKSELECTED = 'isBlockSelected'
+  const CURRENCY = 'usd'
 
   const retrieveFromLocalStorage = (dataName: string) => {
     const data = localStorage.getItem(dataName)
@@ -39,7 +29,7 @@ export const useBlock = () => {
     } else {
       console.log('localStorage Empty, set default list.')
       localStorage.setItem('tickerList', JSON.stringify(tickerList.value))
-      updateAllTickers(tickerList.value)
+      setAllTickerPrice()
       window.location.reload()
     }
   }
@@ -49,12 +39,39 @@ export const useBlock = () => {
   tickerList_medium.value = tickerList.value.slice(1, 5)
   tickerList_small_one.value = tickerList.value.slice(5, 11)
 
+  // setAllTicker
 
-  const changeTickerListIntoStrings = (list: any) => {
-    return list
+  const compileAllTickerNamesToString = (tickerList: any) => {
+    return tickerList
       .filter((item: any) => item.ticker)
       .map((item: any) => item.ticker)
       .join(',')
+  }
+
+  const setAllTickerPrice = async () => {
+    const allTickersPriceList = await fetchTickerPriceDataByName(
+      compileAllTickerNamesToString(tickerList.value),
+      CURRENCY
+    )
+
+    tickerList.value.forEach((item) => {
+      if (allTickersPriceList[item.ticker.toLowerCase()])
+        item.price = allTickersPriceList[item.ticker.toLowerCase()][CURRENCY]
+    })
+  }
+
+  // const setAllTickerSymbols = (inputData) => {
+  //   tickerList.value.forEach((item) => {
+  //     const newTicker = inputData.find((input) => input.tickerSlot === item.tickerSlot)
+  //     if (newTicker) item.tickerSymbol = newTicker.ticker
+  //   })
+  // }
+
+  const setAllTickerNames = (inputData) => {
+    tickerList.value.forEach((item) => {
+      const newTicker = inputData.find((input) => input.tickerSlot === item.tickerSlot)
+      if (newTicker) item.ticker = newTicker.ticker
+    })
   }
 
   // get, set tickerList
@@ -75,21 +92,18 @@ export const useBlock = () => {
     })
   }
 
+  // BlockDetail
+
   const getTickerDetailBySlot = async (slot: number): Promise<any> => {
     return await fetchTickerDetailByName(getTickerPropertyBySlot(slot, TICKER_NAME))
       .then((data) => Promise.resolve(data))
       .catch((error) => Promise.reject(error))
   }
 
-  const handleToggleBlockDetail = async (tickerSlot: number) => {
-    console.log(tickerSlot)
-    blockDetailData.value = await getTickerDetailBySlot(tickerSlot)
-
-    tickerList.value.forEach((item) => {
-      item.isBlockSelected = item.tickerSlot === tickerSlot
-    })
-
-    toggleBlockDetail.value = tickerSlot === MAIN_SLOT ? !toggleBlockDetail.value : true
+  const handleToggleBlockDetail = async (slot: number) => {
+    blockDetailData.value = await getTickerDetailBySlot(slot)
+    editTickerListProperty(slot, TICKER_IS_BLOCKSELECTED, true)
+    toggleBlockDetail.value = slot === MAIN_SLOT ? !toggleBlockDetail.value : true
   }
 
   return {
@@ -102,9 +116,10 @@ export const useBlock = () => {
     TICKER_PRICE,
     TICKER_SHOWINPUT,
     TICKER_SYMBOL,
-    changeTickerListIntoStrings,
+    compileAllTickerNamesToString,
     handleToggleBlockDetail,
-    updateAllTickers,
-    editTickerListProperty
+    setAllTickerPrice,
+    editTickerListProperty,
+    setAllTickerNames
   }
 }

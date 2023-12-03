@@ -98,10 +98,11 @@ const {
   TICKER_PRICE,
   TICKER_SHOWINPUT,
   TICKER_SYMBOL,
-  changeTickerListIntoStrings,
+  compileAllTickerNamesToString,
   handleToggleBlockDetail,
-  updateAllTickers,
-  editTickerListProperty
+  setAllTickerPrice,
+  editTickerListProperty,
+  setAllTickerNames
 } = useBlock()
 
 const confirm = () => {
@@ -128,31 +129,18 @@ const handleInputNewTicker = async (value: string, slot: number) => {
     localStorage.setItem('tickerList', JSON.stringify(tickerList.value))
     handleToggleBlockDetail(slot)
   }
-
 }
 
-const updateTickerList = async (dataList) => {
-  const newEditDataList = dataList
-  console.log(newEditDataList)
-  newEditDataList.forEach((item) => {
-    if (item.ticker) {
-      tickerList.value.map((tickerList) => {
-        if (tickerList.tickerSlot === item.tickerSlot) {
-          tickerList.ticker = item.ticker
-          updateTickerNameBySymbol(tickerList.tickerSlot, allCoinsList)
-        }
-      })
-    }
-  })
+const updateTickerList = (dataList: any) => {
+  const newEditDataList = dataList.filter((item: any) => item.ticker)
+
+  setAllTickerNames(newEditDataList)
+  setAllTickerPrice()
+  console.log(tickerList.value)
 }
 
-onMounted(async () => {
-  const allTickers = await fetchTickerPriceDataByName(
-    changeTickerListIntoStrings(tickerList.value),
-    currency.value
-  )
-
-  updateAllTickers(allTickers)
+onMounted(() => {
+  setAllTickerPrice()
 })
 </script>
 
