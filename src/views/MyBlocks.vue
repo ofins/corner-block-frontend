@@ -95,15 +95,19 @@ const {
   toggleBlockDetail,
   blockDetailData,
   handleInputNewTicker,
-  handleIsShowInput,
   hideAllInputs,
   changeTickerListIntoStrings,
   handleToggleBlockDetail,
   updateAllTickers,
+  editTickerListProperty
 } = useBlock()
 
 const confirm = () => {
   show.value = false
+}
+
+const handleIsShowInput = (slot: number) => {
+  editTickerListProperty(slot, 'isShowInput', true)
 }
 
 const updateTickerList = async (dataList) => {
@@ -119,14 +123,6 @@ const updateTickerList = async (dataList) => {
       })
     }
   })
-
-  // console.log(tickerList.value)
-  // const allTickers = await fetchTickerPriceDataByName(
-  //   changeTickerListIntoStrings(tickerList.value),
-  //   currency.value
-  // )
-
-  // updateAllTickers(allTickers)
 }
 
 onMounted(async () => {

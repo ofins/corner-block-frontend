@@ -60,12 +60,6 @@ export const useBlock = () => {
     handleToggleBlockDetail(tickerSlot)
   }
 
-  const handleIsShowInput = (tickerSlot: number) => {
-    for (const item of tickerList.value) {
-      item.isShowInput = item.tickerSlot === tickerSlot
-    }
-  }
-
   const hideAllInputs = () => {
     tickerList.value.forEach((item) => {
       item.isShowInput = false
@@ -84,6 +78,17 @@ export const useBlock = () => {
     if (ticker) {
       return ticker[key]
     }
+  }
+
+  const editTickerListProperty = (slot: number, targetKey: string, value: any) => {
+    tickerList.value.forEach((item) => {
+      if (item.tickerSlot === slot) {
+        item[targetKey] = value
+      } else {
+        return item
+      }
+    })
+    console.log(tickerList.value)
   }
 
   const getTickerDetailBySlot = (slot: number): Promise<any> => {
@@ -110,10 +115,10 @@ export const useBlock = () => {
     toggleBlockDetail,
     blockDetailData,
     handleInputNewTicker,
-    handleIsShowInput,
     hideAllInputs,
     changeTickerListIntoStrings,
     handleToggleBlockDetail,
-    updateAllTickers
+    updateAllTickers,
+    editTickerListProperty
   }
 }
