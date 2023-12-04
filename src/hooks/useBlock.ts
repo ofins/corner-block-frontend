@@ -34,7 +34,7 @@ export const useBlock = () => {
       tickerList.value = JSON.parse(res)
     } else {
       console.log('localStorage Empty, set default list.')
-      saveToLocalStorage(LOCAL_STORAGE_TICKERLIST, tickerList.value)
+      saveToLocalStorage(LOCAL_STORAGE_TICKERLIST, defaultTickerList)
       setAllTickersDetail()
       window.location.reload()
     }
