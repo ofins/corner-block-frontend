@@ -19,16 +19,24 @@
         <tbody>
           <tr v-for="(item, idx) in data" :key="item.tickerSLot">
             <td>#{{ idx + 1 }}</td>
-            <td><input :placeholder="Placeholder.CoinId" v-model="item.ticker" /></td>
-            <td><input :placeholder="Placeholder.Holding" v-model="item.holding" /></td>
+            <td><input class="b-none rd-4px h-20px mb-2px drop-shadow" :placeholder="Placeholder.CoinId" v-model="item.ticker" /></td>
+            <td><input class="b-none rd-4px h-20px mb-2px drop-shadow" :placeholder="Placeholder.Holding" v-model="item.holding" disabled /></td>
           </tr>
         </tbody>
       </table>
     </div>
     <slot />
-    <button class="mt-1 ml-auto px-2 border rounded-lg cursor-pointer" @click.prevent="onSubmit">
-      Confirm
-    </button>
+    <div class="flex items-center justify-end gap-8px">
+      <button
+        class="mt-1 px-2 border rounded-lg cursor-pointer w-fit"
+        @click.prevent="emit('confirm')"
+      >
+        Close
+      </button>
+      <button class="mt-1 px-2 border rounded-lg cursor-pointer w-fit" @click.prevent="onSubmit">
+        Confirm
+      </button>
+    </div>
   </VueFinalModal>
 </template>
 
