@@ -14,6 +14,9 @@
       ></RouterLink>
     </div>
     <div>
+      <!-- <div @click="open" class="cursor-pointer">
+        <img src="/icons/icons8-remove-100.png" class="w-40px" />
+      </div> -->
       <div @click="open" class="cursor-pointer">
         <img src="/icons/icons8-create-100.png" class="w-40px" />
       </div>
