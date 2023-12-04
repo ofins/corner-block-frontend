@@ -5,7 +5,6 @@
       class="animate-bounce-alt animate-count-infinite animate-duration-3s"
     />
     <div class="c-text-asPrimary mt-20 text-center">
-      <p>Version 2023.11.28</p>
       <p>
         Built by
         <a
@@ -15,10 +14,16 @@
           >ofins.ron</a
         >
       </p>
+      <p class="mt-16px">Version 2023.12.4</p>
+      <ul class="text-start">
+        <li>Allow multi-editing of existing block through modal</li>
+        <li>increase blocks number from 5 to 11</li>
+        <li>added glowing border when block is selected</li>
+        <li>prices updates correctly</li>
+        <li>fix minor bugs</li>
+      </ul>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
