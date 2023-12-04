@@ -27,29 +27,6 @@ export const useBlock = () => {
   const MAIN_SLOT = 1
   const LOCAL_STORAGE_TICKERLIST = 'tickerList'
 
-  const retrieveFromLocalStorage = (key: string) => {
-    const res = localStorage.getItem(key)
-    if (res) {
-      console.log('Data retrieved from localStorage:')
-      tickerList.value = JSON.parse(res)
-    } else {
-      console.log('localStorage Empty, set default list.')
-      tickerList.value = defaultTickerList
-      saveToLocalStorage(LOCAL_STORAGE_TICKERLIST, defaultTickerList)
-      setAllTickersDetail()
-      window.location.reload()
-    }
-  }
-
-  const saveToLocalStorage = (key: string, data: any) => {
-    console.log(`data saved to ${key}`)
-    localStorage.setItem(key, JSON.stringify(data))
-  }
-
-  retrieveFromLocalStorage(LOCAL_STORAGE_TICKERLIST)
-  tickerList_medium.value = tickerList.value.slice(1, 5)
-  tickerList_small_one.value = tickerList.value.slice(5, 11)
-
   // core
   const returnTargetProperty = (source: any, given: any, target: any) => {
     console.log(source, given, target)
@@ -130,6 +107,29 @@ export const useBlock = () => {
     setAllTickersDetail()
     saveToLocalStorage(LOCAL_STORAGE_TICKERLIST, tickerList.value)
   }
+
+  const retrieveFromLocalStorage = (key: string) => {
+    const res = localStorage.getItem(key)
+    if (res) {
+      console.log('Data retrieved from localStorage:')
+      tickerList.value = JSON.parse(res)
+    } else {
+      console.log('localStorage Empty, set default list.')
+      tickerList.value = defaultTickerList
+      saveToLocalStorage(LOCAL_STORAGE_TICKERLIST, defaultTickerList)
+      setAllTickersDetail()
+      window.location.reload()
+    }
+  }
+
+  const saveToLocalStorage = (key: string, data: any) => {
+    console.log(`data saved to ${key}`)
+    localStorage.setItem(key, JSON.stringify(data))
+  }
+
+  retrieveFromLocalStorage(LOCAL_STORAGE_TICKERLIST)
+  tickerList_medium.value = tickerList.value.slice(1, 5)
+  tickerList_small_one.value = tickerList.value.slice(5, 11)
 
   return {
     tickerList,
