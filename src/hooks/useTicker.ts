@@ -15,7 +15,7 @@ export const useTicker = () => {
 
   const fetchTickerDetailByName = async (ticker: string) => {
     try {
-      const response = await getTickerDetail(ticker)
+      const response = await getTickerDetail(ticker.toLowerCase())
       if (response.status !== 200) {
         throw new Error(`status-code:${response.status}`)
       }

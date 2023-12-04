@@ -14,32 +14,46 @@ export const useBlock = () => {
   const tickerList_small_one = ref([])
   const blockDetailData = ref()
 
+  enum Ticker {
+    Name = 'ticker',
+    Symbol = 'tickerSymbol',
+    Price = 'price',
+    IsShowInput = 'isShowInput',
+    IsBlockSelected = 'isBlockSelected',
+    Slot = 'tickerSlot',
+    Currency = 'usd'
+  }
+
   const MAIN_SLOT = 1
-  const TICKER_NAME = 'ticker'
-  const TICKER_SYMBOL = 'tickerSymbol'
-  const TICKER_PRICE = 'price'
-  const TICKER_SHOWINPUT = 'isShowInput'
-  const TICKER_IS_BLOCKSELECTED = 'isBlockSelected'
-  const CURRENCY = 'usd'
   const LOCAL_STORAGE_TICKERLIST = 'tickerList'
 
-  const retrieveFromLocalStorage = () => {
-    const data = localStorage.getItem(LOCAL_STORAGE_TICKERLIST)
-    if (data) {
+  const retrieveFromLocalStorage = (key: string) => {
+    const res = localStorage.getItem(key)
+    if (res) {
       console.log('Data retrieved from localStorage:')
-      tickerList.value = JSON.parse(data)
-      // setAllTickersDetail()
+      tickerList.value = JSON.parse(res)
     } else {
       console.log('localStorage Empty, set default list.')
-      localStorage.setItem(LOCAL_STORAGE_TICKERLIST, JSON.stringify(defaultTickerList))
+      saveToLocalStorage(LOCAL_STORAGE_TICKERLIST, tickerList.value)
       setAllTickersDetail()
       window.location.reload()
     }
   }
 
-  retrieveFromLocalStorage()
+  const saveToLocalStorage = (key: string, data: any) => {
+    console.log(`data saved to ${key}`)
+    localStorage.setItem(key, JSON.stringify(data))
+  }
+
+  retrieveFromLocalStorage(LOCAL_STORAGE_TICKERLIST)
   tickerList_medium.value = tickerList.value.slice(1, 5)
   tickerList_small_one.value = tickerList.value.slice(5, 11)
+
+  // core
+  const returnTargetProperty = (source: any, given: any, target: any) => {
+    console.log(source, given, target)
+    return source.find((item: any) => item[given] === target)
+  }
 
   // setAllTicker
 
@@ -53,7 +67,7 @@ export const useBlock = () => {
   const setAllTickersDetail = async () => {
     const allTickersDetailList = await fetchMultiTickersDetailByName(
       compileAllTickerNamesToString(tickerList.value),
-      CURRENCY
+      Ticker.Currency
     )
 
     tickerList.value.forEach((item) => {
@@ -69,41 +83,51 @@ export const useBlock = () => {
 
   const setAllTickerNames = (inputData) => {
     tickerList.value.forEach((item) => {
-      const newTicker = inputData.find((input) => input.tickerSlot === item.tickerSlot)
+      const newTicker = returnTargetProperty(inputData, Ticker.Slot, item.tickerSlot)
       if (newTicker) item.ticker = newTicker.ticker
     })
   }
 
   // get, set tickerList
   const getTickerPropertyBySlot = (slot: number, key) => {
-    const ticker = tickerList.value.find((item) => item.tickerSlot === slot)
-    if (ticker) {
-      return ticker[key]
-    }
+    const ticker = returnTargetProperty(tickerList.value, Ticker.Slot, slot)
+    if (ticker) return ticker[key]
   }
 
   const editTickerListProperty = (slot: number, targetKey: string, value: any) => {
     tickerList.value.forEach((item) => {
-      if (item.tickerSlot === slot) {
-        item[targetKey] = value
-      } else {
-        return item
-      }
+      if (item.tickerSlot === slot) item[targetKey] = value
+      else return item
     })
   }
 
   // BlockDetail
 
   const getTickerDetailBySlot = async (slot: number): Promise<any> => {
-    return await fetchTickerDetailByName(getTickerPropertyBySlot(slot, TICKER_NAME))
+    return await fetchTickerDetailByName(getTickerPropertyBySlot(slot, Ticker.Name))
       .then((data) => Promise.resolve(data))
       .catch((error) => Promise.reject(error))
   }
 
   const handleToggleBlockDetail = async (slot: number) => {
     blockDetailData.value = await getTickerDetailBySlot(slot)
-    editTickerListProperty(slot, TICKER_IS_BLOCKSELECTED, true)
+
+    tickerList.value.forEach((tick) => {
+      if (tick.tickerSlot === slot)
+        editTickerListProperty(tick.tickerSlot, Ticker.IsBlockSelected, true)
+      else editTickerListProperty(tick.tickerSlot, Ticker.IsBlockSelected, false)
+    })
     toggleBlockDetail.value = slot === MAIN_SLOT ? !toggleBlockDetail.value : true
+    saveToLocalStorage(LOCAL_STORAGE_TICKERLIST, tickerList.value)
+  }
+
+  // edit table
+  const submitEditTable = (dataList: any) => {
+    const newEditDataList = dataList.filter((item: any) => item.ticker)
+  
+    setAllTickerNames(newEditDataList)
+    setAllTickersDetail()
+    saveToLocalStorage(LOCAL_STORAGE_TICKERLIST, tickerList.value)
   }
 
   return {
@@ -112,14 +136,14 @@ export const useBlock = () => {
     tickerList_small_one,
     toggleBlockDetail,
     blockDetailData,
-    TICKER_NAME,
-    TICKER_PRICE,
-    TICKER_SHOWINPUT,
-    TICKER_SYMBOL,
+    Ticker,
+    LOCAL_STORAGE_TICKERLIST,
     compileAllTickerNamesToString,
     handleToggleBlockDetail,
     setAllTickersDetail,
     editTickerListProperty,
-    setAllTickerNames
+    setAllTickerNames,
+    saveToLocalStorage,
+    submitEditTable
   }
 }
