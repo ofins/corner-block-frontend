@@ -1,9 +1,7 @@
 <template>
   <div class="bg-bg-asPrimary w-full h-full py-20px" @click="hideAllInputs">
     <div class="flex-col-center">
-      <div class="mb-42px">
-        <!-- <span class="c-text-asPrimary headline-regular">My Bags</span> -->
-      </div>
+      <div class="mb-42px"></div>
       <div
         class="flex-col-center items-center lg:flex-row lg:justify-center lg:gap-10 max-w-1000px w-full"
       >
@@ -68,7 +66,6 @@ import { storeToRefs } from 'pinia'
 
 const { fetchTickerPriceDataByName, fetchTickerDetailByName } = useTicker()
 const { currency } = storeToRefs(useAppStore())
-const show = ref(false)
 
 const {
   tickerList,
