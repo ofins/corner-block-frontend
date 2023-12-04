@@ -53,24 +53,8 @@
           @handle-toggle-block-detail="handleToggleBlockDetail"
         />
       </div>
-      <!-- <div class="grid grid-cols-2 gap-20px mt-5">
-        <TheBlock
-          v-for="(value, key, index) in tickerList_small_two"
-          sizeType="size-M"
-          :is-show-input="value.isShowInput"
-          :tickerSymbol="value.tickerSymbol"
-          :price="value.price"
-          currency="currency"
-          :key="value.tickerSlot"
-          :ticker-slot="value.tickerSlot"
-          @update-ticker="handleInputNewTicker"
-          @update-is-show-input="handleIsShowInput"
-        />
-      </div> -->
-      <button @click="show = true">click</button>
     </div>
   </div>
-  <TickerInputTableModal v-model="show" @confirm="confirm" @update:ticker-list="updateTickerList" />
 </template>
 
 <script setup lang="ts">
@@ -81,7 +65,6 @@ import { useTicker } from '@/hooks/useTicker'
 import { useBlock } from '@/hooks/useBlock'
 import { useAppStore } from '@/stores/app'
 import { storeToRefs } from 'pinia'
-import TickerInputTableModal from '@/components/modal/TickerInputTableModal.vue'
 
 const { fetchTickerPriceDataByName, fetchTickerDetailByName } = useTicker()
 const { currency } = storeToRefs(useAppStore())
@@ -93,19 +76,13 @@ const {
   tickerList_small_one,
   toggleBlockDetail,
   blockDetailData,
-  TICKER_NAME,
-  TICKER_PRICE,
-  TICKER_SHOWINPUT,
-  TICKER_SYMBOL,
+  Ticker,
+  LOCAL_STORAGE_TICKERLIST,
   handleToggleBlockDetail,
   setAllTickersDetail,
   editTickerListProperty,
-  setAllTickerNames
+  saveToLocalStorage
 } = useBlock()
-
-const confirm = () => {
-  show.value = false
-}
 
 const handleIsShowInput = (slot: number) => {
   editTickerListProperty(slot, 'isShowInput', true)
@@ -120,21 +97,14 @@ const hideAllInputs = () => {
 const handleInputNewTicker = async (value: string, slot: number) => {
   const data = await fetchTickerDetailByName(value)
   if (data) {
-    editTickerListProperty(slot, TICKER_SYMBOL, data.symbol.toUpperCase())
-    editTickerListProperty(slot, TICKER_NAME, data.name)
-    editTickerListProperty(slot, TICKER_PRICE, data.market_data.current_price.usd)
-    editTickerListProperty(slot, TICKER_SHOWINPUT, false)
+    editTickerListProperty(slot, Ticker.Symbol, data.symbol.toUpperCase())
+    editTickerListProperty(slot, Ticker.Name, data.name)
+    editTickerListProperty(slot, Ticker.Price, data.market_data.current_price.usd)
+    editTickerListProperty(slot, Ticker.IsShowInput, false)
 
-    localStorage.setItem('tickerList', JSON.stringify(tickerList.value))
+    saveToLocalStorage(LOCAL_STORAGE_TICKERLIST, tickerList.value)
     handleToggleBlockDetail(slot)
   }
-}
-
-const updateTickerList = (dataList: any) => {
-  const newEditDataList = dataList.filter((item: any) => item.ticker)
-
-  setAllTickerNames(newEditDataList)
-  setAllTickersDetail()
 }
 
 onMounted(() => {

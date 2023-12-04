@@ -19,25 +19,27 @@
         <tbody>
           <tr v-for="(item, idx) in data" :key="item.tickerSLot">
             <td>#{{ idx + 1 }}</td>
-            <td><input v-model="item.ticker" /></td>
-            <td><input v-model="item.holding" /></td>
+            <td><input :placeholder="Placeholder.CoinId" v-model="item.ticker" /></td>
+            <td><input :placeholder="Placeholder.Holding" v-model="item.holding" /></td>
           </tr>
         </tbody>
       </table>
     </div>
     <slot />
-    <button class="mt-1 ml-auto px-2 border rounded-lg" @click.prevent="onSubmit">Confirm</button>
+    <button class="mt-1 ml-auto px-2 border rounded-lg cursor-pointer" @click.prevent="onSubmit">
+      Confirm
+    </button>
   </VueFinalModal>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import { VueFinalModal } from 'vue-final-modal'
+import { useBlock } from '@/hooks/useBlock'
 
-type Ticker = {
-  tickerSlot: number
-  ticker: string
-  holding: number
+enum Placeholder {
+  CoinId = 'Insert Token Name ',
+  Holding = 'Amount'
 }
 
 const title = 'Edit Your Bags'
@@ -45,18 +47,19 @@ const data = ref(
   Array.from({ length: 11 }, (_, index) => ({
     tickerSlot: index + 1,
     ticker: '',
-    holding: 0
+    holding: null
   }))
 )
 
+const { submitEditTable } = useBlock()
+
 const emit = defineEmits<{
-  (e: 'update:modelValue', modelValue: boolean): void
   (e: 'confirm'): void
-  (e: 'update:tickerList', data: Ticker[]): void
 }>()
 
 const onSubmit = () => {
-  emit('update:tickerList', data.value)
+  submitEditTable(data.value)
+  window.location.reload()
   emit('confirm')
 }
 </script>
