@@ -21,7 +21,8 @@ export const useBlock = () => {
     IsShowInput = 'isShowInput',
     IsBlockSelected = 'isBlockSelected',
     Slot = 'tickerSlot',
-    Currency = 'usd'
+    Currency = 'usd',
+    Id = 'id'
   }
 
   const MAIN_SLOT = 1
@@ -29,40 +30,39 @@ export const useBlock = () => {
 
   // core
   const returnTargetProperty = (source: any, given: any, target: any) => {
-    console.log(source, given, target)
     return source.find((item: any) => item[given] === target)
   }
 
   // setAllTicker
 
-  const compileAllTickerNamesToString = (tickerList: any) => {
+  const compileAllTickerIdToString = (tickerList: any) => {
     return tickerList
-      .filter((item: any) => item.ticker)
-      .map((item: any) => item.ticker)
+      .filter((item: any) => item.id)
+      .map((item: any) => item.id)
       .join(',')
   }
 
   const setAllTickersDetail = async () => {
     const allTickersDetailList = await fetchMultiTickersDetailByName(
-      compileAllTickerNamesToString(tickerList.value),
+      compileAllTickerIdToString(tickerList.value),
       Ticker.Currency
     )
 
-    tickerList.value.forEach((item) => {
-      const ticker = allTickersDetailList.find(
-        (ticker: any) => ticker.id === item.ticker.toLowerCase()
-      )
+    tickerList.value.forEach((item: any) => {
+      const ticker = allTickersDetailList.find((ticker: any) => ticker.id === item.id)
       if (ticker) {
         item.price = ticker.current_price
         item.tickerSymbol = ticker.symbol.toUpperCase()
+        item.ticker = ticker.name
       }
     })
   }
 
   const setAllTickerNames = (inputData) => {
     tickerList.value.forEach((item) => {
-      const newTicker = returnTargetProperty(inputData, Ticker.Slot, item.tickerSlot)
-      if (newTicker) item.ticker = newTicker.ticker
+      // const newTicker = returnTargetProperty(inputData, Ticker.Slot, item.tickerSlot)
+      const newTicker = inputData.find((input) => input[Ticker.Slot] === item.tickerSlot)
+      if (newTicker) item.id = newTicker.id
     })
   }
 
@@ -82,7 +82,7 @@ export const useBlock = () => {
   // BlockDetail
 
   const getTickerDetailBySlot = async (slot: number): Promise<any> => {
-    return await fetchTickerDetailByName(getTickerPropertyBySlot(slot, Ticker.Name))
+    return await fetchTickerDetailByName(getTickerPropertyBySlot(slot, Ticker.Id))
       .then((data) => Promise.resolve(data))
       .catch((error) => Promise.reject(error))
   }
@@ -101,8 +101,7 @@ export const useBlock = () => {
 
   // edit table
   const submitEditTable = (dataList: any) => {
-    const newEditDataList = dataList.filter((item: any) => item.ticker)
-
+    const newEditDataList = dataList.filter((item: any) => item.id)
     setAllTickerNames(newEditDataList)
     setAllTickersDetail()
     saveToLocalStorage(LOCAL_STORAGE_TICKERLIST, tickerList.value)
@@ -139,7 +138,7 @@ export const useBlock = () => {
     blockDetailData,
     Ticker,
     LOCAL_STORAGE_TICKERLIST,
-    compileAllTickerNamesToString,
+    compileAllTickerIdToString,
     handleToggleBlockDetail,
     setAllTickersDetail,
     editTickerListProperty,

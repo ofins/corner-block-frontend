@@ -61,7 +61,6 @@ const inputRef = ref<HTMLInputElement | null>(null)
 const emit = defineEmits(['update-ticker', 'handleToggleBlockDetail'])
 
 const onSubmit = (e: any) => {
-  console.log(e.target.value)
   emit('update-ticker', e.target.value, props.tickerSlot)
 }
 

@@ -24,8 +24,6 @@ const route = useRoute()
 const title = ref<string>()
 
 const handleToggleSideBar = () => {
-  let val = !showSideBar.value
-  console.log(val)
   appStore.setShowSideBar(!showSideBar.value)
 }
 

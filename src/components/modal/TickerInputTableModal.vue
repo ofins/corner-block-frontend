@@ -19,7 +19,7 @@
         <tbody>
           <tr v-for="(item, idx) in data" :key="item.tickerSLot">
             <td>#{{ idx + 1 }}</td>
-            <td><input class="b-none rd-4px h-20px mb-2px drop-shadow" :placeholder="Placeholder.CoinId" v-model="item.ticker" /></td>
+            <td><input class="b-none rd-4px h-20px mb-2px drop-shadow" :placeholder="Placeholder.CoinId" v-model="item.id" /></td>
             <td><input class="b-none rd-4px h-20px mb-2px drop-shadow" :placeholder="Placeholder.Holding" v-model="item.holding" disabled /></td>
           </tr>
         </tbody>
@@ -55,6 +55,7 @@ const data = ref(
   Array.from({ length: 11 }, (_, index) => ({
     tickerSlot: index + 1,
     ticker: '',
+    id:'',
     holding: null
   }))
 )

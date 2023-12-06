@@ -98,6 +98,7 @@ const handleInputNewTicker = async (value: string, slot: number) => {
     editTickerListProperty(slot, Ticker.Name, data.name)
     editTickerListProperty(slot, Ticker.Price, data.market_data.current_price.usd)
     editTickerListProperty(slot, Ticker.IsShowInput, false)
+    editTickerListProperty(slot, Ticker.Id, data.id)
 
     saveToLocalStorage(LOCAL_STORAGE_TICKERLIST, tickerList.value)
     handleToggleBlockDetail(slot)
