@@ -1,17 +1,21 @@
 export default {
   colors: {
-    alert: '#cc0000',
-    confirm: '#2f7c0d',
+    alert: '#ED2B2A',
+    confirm: '#03C988',
+    primary: '#E16428',
     text: {
       asPrimary: '#FFFFFF',
-      asSecondary: '#232326',
+      asSecondary: '#A9A9A9',
       asInverse: {
         '01': '#6A6A6A'
       }
     },
     bg: {
-      asPrimary: '#232326',
-      asSecondary: '#D9D9D9',
+      asPrimary: '#0f0f0f',
+      asSecondary: '#1c1c1c',
+      asInverse:{
+        '01': '#6A6A6A'
+      },
       asMask: '#0000004d'
     },
     line: '#D9D9D9'

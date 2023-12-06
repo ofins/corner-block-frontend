@@ -21,12 +21,12 @@
       class="w-80px b-none bg-transparent c-text-asPrimary fw-700 text-20px b-transparent mb-8px"
       @keyup.enter.prevent="onSubmit"
     />
-    <div class="w-70% flex-col-center bg-bg-asSecondary h-42px rd-50px shadow-image">
-      <span class="headline-medium font-black c-text-asInverse-01"> ${{ price }} </span>
+    <div class="w-70% flex-col-center bg-primary bg-op-90 h-42px rd-50px">
+      <span class="headline-medium font-black c-text-asPrimary"> ${{ price }} </span>
     </div>
   </form>
   <!-- block details -->
-  <div v-show="toggleBlockDetail" :class="sizeType" class="rd-regular overflow-hidden">
+  <div v-show="toggleBlockDetail" :class="sizeType" class="rd-regular">
     <BlockDetail
       :market-cap="blockDetailData?.market_data?.market_cap.usd"
       :symbol="blockDetailData?.symbol"
@@ -93,9 +93,12 @@ const handleIsShowInput = async () => {
 }
 
 .style-1 {
-  background: linear-gradient(169deg, #61e3ff 1.63%, rgba(0, 209, 255, 0) 92.06%),
-    linear-gradient(225deg, #ff00b8 1.45%, #ffc700 99.36%),
-    linear-gradient(180deg, #ff7b7b 0%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(
+    35.95deg,
+    hsla(0, 0%, 100%, 0.05) 21.76%,
+    hsla(0, 0%, 100%, 0) 80.12%
+  );
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
 .fade-enter-active,

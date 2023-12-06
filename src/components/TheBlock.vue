@@ -1,6 +1,6 @@
 <template>
   <form
-    class="b-none rd-regular flex-col-center relative bg-gradient-to-b from-#A0C3FC to-#5E3268 cursor-pointer d-transition hover:shadow-[0px_0px_15px_#A0C3FC]"
+    class="b-none rd-regular flex-col-center relative bg-gradient-to-tl from-primary to-#ffffff cursor-pointer d-transition hover:shadow-[0px_0px_15px_#A0C3FC]"
     :class="[
       sizeType,
       {
@@ -14,7 +14,7 @@
     @click="handleClick"
   >
     <div
-      class="absolute bg-bg-asPrimary w-95% h-95% top-50% translate-y--50% left-50% translate-x--50% rd-regular flex-col-center"
+      class="absolute bg-bg-asSecondary w-95% h-95% top-50% translate-y--50% left-50% translate-x--50% rd-regular flex-col-center"
     >
       <span
         v-show="!isShowInput"
