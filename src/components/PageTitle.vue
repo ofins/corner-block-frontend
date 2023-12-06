@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch, computed } from 'vue'
 import { useAppStore } from '@/stores/app'
 import { storeToRefs } from 'pinia'
 
@@ -21,18 +21,12 @@ const appStore = useAppStore()
 const { showSideBar } = storeToRefs(appStore)
 
 const route = useRoute()
-const title = ref<string>()
+// const title = ref<string>()
+const title = computed(() => (route.path === '/my-blocks' ? 'My Bags' : 'CornerBlock'))
 
 const handleToggleSideBar = () => {
   appStore.setShowSideBar(!showSideBar.value)
 }
-
-watch(
-  () => route.path,
-  (newParams) => {
-    title.value = newParams === '/my-blocks' ? 'My Bags' : 'CornerBlock'
-  }
-)
 </script>
 
 <style scoped></style>
