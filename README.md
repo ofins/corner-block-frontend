@@ -15,3 +15,10 @@
 - block border glow style added
 - when blockDetail is toggled, corresponding block will glow to indicate which block is selected
 - fix minor bugs
+
+### 2023.12.6
+- redesign theme color and style
+- fix search queries with hyphens 
+- added percentage change stats to block detail when clicked
+- block detail style changed to fit dark mode 
+- fix minor bugs
