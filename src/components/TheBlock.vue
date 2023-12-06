@@ -18,7 +18,7 @@
     >
       <span
         v-show="!isShowInput"
-        class="headline-medium c-text-asInverse-01 uppercase p-4px text-center min-w-80%"
+        class="headline-medium <xl:headline-regular c-text-asInverse-01 uppercase p-4px text-center min-w-80%"
         style="letter-spacing: 2px"
         :class="{ 'headline-regular': sizeType === 'size-S' }"
       >
