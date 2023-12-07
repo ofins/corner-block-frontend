@@ -1,7 +1,7 @@
 <template>
   <form
     v-show="!toggleBlockDetail"
-    class="style-1 b-none rd-regular flex-col-center cursor-pointer"
+    class="style-1 b-none rd-regular flex-col-center cursor-pointer relative"
     :class="sizeType"
     @click="emit('handleToggleBlockDetail', tickerSlot)"
     @dblclick="handleIsShowInput"
@@ -24,6 +24,16 @@
     <div class="w-70% flex-col-center bg-primary bg-op-90 h-42px rd-50px">
       <span class="headline-medium font-black c-text-asPrimary"> ${{ price }} </span>
     </div>
+    <span
+      v-if="showTotalValue"
+      class="headline-regular font-normal c-text-asSecondary mt-8px"
+      :class="{ 'headline-small': sizeType === 'size-S' }"
+    >
+      ${{ totalValue }}
+    </span>
+    <span v-show="!showTotalValue" class="c-text-asSecondary fw-400 text-16px absolute bottom-10%">
+      {{ holding }}
+    </span>
   </form>
   <!-- block details -->
   <div v-show="toggleBlockDetail" :class="sizeType" class="rd-regular">
@@ -42,8 +52,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onUpdated } from 'vue'
+import { ref, onUpdated, computed } from 'vue'
 import BlockDetail from './BlockDetail.vue'
+import { storeToRefs } from 'pinia'
+import { useAppStore } from '@/stores/app'
+const { showTotalValue } = storeToRefs(useAppStore())
 
 const props = defineProps({
   tickerSymbol: { type: String },
@@ -53,8 +66,11 @@ const props = defineProps({
   tickerSlot: Number,
   isShowInput: Boolean,
   blockDetailData: Object,
-  toggleBlockDetail: Boolean
+  toggleBlockDetail: Boolean,
+  holding: Number
 })
+
+const totalValue = computed(() => props?.holding * props?.price)
 
 const inputRef = ref<HTMLInputElement | null>(null)
 
@@ -98,7 +114,7 @@ const handleIsShowInput = async () => {
     hsla(0, 0%, 100%, 0.05) 21.76%,
     hsla(0, 0%, 100%, 0) 80.12%
   );
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .fade-enter-active,

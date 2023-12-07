@@ -38,12 +38,30 @@
       >
         ${{ price }}
       </span>
+      <span
+        v-if="showTotalValue"
+        class="headline-regular font-normal c-text-asSecondary mt-8px"
+        :class="{ 'headline-small': sizeType === 'size-S' }"
+      >
+        ${{ totalValue }}
+      </span>
+      <span
+        v-show="!showTotalValue"
+        class="c-text-asSecondary fw-400 text-12px absolute bottom-10%"
+      >
+        {{ holding }}
+      </span>
     </div>
   </form>
 </template>
 
 <script setup lang="ts">
-import { ref, onUpdated } from 'vue'
+import { ref, onUpdated, computed } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useAppStore } from '@/stores/app'
+
+// const appStore = useAppStore()
+const { showTotalValue } = storeToRefs(useAppStore())
 
 const props = defineProps({
   tickerSymbol: { type: String },
@@ -52,12 +70,16 @@ const props = defineProps({
   price: Number,
   tickerSlot: Number,
   isShowInput: Boolean,
-  isBlockSelected: Boolean
+  isBlockSelected: Boolean,
+  holding: Number
 })
 
 const NO_TICKER_DEFAULT = 'dbl click to add'
 const inputRef = ref<HTMLInputElement | null>(null)
 const isClicked = ref(false)
+
+const totalValue = computed(() => props?.holding * props?.price)
+console.log(totalValue)
 
 const emit = defineEmits(['update-ticker', 'handleToggleBlockDetail'])
 

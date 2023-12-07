@@ -78,7 +78,8 @@ const { open: openBasicModal, close: closeBasicModal } = useModal({
     onClose() {
       closeBasicModal()
     },
-    escToClose: true
+    escToClose: true,
+    title: 'Clear Token Data'
   },
   slots: {
     default: '<p>Are you sure you want to reset all token data?</p>'

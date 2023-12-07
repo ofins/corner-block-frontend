@@ -15,6 +15,7 @@
             :ticker-slot="tickerList[0].tickerSlot"
             :block-detail-data="blockDetailData"
             :toggle-block-detail="toggleBlockDetail"
+            :holding="tickerList[0].holding"
             @update-ticker="handleInputNewTicker"
             @update-is-show-input="handleIsShowInput"
             @handle-toggle-block-detail="handleToggleBlockDetail"
@@ -30,6 +31,7 @@
               :key="value.tickerSlot"
               :ticker-slot="value.tickerSlot"
               :is-block-selected="value.isBlockSelected"
+              :holding="value.holding"
               @update-ticker="handleInputNewTicker"
               @update-is-show-input="handleIsShowInput"
               @handle-toggle-block-detail="handleToggleBlockDetail"
@@ -47,6 +49,7 @@
             :key="value.tickerSlot"
             :ticker-slot="value.tickerSlot"
             :is-block-selected="value.isBlockSelected"
+            :holding="value.holding"
             @update-ticker="handleInputNewTicker"
             @update-is-show-input="handleIsShowInput"
             @handle-toggle-block-detail="handleToggleBlockDetail"
@@ -109,6 +112,7 @@ const handleInputNewTicker = async (value: string, slot: number) => {
 
 onMounted(() => {
   setAllTickersDetail()
+  console.log(tickerList.value)
 })
 </script>
 

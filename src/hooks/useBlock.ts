@@ -50,6 +50,7 @@ export const useBlock = () => {
 
     tickerList.value.forEach((item: any) => {
       const ticker = allTickersDetailList.find((ticker: any) => ticker.id === item.id)
+      console.log(ticker)
       if (ticker) {
         item.price = ticker.current_price
         item.tickerSymbol = ticker.symbol.toUpperCase()
@@ -60,9 +61,11 @@ export const useBlock = () => {
 
   const setAllTickerNames = (inputData) => {
     tickerList.value.forEach((item) => {
-      // const newTicker = returnTargetProperty(inputData, Ticker.Slot, item.tickerSlot)
       const newTicker = inputData.find((input) => input[Ticker.Slot] === item.tickerSlot)
-      if (newTicker) item.id = newTicker.id
+      if (newTicker) {
+        item.id = newTicker.id
+        item.holding = newTicker.holding
+      }
     })
   }
 

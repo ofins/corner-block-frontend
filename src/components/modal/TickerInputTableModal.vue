@@ -33,7 +33,6 @@
                   class="b-none rd-4px h-20px mb-2px drop-shadow"
                   :placeholder="Placeholder.Holding"
                   v-model="item.holding"
-                  disabled
                 />
               </td>
             </tr>
