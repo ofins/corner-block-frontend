@@ -1,6 +1,7 @@
 <template>
   <div class="bg-bg-asPrimary h-10% flex-col-center relative py-20px">
     <img
+      v-show="!showSideBar"
       src="/icons/icons8-menu-24.png"
       alt="menu_button"
       class="absolute left-10px cursor-pointer md:hidden"

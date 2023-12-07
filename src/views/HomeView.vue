@@ -21,7 +21,7 @@
       <div class="b-1px b-solid b-white p-16px rd-regular b-op-30">
         <p>Important:</p>
         <p>- CornerBlock is powered by CoinGecko's free API, update frequency is every minute or so.</p>
-        <p>- Currently search term only supports coin id (bitcoin, ethereum) and <u>NOT</u> coin symbols (BTC, ETH). If you do not know the coin id for your token, you can find it on CoinGecko at "api id".</p>
+        <p>- Currently search term only supports coin id (bitcoin, ethereum) and <u>NOT</u> coin symbols (BTC, ETH). If you do not know the coin id for your token, you can find it on:<br/> CoinGecko -> click on a token -> api id.</p>
       </div>
       <div class="b-1px b-solid b-white p-16px rd-regular b-op-30">
         <p class="mt-16px">Version 2023.12.4</p>

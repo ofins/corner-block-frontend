@@ -1,11 +1,9 @@
 <template>
   <div class="flex w-full">
     <header>
-      <Transition name="slide-fade">
         <div v-show="showSideBar">
           <SideBar />
         </div>
-      </Transition>
       <div class="hidden md:flex">
         <SideBar />
       </div>
