@@ -1,41 +1,60 @@
 <template>
   <VueFinalModal
     class="flex justify-center items-center"
-    content-class="flex flex-col max-w-xl mx-4 p-4 c-text-asSecondary bg-bg-asSecondary border rounded-lg space-y-2"
-    @update:model-value="(val) => emit('update:modelValue', val)"
+    content-class="flex flex-col max-w-xl c-text-asSecondary"
   >
-    <h1 class="text-xl">
-      {{ title }}
-    </h1>
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Slot #</th>
-            <th>Coin ID</th>
-            <th>Your Holdings</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item, idx) in data" :key="item.tickerSLot">
-            <td>#{{ idx + 1 }}</td>
-            <td><input class="b-none rd-4px h-20px mb-2px drop-shadow" :placeholder="Placeholder.CoinId" v-model="item.id" /></td>
-            <td><input class="b-none rd-4px h-20px mb-2px drop-shadow" :placeholder="Placeholder.Holding" v-model="item.holding" disabled /></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <slot />
-    <div class="flex items-center justify-end gap-8px">
-      <button
-        class="mt-1 px-2 border rounded-lg cursor-pointer w-fit"
-        @click.prevent="emit('confirm')"
-      >
-        Close
-      </button>
-      <button class="mt-1 px-2 border rounded-lg cursor-pointer w-fit" @click.prevent="onSubmit">
-        Confirm
-      </button>
+    <div
+      class="bg-bg-asSecondary c-text-asPrimary p-4 rd-regular b-line b-solid b-1px b-op-10 shadow-image"
+    >
+      <h1 class="text-xl">
+        {{ title }}
+      </h1>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Slot #</th>
+              <th>Coin ID</th>
+              <th>Your Holdings</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, idx) in data" :key="item.tickerSLot">
+              <td>#{{ idx + 1 }}</td>
+              <td>
+                <input
+                  class="b-none rd-4px h-20px mb-2px drop-shadow"
+                  :placeholder="Placeholder.CoinId"
+                  v-model="item.id"
+                />
+              </td>
+              <td>
+                <input
+                  class="b-none rd-4px h-20px mb-2px drop-shadow"
+                  :placeholder="Placeholder.Holding"
+                  v-model="item.holding"
+                  disabled
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <slot />
+        <div class="flex items-center justify-end gap-8px mt-16px">
+          <button
+            class="border rounded-lg b-1px b-line bg-transparent c-text-asPrimary px-16px py-4px cursor-pointer"
+            @click.prevent="emit('confirm')"
+          >
+            Close
+          </button>
+          <button
+            class="border rounded-lg b-1px b-line bg-transparent c-primary px-16px py-4px cursor-pointer"
+            @click.prevent="onSubmit"
+          >
+            Confirm
+          </button>
+        </div>
+      </div>
     </div>
   </VueFinalModal>
 </template>
@@ -55,7 +74,7 @@ const data = ref(
   Array.from({ length: 11 }, (_, index) => ({
     tickerSlot: index + 1,
     ticker: '',
-    id:'',
+    id: '',
     holding: null
   }))
 )

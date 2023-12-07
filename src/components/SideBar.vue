@@ -62,7 +62,7 @@ const { open: openTickerInputTableModal, close: closeTickerInputTableModal } = u
   component: TickerInputTableModal,
   attrs: {
     onConfirm() {
-      close()
+      closeTickerInputTableModal()
     },
     escToClose: true
   }
