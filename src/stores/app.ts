@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 export const useAppStore = defineStore('app', () => {
   const showSideBar = ref<boolean>(false)
   const currency = ref<string>('usd')
-  const showTotalValue = ref<boolean>(false)
+  const showTotalValue = ref<boolean>(true)
 
   const setShowSideBar = (payload: boolean) => {
     showSideBar.value = payload

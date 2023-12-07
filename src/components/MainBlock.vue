@@ -26,10 +26,10 @@
     </div>
     <span
       v-if="showTotalValue"
-      class="headline-regular font-normal c-text-asSecondary mt-8px"
+      class="c-text-asSecondary fw-400 text-16px absolute bottom-10%"
       :class="{ 'headline-small': sizeType === 'size-S' }"
     >
-      ${{ totalValue }}
+      ${{ totalValue.toFixed(2) }}
     </span>
     <span v-show="!showTotalValue" class="c-text-asSecondary fw-400 text-16px absolute bottom-10%">
       {{ holding }}
