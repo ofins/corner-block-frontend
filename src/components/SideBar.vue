@@ -22,11 +22,11 @@
       </div>
     </div>
     <div>
-      <!-- <div @click="open" class="cursor-pointer">
-        <img src="/icons/icons8-remove-100.png" class="w-40px" />
-      </div> -->
-      <div @click="open" class="cursor-pointer mb-40px">
+      <div @click="openTickerInputTableModal" class="cursor-pointer mb-20px">
         <img src="/icons/icons8-create-100.png" class="w-40px" />
+      </div>
+      <div @click="openBasicModal" class="cursor-pointer mb-50px">
+        <img src="/icons/icons8-remove-100.png" class="w-40px" />
       </div>
     </div>
   </nav>
@@ -34,13 +34,13 @@
   <div
     v-show="showSideBar"
     class="w-full h-full fixed top-0 left-0 z-1 bg-op-70 bg-bg-asSecondary"
-    @click="handleToggleSideBar"
   />
 </template>
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import TickerInputTableModal from '@/components/modal/TickerInputTableModal.vue'
+import BasicModal from '@/components/modal/BasicModal.vue'
 import { useAppStore } from '@/stores/app'
 import { useModal } from 'vue-final-modal'
 import { storeToRefs } from 'pinia'
@@ -53,12 +53,35 @@ const handleToggleSideBar = () => {
   appStore.setShowSideBar(!showSideBar.value)
 }
 
-const { open, close } = useModal({
+const handleClearTickerList = () => {
+  localStorage.removeItem('tickerList')
+  window.location.reload()
+}
+
+const { open: openTickerInputTableModal, close: closeTickerInputTableModal } = useModal({
   component: TickerInputTableModal,
   attrs: {
     onConfirm() {
       close()
-    }
+    },
+    escToClose: true
+  }
+})
+
+const { open: openBasicModal, close: closeBasicModal } = useModal({
+  component: BasicModal,
+  attrs: {
+    onConfirm() {
+      handleClearTickerList()
+      closeBasicModal()
+    },
+    onClose() {
+      closeBasicModal()
+    },
+    escToClose: true
+  },
+  slots: {
+    default: '<p>Are you sure you want to reset all token data?</p>'
   }
 })
 </script>
