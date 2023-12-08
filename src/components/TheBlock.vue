@@ -43,7 +43,7 @@
         class="headline-regular c-text-asSecondary fw-400 text-12px absolute bottom-10%"
         :class="{ 'headline-small': sizeType === 'size-S' }"
       >
-        $ {{ abbreviateNumber(totalValue) }}
+        $ {{ abbreviateNumber(totalValue) }} ({{ holding }})
       </span>
       <span
         v-show="!showTotalValue"
