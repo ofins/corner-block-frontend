@@ -22,6 +22,9 @@
       </div>
     </div>
     <div>
+      <div @click="openGeneralSettingModal" class="cursor-pointer mb-20px">
+        <img src="/icons/icons8-gear-100.png" class="w-40px" />
+      </div>
       <div @click="openTickerInputTableModal" class="cursor-pointer mb-20px">
         <img src="/icons/icons8-create-100.png" class="w-40px" />
       </div>
@@ -41,6 +44,7 @@
 import { RouterLink } from 'vue-router'
 import TickerInputTableModal from '@/components/modal/TickerInputTableModal.vue'
 import BasicModal from '@/components/modal/BasicModal.vue'
+import GeneralSettingModal from './modal/GeneralSettingModal.vue'
 import { useAppStore } from '@/stores/app'
 import { useModal } from 'vue-final-modal'
 import { storeToRefs } from 'pinia'
@@ -63,6 +67,16 @@ const { open: openTickerInputTableModal, close: closeTickerInputTableModal } = u
   attrs: {
     onConfirm() {
       closeTickerInputTableModal()
+    },
+    escToClose: true
+  }
+})
+
+const { open: openGeneralSettingModal, close: closeGeneralSettingModal } = useModal({
+  component: GeneralSettingModal,
+  attrs: {
+    onConfirm() {
+      closeGeneralSettingModal()
     },
     escToClose: true
   }
