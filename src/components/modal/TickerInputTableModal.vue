@@ -23,14 +23,14 @@
               <td>#{{ idx + 1 }}</td>
               <td>
                 <input
-                  class="b-none rd-4px h-20px mb-2px drop-shadow"
+                  class="b-none rd-4px h-20px mb-2px drop-shadow indent-1 focus-outline-none "
                   :placeholder="Placeholder.CoinId"
                   v-model="item.id"
                 />
               </td>
               <td>
                 <input
-                  class="b-none rd-4px h-20px mb-2px drop-shadow"
+                  class="b-none rd-4px h-20px mb-2px drop-shadow indent-1 focus-outline-none "
                   :placeholder="Placeholder.Holding"
                   v-model="item.holding"
                 />
@@ -63,22 +63,24 @@ import { ref } from 'vue'
 import { VueFinalModal } from 'vue-final-modal'
 import { useBlock } from '@/hooks/useBlock'
 
+const { tickerList, submitEditTable } = useBlock()
+
 enum Placeholder {
   CoinId = 'Insert Token Name ',
   Holding = 'Amount'
 }
 
 const title = 'Edit Your Bags'
-const data = ref(
-  Array.from({ length: 11 }, (_, index) => ({
-    tickerSlot: index + 1,
-    ticker: '',
-    id: '',
-    holding: null
-  }))
-)
+// const data = ref(
+//   Array.from({ length: 11 }, (_, index) => ({
+//     tickerSlot: index + 1,
+//     ticker: '',
+//     id: '',
+//     holding: null
+//   }))
+// )
 
-const { submitEditTable } = useBlock()
+const data = ref(tickerList.value)
 
 const emit = defineEmits<{
   (e: 'confirm'): void

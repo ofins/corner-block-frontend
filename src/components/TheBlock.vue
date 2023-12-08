@@ -43,7 +43,7 @@
         class="headline-regular c-text-asSecondary fw-400 text-12px absolute bottom-10%"
         :class="{ 'headline-small': sizeType === 'size-S' }"
       >
-        ${{ totalValue.toFixed(2) }}
+        $ {{ abbreviateNumber(totalValue) }}
       </span>
       <span
         v-show="!showTotalValue"
@@ -59,6 +59,7 @@
 import { ref, onUpdated, computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAppStore } from '@/stores/app'
+import { abbreviateNumber } from '@/util/number'
 
 // const appStore = useAppStore()
 const { showTotalValue } = storeToRefs(useAppStore())

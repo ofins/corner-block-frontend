@@ -29,7 +29,7 @@
       class="c-text-asSecondary fw-400 text-16px absolute bottom-10%"
       :class="{ 'headline-small': sizeType === 'size-S' }"
     >
-      ${{ totalValue.toFixed(2) }}
+      ${{ abbreviateNumber(totalValue) }} ({{ holding }})
     </span>
     <span v-show="!showTotalValue" class="c-text-asSecondary fw-400 text-16px absolute bottom-10%">
       {{ holding }}
@@ -56,6 +56,7 @@ import { ref, onUpdated, computed } from 'vue'
 import BlockDetail from './BlockDetail.vue'
 import { storeToRefs } from 'pinia'
 import { useAppStore } from '@/stores/app'
+import { abbreviateNumber } from '@/util/number'
 const { showTotalValue } = storeToRefs(useAppStore())
 
 const props = defineProps({
