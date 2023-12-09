@@ -9,7 +9,7 @@
       <h1 class="text-xl">
         {{ title }}
       </h1>
-      <div class="<md:h-50vh <md:overflow-y-scroll">
+      <div class="<md:max-h-50vh <md:overflow-y-scroll">
         <slot />
       </div>
       <div class="flex justify-end gap-16px my-24px">

@@ -1,6 +1,7 @@
 import html2canvas from 'html2canvas'
 import { ref, type Component } from 'vue'
 import { useModal } from 'vue-final-modal'
+import ConfirmModal from '@/components/modal/ConfirmModal.vue'
 
 export const useScreenshot = (basicModal: Component) => {
   const screenshotImage = ref('')
@@ -10,7 +11,7 @@ export const useScreenshot = (basicModal: Component) => {
       const targetElement: HTMLElement = document.getElementById('crypto-block-container')
 
       const options = {
-        scale:0.85,
+        scale: 0.85,
         backgroundColor: '#1c1c1c',
         type: 'image/png'
       }
@@ -25,6 +26,7 @@ export const useScreenshot = (basicModal: Component) => {
           onConfirm() {
             copyImageToClipBoard(dataURL)
             close()
+            openConfirm()
           },
           onClose() {
             close()
@@ -56,6 +58,19 @@ export const useScreenshot = (basicModal: Component) => {
       console.error(error)
     }
   }
+
+  const { open: openConfirm, close: closeConfirm } = useModal({
+    component: ConfirmModal,
+    attrs: {
+      onConfirm() {
+        closeConfirm()
+      },
+      escToClose: true
+    },
+    slots: {
+      default: `<p>image copied to clipboard!</p>`
+    }
+  })
 
   return {
     screenshotImage,
