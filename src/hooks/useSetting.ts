@@ -1,11 +1,12 @@
 import { ref } from 'vue'
-import { getGeneralSetting } from '@/util/cookie'
+import { getGeneralSetting, setGeneralSetting } from '@/util/cookie'
 
 export const generalSetting = ref({
-  showTotalValue: true
+  showTotalValue: false
 })
 
 export const fetchGeneralSetting = () => {
-  generalSetting.value = getGeneralSetting()
-  console.log(generalSetting.value)
+  const data = getGeneralSetting()
+  if (data) generalSetting.value = data
+  else setGeneralSetting(generalSetting.value)
 }

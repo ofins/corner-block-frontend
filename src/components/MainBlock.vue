@@ -25,11 +25,11 @@
       <span class="headline-medium font-black c-text-asPrimary"> ${{ price }} </span>
     </div>
     <span
-      v-if="generalSetting.showTotalValue"
+      v-if="generalSetting.showTotalValue && totalValue"
       class="c-text-asSecondary fw-400 text-16px absolute bottom-10%"
       :class="{ 'headline-small': sizeType === 'size-S' }"
     >
-      ${{ abbreviateNumber(totalValue) }} ({{ holding }})
+      $ {{ abbreviateNumber(totalValue) }} ({{ holding }})
     </span>
   </form>
   <!-- block details -->
