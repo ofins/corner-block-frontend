@@ -25,14 +25,11 @@
       <span class="headline-medium font-black c-text-asPrimary"> ${{ price }} </span>
     </div>
     <span
-      v-if="showTotalValue"
+      v-if="generalSetting.showTotalValue"
       class="c-text-asSecondary fw-400 text-16px absolute bottom-10%"
       :class="{ 'headline-small': sizeType === 'size-S' }"
     >
       ${{ abbreviateNumber(totalValue) }} ({{ holding }})
-    </span>
-    <span v-show="!showTotalValue" class="c-text-asSecondary fw-400 text-16px absolute bottom-10%">
-      {{ holding }}
     </span>
   </form>
   <!-- block details -->
@@ -57,7 +54,7 @@ import BlockDetail from './BlockDetail.vue'
 import { storeToRefs } from 'pinia'
 import { useAppStore } from '@/stores/app'
 import { abbreviateNumber } from '@/util/number'
-const { showTotalValue } = storeToRefs(useAppStore())
+import { generalSetting } from '@/hooks/useSetting'
 
 const props = defineProps({
   tickerSymbol: { type: String },

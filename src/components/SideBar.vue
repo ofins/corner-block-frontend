@@ -80,6 +80,9 @@ const { open: openGeneralSettingModal, close: closeGeneralSettingModal } = useMo
       setGeneralSetting(settingVal)
       closeGeneralSettingModal()
     },
+    onClose() {
+      closeGeneralSettingModal()
+    },
     escToClose: true
   }
 })

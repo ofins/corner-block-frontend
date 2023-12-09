@@ -46,7 +46,7 @@
           class="border rounded-lg b-1px b-line bg-transparent c-primary px-16px py-4px cursor-pointer"
           @click="emit('confirm', generalSetting)"
         >
-          Confirm
+          Save Setting
         </button>
       </div>
     </div>
@@ -56,7 +56,6 @@
 <script setup lang="ts">
 import { VueFinalModal } from 'vue-final-modal'
 import { generalSetting } from '@/hooks/useSetting'
-import { onUpdated, watch } from 'vue'
 
 defineProps<{
   title?: string
