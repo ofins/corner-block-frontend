@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-bg-asPrimary w-full h-full py-20px" @click="hideAllInputs">
+  <div v-if="false" class="bg-bg-asPrimary w-full h-full py-20px" @click="hideAllInputs">
     <div class="flex-col-center">
       <div class="mb-42px"></div>
       <div class="p-20px rd-regular bg-bg-asSecondary b-line b-solid b-1px b-op-20">
@@ -58,6 +58,9 @@
       </div>
     </div>
   </div>
+  <div class="h-100vh" v-else>
+    <ComingSoon title="NFT Block" />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -68,6 +71,7 @@ import { useTicker } from '@/hooks/useTicker'
 import { useTickerBlock } from '@/hooks/useBlock'
 import { useAppStore } from '@/stores/app'
 import { storeToRefs } from 'pinia'
+import ComingSoon from '@/components/application/ComingSoon.vue'
 
 const { fetchTickerPriceDataByName, fetchTickerDetailByName } = useTicker()
 const { currency } = storeToRefs(useAppStore())
