@@ -10,16 +10,16 @@
         @click="handleToggleSideBar"
       />
       <div class="mt-50px flex-col-center gap-2">
-        <RouterLink to="/">
+        <RouterLink @click="hideSideBar" to="/">
           <div class="w-50px h-50px bg-transparent b-solid b-line b-1px rd-4px flex-col-center">
             <img src="/icons/icons8-cube-100.png" class="w-30px" />
           </div>
         </RouterLink>
-        <RouterLink to="/crypto-blocks"
+        <RouterLink @click="hideSideBar" to="/crypto-blocks"
           ><div class="w-50px h-50px bg-transparent b-solid b-line b-1px rd-4px flex-col-center">
             <img src="/icons/icons8-drawstring-bag-100.png" class="w-30px" /></div
         ></RouterLink>
-        <RouterLink to="/nft-blocks"
+        <RouterLink @click="hideSideBar" to="/nft-blocks"
           ><div class="w-50px h-50px bg-transparent b-solid b-line b-1px rd-4px flex-col-center">
             <img src="/icons/icons8-drawstring-bag-100.png" class="w-30px" /></div
         ></RouterLink>
@@ -61,6 +61,8 @@ const { showSideBar } = storeToRefs(appStore)
 const handleToggleSideBar = () => {
   appStore.setShowSideBar(!showSideBar.value)
 }
+
+const hideSideBar = () => appStore.setShowSideBar(false)
 
 const handleClearTickerList = () => {
   localStorage.removeItem('tickerList')
