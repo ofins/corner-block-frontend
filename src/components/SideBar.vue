@@ -21,7 +21,7 @@
         ></RouterLink>
         <RouterLink @click="hideSideBar" to="/nft-blocks"
           ><div class="w-50px h-50px bg-transparent b-solid b-line b-1px rd-4px flex-col-center">
-            <img src="/icons/icons8-drawstring-bag-100.png" class="w-30px" /></div
+            <img src="/icons/icons8-nft-64.png" class="w-30px" /></div
         ></RouterLink>
       </div>
     </div>
