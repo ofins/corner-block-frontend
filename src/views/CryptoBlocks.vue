@@ -65,7 +65,7 @@ import TheBlock from '@/components/TheBlock.vue'
 import MainBlock from '@/components/MainBlock.vue'
 import { onMounted, ref, computed } from 'vue'
 import { useTicker } from '@/hooks/useTicker'
-import { useBlock } from '@/hooks/useBlock'
+import { useTickerBlock } from '@/hooks/useBlock'
 import { useAppStore } from '@/stores/app'
 import { storeToRefs } from 'pinia'
 
@@ -84,7 +84,7 @@ const {
   setAllTickersDetail,
   editTickerListProperty,
   saveToLocalStorage
-} = useBlock()
+} = useTickerBlock()
 
 const handleIsShowInput = (slot: number) => {
   editTickerListProperty(slot, 'isShowInput', true)

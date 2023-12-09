@@ -4,7 +4,7 @@ import { onMounted, ref, computed } from 'vue'
 import { useTicker } from '@/hooks/useTicker'
 import { defaultTickerList } from '@/settings/tickerList'
 
-export const useBlock = () => {
+export const useTickerBlock = () => {
   const { fetchTickerPriceDataByName, fetchTickerDetailByName, fetchMultiTickersDetailByName } =
     useTicker()
 

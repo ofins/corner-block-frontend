@@ -3,6 +3,7 @@ export default {
     alert: '#ED2B2A',
     confirm: '#03C988',
     primary: '#E16428',
+    secondary: '#5FBDFF',
     text: {
       asPrimary: '#FFFFFF',
       asSecondary: '#A9A9A9',
@@ -13,7 +14,7 @@ export default {
     bg: {
       asPrimary: '#0f0f0f',
       asSecondary: '#1c1c1c',
-      asInverse:{
+      asInverse: {
         '01': '#6A6A6A'
       },
       asMask: '#0000004d'

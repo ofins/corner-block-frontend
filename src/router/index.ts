@@ -10,13 +10,15 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/my-blocks',
-      name: 'my-blocks',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('@/views/MyBlocks.vue')
-    }
+      path: '/crypto-blocks',
+      name: 'crypto-blocks',
+      component: () => import('@/views/CryptoBlocks.vue')
+    },
+    {
+      path: '/nft-blocks',
+      name: 'nft-blocks',
+      component: () => import('@/views/NftBlocks.vue')
+    },
   ]
 })
 

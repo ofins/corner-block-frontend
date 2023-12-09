@@ -23,7 +23,13 @@ const { showSideBar } = storeToRefs(appStore)
 
 const route = useRoute()
 // const title = ref<string>()
-const title = computed(() => (route.path === '/my-blocks' ? 'My Bags' : 'CornerBlock'))
+const title = computed(() =>
+  route.path === '/crypto-blocks'
+    ? 'Crypto Bags'
+    : route.path === '/nft-blocks'
+      ? 'NFT Bags'
+      : 'CornerBlock'
+)
 
 const handleToggleSideBar = () => {
   appStore.setShowSideBar(!showSideBar.value)

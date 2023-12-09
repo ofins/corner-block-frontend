@@ -23,14 +23,14 @@
               <td>#{{ idx + 1 }}</td>
               <td>
                 <input
-                  class="b-none rd-4px h-20px mb-2px drop-shadow indent-1 focus-outline-none "
+                  class="b-none rd-4px h-20px mb-2px drop-shadow indent-1 focus-outline-none"
                   :placeholder="Placeholder.CoinId"
                   v-model="item.id"
                 />
               </td>
               <td>
                 <input
-                  class="b-none rd-4px h-20px mb-2px drop-shadow indent-1 focus-outline-none "
+                  class="b-none rd-4px h-20px mb-2px drop-shadow indent-1 focus-outline-none"
                   :placeholder="Placeholder.Holding"
                   v-model="item.holding"
                 />
@@ -61,9 +61,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { VueFinalModal } from 'vue-final-modal'
-import { useBlock } from '@/hooks/useBlock'
+import { useTickerBlock } from '@/hooks/useBlock'
 
-const { tickerList, submitEditTable } = useBlock()
+const { tickerList, submitEditTable } = useTickerBlock()
 
 enum Placeholder {
   CoinId = 'Insert Token Name ',

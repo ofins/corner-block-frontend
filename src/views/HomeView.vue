@@ -14,6 +14,7 @@
             href="https://id.roninchain.com/name/ofins.ron"
             >ofins.ron</a
           >
+          . Created Nov 19, 2023.
         </p>
         <p>
           Come say hi! 👋 ->
