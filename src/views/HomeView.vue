@@ -25,7 +25,7 @@
     <div class="c-text-asPrimary max-w-500px md:ml-100px px-16px flex flex-col justify-start gap-2">
       <div class="b-1px b-solid b-white p-16px rd-regular b-op-30">
         <p class="text-20px"><u>Important</u>:</p>
-        <ul>
+        <ul class="my-24px">
           <li>
             CornerBlock is powered by CoinGecko's free API, update frequency is every minute or so.
           </li>
@@ -36,6 +36,7 @@
             CoinGecko -> click on a token -> api id.
           </li>
         </ul>
+        <i>feel free to DM me if you encounter any issues.</i>
       </div>
       <!-- <div class="b-1px b-solid b-white p-16px rd-regular b-op-30">
         <p class="mt-16px">Version 2023.12.6</p>
@@ -50,13 +51,18 @@
       <div class="b-1px b-solid b-white p-16px rd-regular b-op-30">
         <p class="text-20px mt-16px c-primary">Version 2023.12.9</p>
         <ul class="text-start">
+          <li>
+            <span class="c-primary">NEW feature:</span> Automatically screenshot and copy your bags
+            to clipboard!
+          </li>
+          <li>
+            <span class="c-primary">NEW feature:</span> ability to add total holding amount for each
+            coin and display it on blocks. Can hide value in general setting.
+          </li>
           <li>temporarily remove sidebar transition (causing bugs)</li>
           <li>add clear ALL tokens button in sidebar</li>
           <li>added new button styles</li>
-          <li>
-            NEW feature: ability to add total holding amount for each coin and display it on blocks.
-            Can hide value in general setting.
-          </li>
+          <li>Add Twitter Summary Card</li>
           <li>fix minor bugs</li>
         </ul>
       </div>
