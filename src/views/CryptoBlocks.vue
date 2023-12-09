@@ -2,7 +2,20 @@
   <div class="bg-bg-asPrimary w-full h-full py-20px" @click="hideAllInputs">
     <div class="flex-col-center">
       <div class="mb-42px"></div>
-      <div class="p-20px rd-regular bg-bg-asSecondary b-line b-solid b-1px b-op-20">
+      <div
+        class="cursor-pointer w-50px h-50px rd-50% flex-col-center mt-24px fixed bottom-10% right-20% bg-bg-asInverse-01 bg-op-50 hover:bg-primary h-transition z-3 <md:top-30px <md:right-6px"
+      >
+        <img
+          @click="takeScreenshot"
+          class="w-30px"
+          src="/icons/icons8-screenshot-90.png"
+          alt="screenshot"
+        />
+      </div>
+      <div
+        class="p-20px rd-regular bg-bg-asSecondary b-line b-solid b-1px b-op-20"
+        id="crypto-block-container"
+      >
         <div
           class="flex-col-center items-center lg:flex-row lg:justify-center lg:gap-10 max-w-1000px w-full"
         >
@@ -68,9 +81,13 @@ import { useTicker } from '@/hooks/useTicker'
 import { useTickerBlock } from '@/hooks/useBlock'
 import { useAppStore } from '@/stores/app'
 import { storeToRefs } from 'pinia'
+import { useScreenshot } from '@/util/screenshot'
+import BasicModal from '@/components/modal/BasicModal.vue'
 
 const { fetchTickerPriceDataByName, fetchTickerDetailByName } = useTicker()
 const { currency } = storeToRefs(useAppStore())
+
+const { takeScreenshot } = useScreenshot(BasicModal)
 
 const {
   tickerList,

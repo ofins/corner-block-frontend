@@ -10,9 +10,7 @@ export const useScreenshot = (basicModal: Component) => {
       const targetElement: HTMLElement = document.getElementById('crypto-block-container')
 
       const options = {
-        width: 900,
-        height: 600,
-        scale: 0.7,
+        scale:0.85,
         backgroundColor: '#1c1c1c',
         type: 'image/png'
       }
@@ -28,10 +26,13 @@ export const useScreenshot = (basicModal: Component) => {
             copyImageToClipBoard(dataURL)
             close()
           },
+          onClose() {
+            close()
+          },
           escToClose: true
         },
         slots: {
-          default: `<img src="${dataURL}" id="screenshot-image" /> <p>press confirm to copy image</p>`
+          default: `<img src="${dataURL}" id="screenshot-image" /> <p>click confirm to copy image to clipboard</p>`
         }
       })
 
