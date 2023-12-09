@@ -3,11 +3,11 @@
     <div class="flex-col-center">
       <div class="mb-42px"></div>
       <div
-        class="cursor-pointer w-50px h-50px rd-50% flex-col-center mt-24px fixed bottom-10% right-20% bg-bg-asInverse-01 bg-op-50 hover:bg-primary h-transition z-3 <md:top-30px <md:right-6px"
+        class="cursor-pointer w-70px h-70px <md:w-50px <md:h-50px rd-50% flex-col-center mt-24px fixed bottom-10% right-20% bg-bg-asInverse-01 bg-op-50 hover:bg-primary h-transition z-3 <md:top-30px <md:right-6px"
       >
         <img
           @click="takeScreenshot"
-          class="w-30px"
+          class="w-35px <md:w-30px"
           src="/icons/icons8-screenshot-90.png"
           alt="screenshot"
         />
@@ -129,7 +129,6 @@ const handleInputNewTicker = async (value: string, slot: number) => {
 
 onMounted(() => {
   setAllTickersDetail()
-  console.log(tickerList.value)
 })
 </script>
 
