@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { getGeneralSetting, setGeneralSetting } from '@/util/cookie'
 
 export const generalSetting = ref({
-  showTotalValue: false
+  showTotalValue: true
 })
 
 export const fetchGeneralSetting = () => {
