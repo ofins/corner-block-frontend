@@ -1,9 +1,9 @@
 <template>
   <div class="flex w-full">
     <header>
-        <div v-show="showSideBar">
-          <SideBar />
-        </div>
+      <div v-show="showSideBar">
+        <SideBar />
+      </div>
       <div class="hidden md:flex">
         <SideBar />
       </div>
@@ -23,9 +23,15 @@ import SideBar from '@/components/SideBar.vue'
 import PageTitle from '@/components/PageTitle.vue'
 import { useAppStore } from '@/stores/app'
 import { storeToRefs } from 'pinia'
+import { fetchGeneralSetting } from './hooks/useSetting'
+import { onMounted } from 'vue'
 const appStore = useAppStore()
 
 const { showSideBar } = storeToRefs(appStore)
+
+onMounted(() => {
+  fetchGeneralSetting()
+})
 </script>
 
 <style scoped>

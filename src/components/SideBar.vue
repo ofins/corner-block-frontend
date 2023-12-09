@@ -48,6 +48,7 @@ import GeneralSettingModal from './modal/GeneralSettingModal.vue'
 import { useAppStore } from '@/stores/app'
 import { useModal } from 'vue-final-modal'
 import { storeToRefs } from 'pinia'
+import { setGeneralSetting } from '@/util/cookie'
 
 const appStore = useAppStore()
 
@@ -75,7 +76,8 @@ const { open: openTickerInputTableModal, close: closeTickerInputTableModal } = u
 const { open: openGeneralSettingModal, close: closeGeneralSettingModal } = useModal({
   component: GeneralSettingModal,
   attrs: {
-    onConfirm() {
+    onConfirm(settingVal) {
+      setGeneralSetting(settingVal)
       closeGeneralSettingModal()
     },
     escToClose: true

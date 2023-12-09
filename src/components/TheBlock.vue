@@ -80,7 +80,6 @@ const inputRef = ref<HTMLInputElement | null>(null)
 const isClicked = ref(false)
 
 const totalValue = computed(() => props?.holding * props?.price)
-console.log(totalValue)
 
 const emit = defineEmits(['update-ticker', 'handleToggleBlockDetail'])
 

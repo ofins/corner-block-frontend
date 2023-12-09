@@ -50,7 +50,6 @@ export const useBlock = () => {
 
     tickerList.value.forEach((item: any) => {
       const ticker = allTickersDetailList.find((ticker: any) => ticker.id === item.id)
-      console.log(ticker)
       if (ticker) {
         item.price = ticker.current_price
         item.tickerSymbol = ticker.symbol.toUpperCase()
