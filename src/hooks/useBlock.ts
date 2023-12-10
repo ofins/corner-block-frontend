@@ -9,7 +9,7 @@ export const useTickerBlock = () => {
     useTicker()
 
   const tickerList = ref()
-  const toggleBlockDetail = ref<boolean>()
+  const toggleBlockDetail = ref<boolean>(false)
   const tickerList_medium = ref([])
   const tickerList_small_one = ref([])
   const blockDetailData = ref()
