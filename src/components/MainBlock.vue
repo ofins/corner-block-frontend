@@ -7,15 +7,27 @@
     @dblclick="handleIsShowInput"
     @submit.prevent="onSubmit"
   >
-    <div class="w-60px">
-      <img :src="imageUrl" class="w-full" alt="ticker-image" />
-    </div>
     <span
       v-show="!isShowInput"
-      class="headline-xl c-text-asPrimary shadow-text uppercase mb-16px lg:mb-24px"
+      class="headline-xl c-text-asPrimary shadow-text uppercase mb-16px lg:mb-24px flex items-center"
       style="letter-spacing: 6px"
     >
-      {{ tickerSymbol }}
+      <div
+        class="headline-regular absolute top-12px right-12px py-12px px-20px rd-regular c-text-asPrimary shadow-image"
+        :class="{
+          'bg-confirm bg-op-50': priceChangePercentage24h > 0,
+          'bg-confirm bg-op-100!': priceChangePercentage24h > 5,
+          'bg-alert bg-op-50': priceChangePercentage24h < 0,
+          'bg-alert bg-op-100!': priceChangePercentage24h < -5
+        }"
+        style="letter-spacing: normal"
+      >
+        {{ priceChangePercentage24h?.toFixed(2) }}%
+      </div>
+      <img :src="imageUrl" class="w-48px h-48px object-contain mr-10px" alt="ticker-image" />
+      <span>
+        {{ tickerSymbol }}
+      </span>
     </span>
     <input
       ref="inputRef"
@@ -69,7 +81,8 @@ const props = defineProps({
   blockDetailData: Object,
   toggleBlockDetail: Boolean,
   holding: Number,
-  imageUrl: String
+  imageUrl: String,
+  priceChangePercentage24h: Number
 })
 
 const totalValue = computed(() => props?.holding * props?.price)
@@ -97,8 +110,8 @@ const handleIsShowInput = async () => {
   height: 300px;
 
   @media (min-width: 1024px) {
-    width: 400px;
-    height: 400px;
+    width: 450px;
+    height: 450px;
   }
 }
 .size-M {

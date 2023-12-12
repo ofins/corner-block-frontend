@@ -5,7 +5,9 @@ export const defaultTickerList = [
     id: 'ronin',
     tickerSymbol: 'RON',
     price: 0,
-    isShowInput: false
+    isShowInput: false,
+    imageURL: '',
+    priceChangePercentage24h: 0
   },
   {
     tickerSlot: 2,
@@ -13,7 +15,8 @@ export const defaultTickerList = [
     id: 'bitcoin',
     tickerSymbol: 'BTC',
     price: 0,
-    isShowInput: false
+    isShowInput: false,
+    imageURL: ''
   },
   {
     tickerSlot: 3,
@@ -21,7 +24,8 @@ export const defaultTickerList = [
     id: 'ethereum',
     tickerSymbol: 'ETH',
     price: 0,
-    isShowInput: false
+    isShowInput: false,
+    imageURL: ''
   },
   {
     tickerSlot: 4,
@@ -29,7 +33,8 @@ export const defaultTickerList = [
     id: 'axie-infinity',
     tickerSymbol: 'AXS',
     price: 0,
-    isShowInput: false
+    isShowInput: false,
+    imageURL: ''
   },
   {
     tickerSlot: 5,
@@ -37,7 +42,8 @@ export const defaultTickerList = [
     id: 'smooth-love-potion',
     tickerSymbol: 'SLP',
     price: 0,
-    isShowInput: false
+    isShowInput: false,
+    imageURL: ''
   },
   {
     tickerSlot: 6,

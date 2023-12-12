@@ -13,7 +13,10 @@ export const useScreenshot = (basicModal: Component) => {
       const options = {
         scale: 0.85,
         backgroundColor: '#1c1c1c',
-        type: 'image/png'
+        type: 'image/png',
+        useCORS: false,
+        // allowTaint: true,
+        // proxy: 'https://assets.coingecko.com'
       }
 
       const canvas = await html2canvas(targetElement, options)

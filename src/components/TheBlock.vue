@@ -16,16 +16,30 @@
     <div
       class="absolute bg-bg-asSecondary w-95% h-95% top-50% translate-y--50% left-50% translate-x--50% rd-regular flex-col-center"
     >
-      <div class="w-30px absolute top-10px right-10px">
-        <img :src="imageUrl" class="w-full" alt="ticker-image" />
+      <div
+        class="headline-small absolute top-6px right-6px py-4px px-8px rd-regular c-text-asPrimary shadow-image"
+        :class="{
+          'bg-confirm bg-op-50': priceChangePercentage24h > 0,
+          'bg-confirm bg-op-100!': priceChangePercentage24h > 5,
+          'bg-alert bg-op-50': priceChangePercentage24h < 0,
+          'bg-alert bg-op-100!': priceChangePercentage24h < -5,
+          'px-16px py-8px': sizeType === 'size-M'
+        }"
+      >
+        {{ priceChangePercentage24h?.toFixed(2) }}%
       </div>
       <span
         v-show="!isShowInput"
-        class="headline-medium <xl:headline-regular c-text-asInverse-01 uppercase p-4px text-center min-w-80%"
+        class="headline-medium <xl:headline-regular c-text-asInverse-01 uppercase p-4px text-center min-w-80% flex justify-center items-center"
         style="letter-spacing: 2px"
         :class="{ 'headline-regular': sizeType === 'size-S' }"
       >
-        {{ tickerSymbol ? tickerSymbol : NO_TICKER_DEFAULT }}
+        <img
+          :src="imageUrl"
+          class="w-18px h-18px object-contain mr-10px rd-50"
+          alt="ticker-image"
+          :class="{ 'w-26px h-26px': sizeType === 'size-M' }"
+        />{{ tickerSymbol ? tickerSymbol : NO_TICKER_DEFAULT }}
       </span>
       <input
         ref="inputRef"
@@ -67,10 +81,11 @@ const props = defineProps({
   isShowInput: Boolean,
   isBlockSelected: Boolean,
   holding: Number,
-  imageUrl: String
+  imageUrl: String,
+  priceChangePercentage24h: Number
 })
 
-const NO_TICKER_DEFAULT = 'dbl click to add'
+const NO_TICKER_DEFAULT = 'insert token id'
 const inputRef = ref<HTMLInputElement | null>(null)
 const isClicked = ref(false)
 
@@ -110,13 +125,13 @@ const handleClick = () => {
   height: 140px;
 
   @media (min-width: 1024px) {
-    width: 180px;
-    height: 180px;
+    width: 205px;
+    height: 205px;
   }
 }
 .size-S {
-  width: 123px;
-  height: 123px;
+  width: 140px;
+  height: 140px;
 
   @media (max-width: 1024px) {
     width: 140px;

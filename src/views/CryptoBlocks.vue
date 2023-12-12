@@ -2,8 +2,9 @@
   <div class="bg-bg-asPrimary w-full h-full py-20px" @click="hideAllInputs">
     <div class="flex-col-center">
       <div class="mb-42px"></div>
+      <!-- screenshot button -->
       <div
-        class="cursor-pointer w-70px h-70px <md:w-50px <md:h-50px rd-50% flex-col-center mt-24px fixed bottom-10% right-20% bg-bg-asInverse-01 bg-op-50 hover:bg-primary h-transition z-3 <md:top-30px <md:right-6px"
+        class="cursor-pointer w-70px h-70px <md:w-50px <md:h-50px rd-50% flex-col-center mt-24px fixed bottom-10% right-12% bg-bg-asInverse-01 bg-op-50 hover:bg-primary h-transition z-3 <md:top-30px <md:right-6px"
       >
         <img
           @click="takeScreenshot"
@@ -30,6 +31,7 @@
             :toggle-block-detail="toggleBlockDetail"
             :holding="tickerList[0].holding"
             :image-url="tickerList[0].imageURL"
+            :price-change-percentage24h="tickerList[0].priceChangePercentage24h"
             @update-ticker="handleInputNewTicker"
             @update-is-show-input="handleIsShowInput"
             @handle-toggle-block-detail="handleToggleBlockDetail"
@@ -47,6 +49,7 @@
               :is-block-selected="value.isBlockSelected"
               :holding="value.holding"
               :image-url="value.imageURL"
+              :price-change-percentage24h="value.priceChangePercentage24h"
               @update-ticker="handleInputNewTicker"
               @update-is-show-input="handleIsShowInput"
               @handle-toggle-block-detail="handleToggleBlockDetail"
@@ -66,6 +69,7 @@
             :is-block-selected="value.isBlockSelected"
             :holding="value.holding"
             :image-url="value.imageURL"
+            :price-change-percentage24h="value.priceChangePercentage24h"
             @update-ticker="handleInputNewTicker"
             @update-is-show-input="handleIsShowInput"
             @handle-toggle-block-detail="handleToggleBlockDetail"
@@ -124,6 +128,8 @@ const handleInputNewTicker = async (value: string, slot: number) => {
     editTickerListProperty(slot, Ticker.Price, data.market_data.current_price.usd)
     editTickerListProperty(slot, Ticker.IsShowInput, false)
     editTickerListProperty(slot, Ticker.Id, data.id)
+    editTickerListProperty(slot, Ticker.Image, data.image.small)
+    editTickerListProperty(slot, Ticker.PriceChangePercentage24h, data.price_change_percentage_24h)
 
     saveToLocalStorage(LOCAL_STORAGE_TICKERLIST, tickerList.value)
     handleToggleBlockDetail(slot)

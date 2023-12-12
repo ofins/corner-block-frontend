@@ -22,7 +22,9 @@ export const useTickerBlock = () => {
     IsBlockSelected = 'isBlockSelected',
     Slot = 'tickerSlot',
     Currency = 'usd',
-    Id = 'id'
+    Id = 'id',
+    Image = 'imageURL',
+    PriceChangePercentage24h = 'priceChangePercentage24h'
   }
 
   const MAIN_SLOT = 1
@@ -55,6 +57,7 @@ export const useTickerBlock = () => {
         item.tickerSymbol = ticker.symbol.toUpperCase()
         item.ticker = ticker.name
         item.imageURL = ticker.image
+        item.priceChangePercentage24h = ticker.price_change_percentage_24h 
       }
     })
   }
