@@ -8,7 +8,7 @@ export const useTickerBlock = () => {
   const { fetchTickerPriceDataByName, fetchTickerDetailByName, fetchMultiTickersDetailByName } =
     useTicker()
 
-  const tickerList = ref()
+  const tickerList = ref(defaultTickerList)
   const toggleBlockDetail = ref<boolean>(false)
   const tickerList_medium = ref([])
   const tickerList_small_one = ref([])

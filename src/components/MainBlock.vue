@@ -3,48 +3,52 @@
     v-show="!toggleBlockDetail"
     class="style-1 b-none rd-regular flex-col-center cursor-pointer relative"
     :class="sizeType"
-    @click="emit('handleToggleBlockDetail', tickerSlot)"
+    @click="emit('handleToggleBlockDetail', tickerList.tickerSlot)"
     @dblclick="handleIsShowInput"
     @submit.prevent="onSubmit"
   >
     <span
-      v-show="!isShowInput"
+      v-show="!tickerList?.isShowInput"
       class="headline-xl c-text-asPrimary shadow-text uppercase mb-16px lg:mb-24px flex items-center"
       style="letter-spacing: 6px"
     >
       <div
         class="headline-regular absolute top-12px right-12px py-12px px-20px rd-regular c-text-asPrimary shadow-image"
         :class="{
-          'bg-confirm bg-op-50': priceChangePercentage24h > 0,
-          'bg-confirm bg-op-100!': priceChangePercentage24h > 5,
-          'bg-alert bg-op-50': priceChangePercentage24h < 0,
-          'bg-alert bg-op-100!': priceChangePercentage24h < -5
+          'bg-confirm bg-op-50': tickerList.priceChangePercentage24h > 0,
+          'bg-confirm bg-op-100!': tickerList.priceChangePercentage24h > 5,
+          'bg-alert bg-op-50': tickerList.priceChangePercentage24h < 0,
+          'bg-alert bg-op-100!': tickerList.priceChangePercentage24h < -5
         }"
         style="letter-spacing: normal"
       >
-        {{ priceChangePercentage24h?.toFixed(2) }}%
+        {{ tickerList.priceChangePercentage24h?.toFixed(2) }}%
       </div>
-      <img :src="imageUrl" class="w-48px h-48px object-contain mr-10px" alt="ticker-image" />
+      <img
+        :src="tickerList.imageURL"
+        class="w-48px h-48px object-contain mr-10px"
+        alt="ticker-image"
+      />
       <span>
-        {{ tickerSymbol }}
+        {{ tickerList.tickerSymbol }}
       </span>
     </span>
     <input
       ref="inputRef"
-      v-show="isShowInput"
+      v-show="tickerList.isShowInput"
       type="text"
       class="w-80px b-none bg-transparent c-text-asPrimary fw-700 text-20px b-transparent mb-8px"
       @keyup.enter.prevent="onSubmit"
     />
     <div class="w-70% flex-col-center bg-primary bg-op-90 h-42px rd-50px">
-      <span class="headline-medium font-black c-text-asPrimary"> ${{ price }} </span>
+      <span class="headline-medium font-black c-text-asPrimary"> ${{ tickerList.price }} </span>
     </div>
     <span
       v-if="generalSetting.showTotalValue && totalValue"
       class="c-text-asSecondary fw-400 text-16px absolute bottom-10%"
       :class="{ 'headline-small': sizeType === 'size-S' }"
     >
-      $ {{ abbreviateNumber(totalValue) }} ({{ holding }})
+      $ {{ abbreviateNumber(totalValue) }} ({{ tickerList.holding }})
     </span>
   </form>
   <!-- block details -->
@@ -58,7 +62,7 @@
       :circulating-supply="blockDetailData?.market_data?.circulating_supply"
       :percentage-change-seven-days="blockDetailData?.market_data?.price_change_percentage_7d"
       :total-supply="blockDetailData?.market_data?.total_supply"
-      @handle-toggle-block-detail="emit('handleToggleBlockDetail', tickerSlot)"
+      @handle-toggle-block-detail="emit('handleToggleBlockDetail', tickerList.tickerSlot)"
     />
   </div>
 </template>
@@ -72,31 +76,26 @@ import { abbreviateNumber } from '@/util/number'
 import { generalSetting } from '@/hooks/useSetting'
 
 const props = defineProps({
-  tickerSymbol: { type: String },
-  currency: String,
   sizeType: String,
-  price: Number,
-  tickerSlot: Number,
-  isShowInput: Boolean,
   blockDetailData: Object,
   toggleBlockDetail: Boolean,
-  holding: Number,
-  imageUrl: String,
-  priceChangePercentage24h: Number
+  tickerList: Object
 })
 
-const totalValue = computed(() => props?.holding * props?.price)
+console.log(props.tickerList)
+
+const totalValue = computed(() => props.tickerList?.holding * props.tickerList?.price)
 
 const inputRef = ref<HTMLInputElement | null>(null)
 
 const emit = defineEmits(['update-ticker', 'handleToggleBlockDetail'])
 
 const onSubmit = (e: any) => {
-  emit('update-ticker', e.target.value, props.tickerSlot)
+  emit('update-ticker', e.target.value, props.tickerList.tickerSlot)
 }
 
 const handleIsShowInput = async () => {
-  await emit('update-is-show-input', props.tickerSlot)
+  await emit('update-is-show-input', props.tickerList.tickerSlot)
   if (inputRef.value) {
     inputRef.value.focus()
     inputRef.value.value = ''
