@@ -54,6 +54,7 @@ export const useTickerBlock = () => {
         item.price = ticker.current_price
         item.tickerSymbol = ticker.symbol.toUpperCase()
         item.ticker = ticker.name
+        item.imageURL = ticker.image
       }
     })
   }

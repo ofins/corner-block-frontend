@@ -16,6 +16,9 @@
     <div
       class="absolute bg-bg-asSecondary w-95% h-95% top-50% translate-y--50% left-50% translate-x--50% rd-regular flex-col-center"
     >
+      <div class="w-30px absolute top-10px right-10px">
+        <img :src="imageUrl" class="w-full" alt="ticker-image" />
+      </div>
       <span
         v-show="!isShowInput"
         class="headline-medium <xl:headline-regular c-text-asInverse-01 uppercase p-4px text-center min-w-80%"
@@ -63,7 +66,8 @@ const props = defineProps({
   tickerSlot: Number,
   isShowInput: Boolean,
   isBlockSelected: Boolean,
-  holding: Number
+  holding: Number,
+  imageUrl: String
 })
 
 const NO_TICKER_DEFAULT = 'dbl click to add'

@@ -7,6 +7,9 @@
     @dblclick="handleIsShowInput"
     @submit.prevent="onSubmit"
   >
+    <div class="w-60px">
+      <img :src="imageUrl" class="w-full" alt="ticker-image" />
+    </div>
     <span
       v-show="!isShowInput"
       class="headline-xl c-text-asPrimary shadow-text uppercase mb-16px lg:mb-24px"
@@ -65,7 +68,8 @@ const props = defineProps({
   isShowInput: Boolean,
   blockDetailData: Object,
   toggleBlockDetail: Boolean,
-  holding: Number
+  holding: Number,
+  imageUrl: String
 })
 
 const totalValue = computed(() => props?.holding * props?.price)
