@@ -150,6 +150,6 @@ export const useTickerBlock = () => {
     editTickerListProperty,
     setAllTickerNames,
     saveToLocalStorage,
-    submitEditTable
+    submitEditTable,
   }
 }

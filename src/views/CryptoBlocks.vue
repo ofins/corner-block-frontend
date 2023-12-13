@@ -87,7 +87,8 @@ const {
   handleToggleBlockDetail,
   setAllTickersDetail,
   editTickerListProperty,
-  saveToLocalStorage
+  saveToLocalStorage,
+  setAllTickerNames
 } = useTickerBlock()
 
 const handleIsShowInput = (slot: number) => {
@@ -111,9 +112,10 @@ const handleInputNewTicker = async (value: string, slot: number) => {
     editTickerListProperty(slot, Ticker.Image, data.image.small)
     editTickerListProperty(slot, Ticker.PriceChangePercentage24h, data.price_change_percentage_24h)
 
-    saveToLocalStorage(LOCAL_STORAGE_TICKERLIST, tickerList.value)
     handleToggleBlockDetail(slot)
   }
+  // setAllTickerNames([{ tickerSlot: slot, id: value }])
+  // setAllTickersDetail()
 }
 
 onMounted(() => {

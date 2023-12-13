@@ -94,7 +94,6 @@ const onSubmit = (e: any) => {
 }
 
 const handleIsShowInput = async () => {
-  console.log(props.tickerList?.tickerSlot)
   await emit('update-is-show-input', props.tickerList?.tickerSlot)
   if (inputRef.value) {
     inputRef.value.focus()

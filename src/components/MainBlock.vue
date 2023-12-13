@@ -38,7 +38,7 @@
       v-show="tickerList?.isShowInput"
       type="text"
       class="w-80px b-none bg-transparent c-text-asPrimary fw-700 text-20px b-transparent mb-8px"
-      @keyup.enter.prevent="onSubmit"
+      @keyup.enter="onSubmit"
     />
     <div class="w-70% flex-col-center bg-primary bg-op-90 h-42px rd-50px">
       <span class="headline-medium font-black c-text-asPrimary"> ${{ tickerList?.price }} </span>
