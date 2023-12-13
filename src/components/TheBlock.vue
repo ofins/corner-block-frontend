@@ -89,7 +89,6 @@ const totalValue = computed(() => props.tickerList?.holding * props.tickerList?.
 const emit = defineEmits(['update-ticker', 'handleToggleBlockDetail'])
 
 const onSubmit = (e: any) => {
-  console.log(e.target.value)
   emit('update-ticker', e.target.value.toLowerCase(), props.tickerList?.tickerSlot)
 }
 

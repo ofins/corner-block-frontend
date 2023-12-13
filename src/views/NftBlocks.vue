@@ -116,7 +116,6 @@ const handleInputNewTicker = async (value: string, slot: number) => {
 
 onMounted(() => {
   setAllTickersDetail()
-  console.log(tickerList.value)
 })
 </script>
 

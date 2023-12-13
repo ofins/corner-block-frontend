@@ -82,8 +82,6 @@ const props = defineProps({
   tickerList: Object
 })
 
-console.log(props.tickerList)
-
 const totalValue = computed(() => props.tickerList?.holding * props.tickerList?.price)
 
 const inputRef = ref<HTMLInputElement | null>(null)
