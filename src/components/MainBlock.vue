@@ -3,7 +3,7 @@
     v-show="!toggleBlockDetail"
     class="style-1 b-none rd-regular flex-col-center cursor-pointer relative"
     :class="sizeType"
-    @click="emit('handleToggleBlockDetail', tickerList.tickerSlot)"
+    @click="emit('handleToggleBlockDetail', tickerList?.tickerSlot)"
     @dblclick="handleIsShowInput"
     @submit.prevent="onSubmit"
   >
@@ -15,40 +15,40 @@
       <div
         class="headline-regular absolute top-12px right-12px py-12px px-20px rd-regular c-text-asPrimary shadow-image"
         :class="{
-          'bg-confirm bg-op-50': tickerList.priceChangePercentage24h > 0,
-          'bg-confirm bg-op-100!': tickerList.priceChangePercentage24h > 5,
-          'bg-alert bg-op-50': tickerList.priceChangePercentage24h < 0,
-          'bg-alert bg-op-100!': tickerList.priceChangePercentage24h < -5
+          'bg-confirm bg-op-50': tickerList?.priceChangePercentage24h > 0,
+          'bg-confirm bg-op-100!': tickerList?.priceChangePercentage24h > 5,
+          'bg-alert bg-op-50': tickerList?.priceChangePercentage24h < 0,
+          'bg-alert bg-op-100!': tickerList?.priceChangePercentage24h < -5
         }"
         style="letter-spacing: normal"
       >
-        {{ tickerList.priceChangePercentage24h?.toFixed(2) }}%
+        {{ tickerList?.priceChangePercentage24h?.toFixed(2) }}%
       </div>
       <img
-        :src="tickerList.imageURL"
+        :src="tickerList?.imageURL"
         class="w-48px h-48px object-contain mr-10px"
         alt="ticker-image"
       />
       <span>
-        {{ tickerList.tickerSymbol }}
+        {{ tickerList?.tickerSymbol }}
       </span>
     </span>
     <input
       ref="inputRef"
-      v-show="tickerList.isShowInput"
+      v-show="tickerList?.isShowInput"
       type="text"
       class="w-80px b-none bg-transparent c-text-asPrimary fw-700 text-20px b-transparent mb-8px"
       @keyup.enter.prevent="onSubmit"
     />
     <div class="w-70% flex-col-center bg-primary bg-op-90 h-42px rd-50px">
-      <span class="headline-medium font-black c-text-asPrimary"> ${{ tickerList.price }} </span>
+      <span class="headline-medium font-black c-text-asPrimary"> ${{ tickerList?.price }} </span>
     </div>
     <span
       v-if="generalSetting.showTotalValue && totalValue"
       class="c-text-asSecondary fw-400 text-16px absolute bottom-10%"
       :class="{ 'headline-small': sizeType === 'size-S' }"
     >
-      $ {{ abbreviateNumber(totalValue) }} ({{ tickerList.holding }})
+      $ {{ abbreviateNumber(totalValue) }} ({{ tickerList?.holding }})
     </span>
   </form>
   <!-- block details -->
@@ -62,7 +62,7 @@
       :circulating-supply="blockDetailData?.market_data?.circulating_supply"
       :percentage-change-seven-days="blockDetailData?.market_data?.price_change_percentage_7d"
       :total-supply="blockDetailData?.market_data?.total_supply"
-      @handle-toggle-block-detail="emit('handleToggleBlockDetail', tickerList.tickerSlot)"
+      @handle-toggle-block-detail="emit('handleToggleBlockDetail', tickerList?.tickerSlot)"
     />
   </div>
 </template>
@@ -91,11 +91,11 @@ const inputRef = ref<HTMLInputElement | null>(null)
 const emit = defineEmits(['update-ticker', 'handleToggleBlockDetail'])
 
 const onSubmit = (e: any) => {
-  emit('update-ticker', e.target.value, props.tickerList.tickerSlot)
+  emit('update-ticker', e.target.value, props.tickerList?.tickerSlot)
 }
 
 const handleIsShowInput = async () => {
-  await emit('update-is-show-input', props.tickerList.tickerSlot)
+  await emit('update-is-show-input', props.tickerList?.tickerSlot)
   if (inputRef.value) {
     inputRef.value.focus()
     inputRef.value.value = ''

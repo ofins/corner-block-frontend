@@ -32,18 +32,11 @@
           />
           <div class="grid grid-cols-2 gap-20px mt-5 lg:mt-0 lg:gap-40px">
             <TheBlock
-              v-for="value in tickerList_medium"
+              v-for="(value, index) in tickerList_medium"
+              :ticker-list="value"
+              :key="index"
               sizeType="size-M"
-              :is-show-input="value.isShowInput"
-              :tickerSymbol="value.tickerSymbol"
-              :price="value.price"
               :currency="currency"
-              :key="value.tickerSlot"
-              :ticker-slot="value.tickerSlot"
-              :is-block-selected="value.isBlockSelected"
-              :holding="value.holding"
-              :image-url="value.imageURL"
-              :price-change-percentage24h="value.priceChangePercentage24h"
               @update-ticker="handleInputNewTicker"
               @update-is-show-input="handleIsShowInput"
               @handle-toggle-block-detail="handleToggleBlockDetail"
@@ -52,18 +45,11 @@
         </div>
         <div class="flex gap-20px mt-30px <lg:w-300px <lg:flex-wrap">
           <TheBlock
-            v-for="value in tickerList_small_one"
+            v-for="(value, index) in tickerList_small_one"
+            :ticker-list="value"
+            :key="index"
             sizeType="size-S"
-            :is-show-input="value.isShowInput"
-            :tickerSymbol="value.tickerSymbol"
-            :price="value.price"
             :currency="currency"
-            :key="value.tickerSlot"
-            :ticker-slot="value.tickerSlot"
-            :is-block-selected="value.isBlockSelected"
-            :holding="value.holding"
-            :image-url="value.imageURL"
-            :price-change-percentage24h="value.priceChangePercentage24h"
             @update-ticker="handleInputNewTicker"
             @update-is-show-input="handleIsShowInput"
             @handle-toggle-block-detail="handleToggleBlockDetail"
@@ -85,7 +71,7 @@ import { storeToRefs } from 'pinia'
 import { useScreenshot } from '@/util/screenshot'
 import BasicModal from '@/components/modal/BasicModal.vue'
 
-const { fetchTickerPriceDataByName, fetchTickerDetailByName } = useTicker()
+const { fetchTickerDetailByName } = useTicker()
 const { currency } = storeToRefs(useAppStore())
 
 const { takeScreenshot } = useScreenshot(BasicModal)
