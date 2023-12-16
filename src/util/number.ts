@@ -16,6 +16,9 @@ export const abbreviateNumber = (num: number, decimals: number = 1) => {
   } else if (numLength < 13) {
     position = -9
     character = 'B'
+  } else if (numLength < 16) {
+    position = -12
+    character = 'T'
   } else {
     return 'Num too large'
   }

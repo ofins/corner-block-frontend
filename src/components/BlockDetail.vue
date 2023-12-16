@@ -5,10 +5,10 @@
   >
     <div class="w-85% h-85% absolute b-l-solid headline-regular c-text-asSecondary">
       <!-- day high/low -->
-      <span v-tooltip.right="'24H High'" class="absolute top-0 left-0 ml-4px">
+      <span v-tooltip.right="'24H High'" class="absolute top-0 left-0 <md:headline-small ml-4px">
         ${{ blockDetailData?.market_data?.high_24h.usd }}
       </span>
-      <span v-tooltip.right="'24H Low'" class="absolute bottom-0 left-0 ml-4px">
+      <span v-tooltip.right="'24H Low'" class="absolute bottom-0 left-0 <md:headline-small ml-4px">
         ${{ blockDetailData?.market_data?.low_24h.usd }}
       </span>
       <!-- 7 days change -->
@@ -70,22 +70,13 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, computed } from 'vue'
+import { defineProps, computed, onMounted } from 'vue'
 import { abbreviateNumber } from '@/util/number'
 
 const props = defineProps({
-  blockDetailData:Object,
+  blockDetailData: Object,
   tickerList: Object
 })
-
-//        :market-cap="blockDetailData?.market_data?.market_cap.usd"
-//       :symbol="blockDetailData?.symbol"
-//       :day-high="blockDetailData?.market_data?.high_24h.usd"
-//       :day-low="blockDetailData?.market_data?.low_24h.usd"
-//       :market-cap-rank="blockDetailData?.market_data?.market_cap_rank"
-//       :circulating-supply="blockDetailData?.market_data?.circulating_supply"
-//       :percentage-change-seven-days="blockDetailData?.market_data?.price_change_percentage_7d"
-//       :total-supply="blockDetailData?.market_data?.total_supply"
 
 const emit = defineEmits(['handleToggleBlockDetail'])
 

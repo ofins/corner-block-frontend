@@ -13,6 +13,8 @@ export const useTickerBlock = () => {
   const tickerList_medium = ref([])
   const tickerList_small_one = ref([])
   const blockDetailData = ref()
+  const currentTickerSlot = ref(0)
+  const currentMainTickerSlot = ref(0)
 
   enum Ticker {
     Name = 'ticker',
@@ -27,7 +29,6 @@ export const useTickerBlock = () => {
     PriceChangePercentage24h = 'priceChangePercentage24h'
   }
 
-  const MAIN_SLOT = 1
   const LOCAL_STORAGE_TICKERLIST = 'tickerList'
 
   // core
@@ -57,7 +58,7 @@ export const useTickerBlock = () => {
         item.tickerSymbol = ticker.symbol.toUpperCase()
         item.ticker = ticker.name
         item.imageURL = ticker.image
-        item.priceChangePercentage24h = ticker.price_change_percentage_24h 
+        item.priceChangePercentage24h = ticker.price_change_percentage_24h
       }
     })
   }
@@ -95,13 +96,20 @@ export const useTickerBlock = () => {
 
   const handleToggleBlockDetail = async (slot: number) => {
     blockDetailData.value = await getTickerDetailBySlot(slot)
+    currentTickerSlot.value = slot - 1
 
     tickerList.value.forEach((tick) => {
       if (tick.tickerSlot === slot)
         editTickerListProperty(tick.tickerSlot, Ticker.IsBlockSelected, true)
       else editTickerListProperty(tick.tickerSlot, Ticker.IsBlockSelected, false)
     })
-    toggleBlockDetail.value = slot === MAIN_SLOT ? !toggleBlockDetail.value : true
+    if (slot === currentMainTickerSlot.value) {
+      currentTickerSlot.value = 0
+      toggleBlockDetail.value = !toggleBlockDetail.value
+    } else {
+      toggleBlockDetail.value = true
+      currentMainTickerSlot.value = slot
+    }
     saveToLocalStorage(LOCAL_STORAGE_TICKERLIST, tickerList.value)
   }
 
@@ -144,12 +152,13 @@ export const useTickerBlock = () => {
     blockDetailData,
     Ticker,
     LOCAL_STORAGE_TICKERLIST,
+    currentTickerSlot,
     compileAllTickerIdToString,
     handleToggleBlockDetail,
     setAllTickersDetail,
     editTickerListProperty,
     setAllTickerNames,
     saveToLocalStorage,
-    submitEditTable,
+    submitEditTable
   }
 }
