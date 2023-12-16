@@ -4,6 +4,7 @@
       <div class="mb-42px"></div>
       <!-- screenshot button -->
       <div
+      v-tooltip="'snapshot'"
         class="cursor-pointer w-70px h-70px <md:w-50px <md:h-50px rd-50% flex-col-center mt-24px fixed bottom-10% right-12% bg-bg-asInverse-01 bg-op-50 hover:bg-primary h-transition z-3 <md:top-30px <md:right-6px"
       >
         <img

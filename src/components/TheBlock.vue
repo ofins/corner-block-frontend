@@ -18,6 +18,7 @@
     >
       <div
         v-if="tickerList?.priceChangePercentage24h"
+        v-tooltip="'24 Hours percentage change'"
         class="headline-small absolute top-6px right-6px py-4px px-8px rd-regular c-text-asPrimary shadow-image"
         :class="{
           'bg-confirm bg-op-50': tickerList?.priceChangePercentage24h > 0,

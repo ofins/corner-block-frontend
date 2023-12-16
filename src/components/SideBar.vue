@@ -11,31 +11,48 @@
       />
       <div class="mt-50px flex-col-center gap-2">
         <RouterLink @click="hideSideBar" to="/">
-          <div class="w-50px h-50px bg-transparent b-solid b-line b-1px rd-4px flex-col-center">
+          <div
+            v-tooltip.right="'Home'"
+            class="w-50px h-50px bg-transparent b-solid b-line b-1px rd-4px flex-col-center"
+          >
             <img src="/icons/icons8-cube-100.png" class="w-30px" />
           </div>
         </RouterLink>
         <RouterLink @click="hideSideBar" to="/crypto-blocks"
-          ><div class="w-50px h-50px bg-transparent b-solid b-line b-1px rd-4px flex-col-center">
+          ><div
+            v-tooltip.right="'Crypto'"
+            class="w-50px h-50px bg-transparent b-solid b-line b-1px rd-4px flex-col-center"
+          >
             <img src="/icons/icons8-drawstring-bag-100.png" class="w-30px" /></div
         ></RouterLink>
         <RouterLink @click="hideSideBar" to="/nft-blocks"
-          ><div class="w-50px h-50px bg-transparent b-solid b-line b-1px rd-4px flex-col-center">
+          ><div
+            v-tooltip.right="'NFT'"
+            class="w-50px h-50px bg-transparent b-solid b-line b-1px rd-4px flex-col-center"
+          >
             <img src="/icons/icons8-nft-64.png" class="w-30px" /></div
         ></RouterLink>
       </div>
     </div>
     <div>
-      <div @click="openGeneralSettingModal" class="cursor-pointer mb-20px">
+      <div
+        v-tooltip.right="'Settings'"
+        @click="openGeneralSettingModal"
+        class="cursor-pointer mb-20px"
+      >
         <img src="/icons/icons8-gear-100.png" class="w-40px" />
       </div>
-      <div @click="openTickerInputTableModal" class="cursor-pointer mb-20px">
+      <div
+        v-tooltip.right="'Edit'"
+        @click="openTickerInputTableModal"
+        class="cursor-pointer mb-20px"
+      >
         <img src="/icons/icons8-create-100.png" class="w-40px" />
       </div>
-      <div @click="openBasicModal" class="cursor-pointer mb-50px">
+      <div v-tooltip.right="'Reset All'" @click="openBasicModal" class="cursor-pointer mb-50px">
         <img src="/icons/icons8-remove-100.png" class="w-40px" />
       </div>
-    </div>
+    </div>  
   </nav>
   <!-- background shade -->
   <div

@@ -9,6 +9,7 @@
         <p>
           Built by
           <a
+            v-tooltip="'my official ronin RNS'"
             class="font-italic c-inherit"
             target="_blank"
             href="https://id.roninchain.com/name/ofins.ron"
@@ -18,7 +19,7 @@
         </p>
         <p>
           Come say hi! 👋 ->
-          <a target="_blank" class="c-inherit" href="https://twitter.com/ofinsNFT">my twitter</a>
+          <a v-tooltip.bottom="'link to my twitter page'" target="_blank" class="c-inherit" href="https://twitter.com/ofinsNFT">my twitter</a>
         </p>
       </div>
     </div>

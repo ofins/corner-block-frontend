@@ -13,6 +13,7 @@
       style="letter-spacing: 6px"
     >
       <div
+        v-tooltip.left="'24 Hours percentage change'"
         class="headline-regular absolute top-12px right-12px py-12px px-20px rd-regular c-text-asPrimary shadow-image"
         :class="{
           'bg-confirm bg-op-50': tickerList?.priceChangePercentage24h > 0,
