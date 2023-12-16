@@ -4,12 +4,12 @@
     @update:model-value="(val) => emit('update:modelValue', val)"
   >
     <div
-      class="bg-bg-asSecondary c-text-asPrimary p-4 rd-regular b-line b-solid b-1px b-op-10 shadow-image max-h-85vh <md:overflow-y-auto"
+      class="bg-bg-asSecondary c-text-asPrimary p-4 rd-regular b-line b-solid b-1px b-op-10 shadow-image max-h-85vh  <md:overflow-y-auto max-w-85vw"
     >
       <h1 class="text-xl">
         {{ title }}
       </h1>
-      <div class="<md:max-h-50vh <md:overflow-y-scroll">
+      <div class="w-full <md:max-h-50vh <md:overflow-scroll">
         <slot />
       </div>
       <div class="flex justify-end gap-16px my-24px">
