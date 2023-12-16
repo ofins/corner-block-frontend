@@ -27,6 +27,13 @@
             >my twitter</a
           >
         </p>
+        <RouterLink to="/crypto-blocks" class="decoration-none">
+          <div
+            class="bg-primary w-fit px-32px rd-regular mx-auto mt-70px py-16px c-text-asPrimary hover:scale-105 transition-all duration-300 hover:bg-transparent hover:b-solid b-primary"
+          >
+            Get Started
+          </div>
+        </RouterLink>
       </div>
     </div>
     <div class="c-text-asPrimary max-w-500px md:ml-100px px-16px flex flex-col justify-start gap-2">
@@ -74,6 +81,7 @@
 <script setup lang="ts">
 import BasicModal from '@/components/modal/BasicModal.vue'
 import { useModal } from 'vue-final-modal'
+import { RouterLink } from 'vue-router'
 
 const { open, close } = useModal({
   component: BasicModal,
