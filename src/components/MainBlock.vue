@@ -56,14 +56,8 @@
   <!-- block details -->
   <div v-show="toggleBlockDetail" :class="sizeType" class="rd-regular">
     <BlockDetail
-      :market-cap="blockDetailData?.market_data?.market_cap.usd"
-      :symbol="blockDetailData?.symbol"
-      :day-high="blockDetailData?.market_data?.high_24h.usd"
-      :day-low="blockDetailData?.market_data?.low_24h.usd"
-      :market-cap-rank="blockDetailData?.market_data?.market_cap_rank"
-      :circulating-supply="blockDetailData?.market_data?.circulating_supply"
-      :percentage-change-seven-days="blockDetailData?.market_data?.price_change_percentage_7d"
-      :total-supply="blockDetailData?.market_data?.total_supply"
+      :block-detail-data="blockDetailData"
+      :ticker-list="tickerList"
       @handle-toggle-block-detail="emit('handleToggleBlockDetail', tickerList?.tickerSlot)"
     />
   </div>

@@ -4,43 +4,68 @@
     @click="handleToggleBlockDetail"
   >
     <div class="w-85% h-85% absolute b-l-solid headline-regular c-text-asSecondary">
+      <!-- day high/low -->
       <span v-tooltip.right="'24H High'" class="absolute top-0 left-0 ml-4px">
-        ${{ dayHigh }}
+        ${{ blockDetailData?.market_data?.high_24h.usd }}
       </span>
       <span v-tooltip.right="'24H Low'" class="absolute bottom-0 left-0 ml-4px">
-        ${{ dayLow }}
+        ${{ blockDetailData?.market_data?.low_24h.usd }}
       </span>
+      <!-- 7 days change -->
       <span
         v-tooltip="'7 Days Percentage Change'"
         class="absolute top-0 right-0"
         :class="{
-          'c-confirm': percentageChangeSevenDays > 0,
-          'c-alert': percentageChangeSevenDays < 0
+          'c-confirm': blockDetailData?.market_data?.price_change_percentage_7d > 0,
+          'c-alert': blockDetailData?.market_data?.price_change_percentage_7d < 0
         }"
       >
-        {{ percentageChangeSevenDays?.toFixed(2) }}%
+        {{ blockDetailData?.market_data?.price_change_percentage_7d?.toFixed(2) }}%
       </span>
+
+      <!-- supplies -->
       <div class="absolute bottom-0 right-0">
         <span v-tooltip="'Circulating Supply'">
-          {{ abbreviateNumber(circulatingSupply, 0) }}
+          {{ abbreviateNumber(blockDetailData?.market_data?.circulating_supply, 0) }}
         </span>
         <span> / </span>
         <span v-tooltip="'Total Supply'">
-          {{ abbreviateNumber(totalSupply, 0) }}
+          {{ abbreviateNumber(blockDetailData?.market_data?.total_supply, 0) }}
         </span>
       </div>
-    </div>
-    <div class="flex-col-center w-full h-full font-black text-52px c-primary">
-      <span v-tooltip="'Market Capitalization'">
-        {{ abbreviateNumber(marketCap, 0) }}
+      <!-- market cap -->
+      <span
+        v-tooltip="'Market Capitalization'"
+        class="absolute bottom-0 left-50% translate-x--50% c-primary"
+      >
+        {{ abbreviateNumber(blockDetailData?.market_data?.market_cap.usd, 0) }}
+      </span>
+      <!-- market cap rank -->
+      <span
+        v-tooltip="'Ranking By Market Cap.'"
+        class="absolute top-0 left-50% translate-x--50% translate-x--50%"
+      >
+        #{{ blockDetailData?.market_data?.market_cap_rank }}
       </span>
     </div>
-    <span
-      v-tooltip.bottom="'Ranking By Market Cap.'"
-      class="absolute top-70% left-50% translate-x--50% translate-y--50% headline-xl <xl:headline-large c-text-asPrimary c-op-5"
-    >
-      #{{ marketCapRank }}
-    </span>
+
+    <div class="flex-col-center w-full h-full font-black text-52px c-primary">
+      <!-- token image -->
+      <img
+        v-if="blockDetailData?.image.large"
+        :src="blockDetailData?.image.large"
+        class="object-contain w-100px <md:w-70px"
+        alt="ticker-image"
+      />
+
+      <!-- asset value -->
+      <span
+        v-tooltip="'asset in USD'"
+        class="c-confirm headline-large <md:headline-medium text-shadow absolute bottom-20%"
+      >
+        ${{ totalValue.toLocaleString() }}
+      </span>
+    </div>
   </div>
 </template>
 
@@ -48,42 +73,23 @@
 import { defineProps, computed } from 'vue'
 import { abbreviateNumber } from '@/util/number'
 
-defineProps({
-  marketCap: {
-    type: Number,
-    default: null
-  },
-  circulatingSupply: {
-    type: Number,
-    default: null
-  },
-  totalSupply: {
-    type: Number,
-    default: null
-  },
-  dayHigh: {
-    type: Number,
-    default: null
-  },
-  dayLow: {
-    type: Number,
-    default: null
-  },
-  marketCapRank: {
-    type: Number,
-    default: null
-  },
-  symbol: {
-    type: String,
-    default: 'N/A'
-  },
-  percentageChangeSevenDays: {
-    type: Number,
-    default: null
-  }
+const props = defineProps({
+  blockDetailData:Object,
+  tickerList: Object
 })
 
+//        :market-cap="blockDetailData?.market_data?.market_cap.usd"
+//       :symbol="blockDetailData?.symbol"
+//       :day-high="blockDetailData?.market_data?.high_24h.usd"
+//       :day-low="blockDetailData?.market_data?.low_24h.usd"
+//       :market-cap-rank="blockDetailData?.market_data?.market_cap_rank"
+//       :circulating-supply="blockDetailData?.market_data?.circulating_supply"
+//       :percentage-change-seven-days="blockDetailData?.market_data?.price_change_percentage_7d"
+//       :total-supply="blockDetailData?.market_data?.total_supply"
+
 const emit = defineEmits(['handleToggleBlockDetail'])
+
+const totalValue = computed(() => props.tickerList?.holding * props.tickerList?.price)
 
 const handleToggleBlockDetail = () => {
   emit('handleToggleBlockDetail')

@@ -15,7 +15,8 @@ export default {
       asPrimary: '#0f0f0f',
       asSecondary: '#1c1c1c',
       asInverse: {
-        '01': '#6A6A6A'
+        '01': '#6A6A6A',
+        '02': '#FFFFFF'
       },
       asMask: '#0000004d'
     },
