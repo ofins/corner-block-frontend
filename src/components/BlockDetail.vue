@@ -22,17 +22,17 @@
       </span>
       <div class="absolute bottom-0 right-0">
         <span v-tooltip="'Circulating Supply'">
-          {{ abbreviateNumber(circulatingSupply) }}
+          {{ abbreviateNumber(circulatingSupply, 0) }}
         </span>
         <span> / </span>
         <span v-tooltip="'Total Supply'">
-          {{ abbreviateNumber(totalSupply) }}
+          {{ abbreviateNumber(totalSupply, 0) }}
         </span>
       </div>
     </div>
     <div class="flex-col-center w-full h-full font-black text-52px c-primary">
       <span v-tooltip="'Market Capitalization'">
-        {{ abbreviateNumber(marketCap) }}
+        {{ abbreviateNumber(marketCap, 0) }}
       </span>
     </div>
     <span

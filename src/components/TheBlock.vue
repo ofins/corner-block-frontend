@@ -1,6 +1,6 @@
 <template>
   <form
-    class="b-none rd-regular flex-col-center relative bg-gradient-to-tl from-primary to-#ffffff cursor-pointer d-transition hover:shadow-[0px_0px_15px_#A0C3FC]"
+    class="b-none rd-regular flex-col-center relative bg-gradient-to-tl from-primary to-#ffffff cursor-pointer d-transition hover:shadow-[0px_0px_15px_#A0C3FC] overflow-hidden"
     :class="[
       sizeType,
       {
@@ -58,13 +58,14 @@
       >
         ${{ tickerList?.price }}
       </span>
-      <span
+      <div
         v-if="generalSetting.showTotalValue && totalValue"
-        class="headline-regular c-text-asSecondary fw-400 text-12px absolute bottom-10%"
+        class="headline-regular c-text-asSecondary fw-400 text-12px absolute bottom-10% whitespace-wrap"
         :class="{ 'headline-small': sizeType === 'size-S' }"
       >
-        $ {{ abbreviateNumber(totalValue) }} ({{ tickerList?.holding }})
-      </span>
+        <span v-tooltip="'value in USD'">$ {{ abbreviateNumber(totalValue) }}&nbsp;</span>
+        <span v-tooltip="'token count'">({{ abbreviateNumber(tickerList?.holding) }})</span>
+      </div>
     </div>
   </form>
 </template>

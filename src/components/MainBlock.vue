@@ -1,7 +1,7 @@
 <template>
   <form
     v-show="!toggleBlockDetail"
-    class="style-1 b-none rd-regular flex-col-center cursor-pointer relative"
+    class="style-1 b-none rd-regular flex-col-center cursor-pointer relative overflow-hidden"
     :class="sizeType"
     @click="emit('handleToggleBlockDetail', tickerList?.tickerSlot)"
     @dblclick="handleIsShowInput"
@@ -49,7 +49,8 @@
       class="c-text-asSecondary fw-400 text-16px absolute bottom-10%"
       :class="{ 'headline-small': sizeType === 'size-S' }"
     >
-      $ {{ abbreviateNumber(totalValue) }} ({{ tickerList?.holding }})
+      <span v-tooltip="'value in USD'">$ {{ abbreviateNumber(totalValue) }}&nbsp;</span>
+      <span v-tooltip="'token count'">({{ abbreviateNumber(tickerList?.holding) }})</span>
     </span>
   </form>
   <!-- block details -->
