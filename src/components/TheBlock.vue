@@ -17,7 +17,7 @@
       class="absolute bg-bg-asSecondary w-95% h-95% top-50% translate-y--50% left-50% translate-x--50% rd-regular flex-col-center"
     >
       <div
-        v-if="tickerList"
+        v-if="tickerList?.priceChangePercentage24h"
         class="headline-small absolute top-6px right-6px py-4px px-8px rd-regular c-text-asPrimary shadow-image"
         :class="{
           'bg-confirm bg-op-50': tickerList?.priceChangePercentage24h > 0,
@@ -36,7 +36,7 @@
         :class="{ 'headline-regular': sizeType === 'size-S' }"
       >
         <img
-          v-if="tickerList"
+          v-if="tickerList?.imageURL"
           :src="tickerList?.imageURL"
           class="w-18px h-18px object-contain mr-10px rd-50"
           alt="ticker-image"
