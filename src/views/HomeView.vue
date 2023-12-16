@@ -48,7 +48,7 @@
         <i>feel free to DM me if you encounter any issues.</i>
       </div>
       <div class="b-1px b-solid b-white p-16px rd-regular b-op-30">
-        <p class="text-20px mt-16px c-primary">Version 2023.12.9</p>
+        <p class="text-20px mt-16px c-primary">Version 2023.12.16</p>
         <ul class="text-start">
           <li><span class="c-primary">NEW:</span> Token Images</li>
           <li><span class="c-primary">NEW:</span> 24 hour price change</li>
