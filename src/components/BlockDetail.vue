@@ -60,6 +60,7 @@
 
       <!-- asset value -->
       <span
+        v-if="generalSetting.showTotalValue && totalValue"
         v-tooltip="'asset in USD'"
         class="c-confirm headline-large <md:headline-medium text-shadow absolute bottom-20%"
       >
@@ -72,6 +73,7 @@
 <script setup lang="ts">
 import { defineProps, computed, onMounted } from 'vue'
 import { abbreviateNumber } from '@/util/number'
+import { generalSetting } from '@/hooks/useSetting'
 
 const props = defineProps({
   blockDetailData: Object,
