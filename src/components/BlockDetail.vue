@@ -11,8 +11,14 @@
       <span v-tooltip.right="'24H Low'" class="absolute bottom-0 left-0 <md:headline-small ml-4px">
         ${{ blockDetailData?.market_data?.low_24h.usd }}
       </span>
-      <span class="c-confirm ml-4px absolute left-0" :style="`bottom:${price_percentile}%`">
-        ${{ tickerList?.price }}</span
+      <span
+        class="c-confirm ml-4px absolute left-0 flex items-center"
+        :style="`bottom:${price_percentile}%`"
+      >
+        <img
+          class="w-18px absolute left--24px animate-fade-in-left animate-count-1 animate-duration-0.3s"
+          src="/icons/icons8-play-96.png"
+        />${{ tickerList?.price }}</span
       >
       <!-- 7 days change -->
       <span
@@ -56,7 +62,7 @@
       <!-- token image -->
       <img
         v-if="blockDetailData?.image.large"
-        :src="blockDetailData?.image.large"
+        :src="blockDetailData?.image.large ?? ''"
         class="object-contain w-100px <md:w-70px"
         alt="ticker-image"
       />
