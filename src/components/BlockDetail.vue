@@ -11,6 +11,9 @@
       <span v-tooltip.right="'24H Low'" class="absolute bottom-0 left-0 <md:headline-small ml-4px">
         ${{ blockDetailData?.market_data?.low_24h.usd }}
       </span>
+      <span class="c-confirm ml-4px absolute left-0" :style="`bottom:${price_percentile}%`">
+        ${{ tickerList?.price }}</span
+      >
       <!-- 7 days change -->
       <span
         v-tooltip="'7 Days Percentage Change'"
@@ -62,7 +65,7 @@
       <span
         v-if="generalSetting.showTotalValue && totalValue"
         v-tooltip="'asset in USD'"
-        class="c-confirm headline-large <md:headline-medium text-shadow absolute bottom-20%"
+        class="c-text-asPrimary headline-large <md:headline-medium text-shadow absolute bottom-20%"
       >
         ${{ totalValue.toLocaleString() }}
       </span>
@@ -87,6 +90,15 @@ const totalValue = computed(() => props.tickerList?.holding * props.tickerList?.
 const handleToggleBlockDetail = () => {
   emit('handleToggleBlockDetail')
 }
+
+// maximum percentage is 95%
+const price_percentile = computed(() => {
+  return (
+    (95 * (props.tickerList?.price - props.blockDetailData?.market_data?.low_24h.usd)) /
+    (props.blockDetailData?.market_data?.high_24h.usd -
+      props.blockDetailData?.market_data?.low_24h.usd)
+  ).toFixed(0)
+})
 </script>
 
 <style scoped>
