@@ -55,22 +55,14 @@
         <i>feel free to DM me if you encounter any issues.</i>
       </div>
       <div class="b-1px b-solid b-white p-16px rd-regular b-op-30">
-        <p class="text-20px mt-16px c-primary">Version 2023.12.16</p>
+        <p class="text-20px mt-16px c-primary">Version 2023.12.25 Mery Christmas! 🎄🎄🎄</p>
         <ul class="text-start">
-          <li><span class="c-primary">NEW:</span> Token Images</li>
-          <li><span class="c-primary">NEW:</span> 24 hour price change</li>
+          <li><span class="c-primary">NEW:</span> Total Asset Value Info Box</li>
+          <li><span class="c-primary">NEW:</span> 2current price indicator on Block Detail</li>
           <li>
-            <span class="c-primary">NEW:</span> hovering over some text/numbers will display
-            description
+            <span class="c-primary">NEW:</span> token prices refreshes automatically every minute
           </li>
-          <li><span class="c-primary">NEW:</span> how to find Token API modal in Home</li>
-          <li>update: only show image/percentage if token has value</li>
-          <li>
-            update: most large numbers (>1000) will display with abbreviatedCharacter and decimal
-            value of 1
-          </li>
-          <li>add clear ALL tokens button in sidebar</li>
-          <li>update: add Trilliion character to abbreviated numbers</li>
+          <li><span class="c-primary">NEW:</span> hdisplay token info update date and time</li>
           <li>fix: minor bugs and errors</li>
         </ul>
       </div>
