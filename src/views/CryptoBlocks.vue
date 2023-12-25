@@ -16,9 +16,13 @@
       </div>
       <!-- main frame -->
       <div
-        class="p-20px rd-regular bg-bg-asSecondary b-line b-solid b-1px b-op-20"
+        class="p-20px rd-regular bg-bg-asSecondary b-line b-solid b-1px b-op-20 relative"
         id="crypto-block-container"
       >
+        <!-- dateTime -->
+        <div class="absolute left-0 top--26px c-text-asSecondary font-italic text-14px">
+          Last updated: {{ dateTime }}
+        </div>
         <div
           class="flex-col-center items-center lg:flex-row lg:justify-center lg:gap-10 max-w-1000px w-full"
         >
@@ -103,9 +107,11 @@ import { storeToRefs } from 'pinia'
 import { useScreenshot } from '@/util/screenshot'
 import BasicModal from '@/components/modal/BasicModal.vue'
 import { generalSetting } from '@/hooks/useSetting'
+import { updateFormattedDateTime } from '@/util/dateUtil'
 
 const { fetchTickerDetailByName } = useTicker()
 const { currency } = storeToRefs(useAppStore())
+const dateTime = ref('-')
 
 const { takeScreenshot } = useScreenshot(BasicModal)
 
@@ -162,8 +168,12 @@ const addAllAssetValue = computed(() => {
 
 onMounted(() => {
   setAllTickersDetail()
-  console.log(tickerList.value)
-  setInterval(setAllTickersDetail, 60000)
+  dateTime.value = updateFormattedDateTime()
+
+  setInterval(() => {
+    dateTime.value = updateFormattedDateTime()
+    setAllTickersDetail()
+  }, 60000)
 })
 </script>
 
