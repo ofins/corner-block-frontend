@@ -1,6 +1,6 @@
 <template>
   <div class="bg-bg-asPrimary w-full h-full py-20px" @click="hideAllInputs">
-    <div class="flex-col-center">
+    <div class="flex justify-center gap-45px h-665px <md:flex-col-center <md:h-unset">
       <div class="mb-42px"></div>
       <!-- screenshot button -->
       <div
@@ -14,6 +14,7 @@
           alt="screenshot"
         />
       </div>
+      <!-- main frame -->
       <div
         class="p-20px rd-regular bg-bg-asSecondary b-line b-solid b-1px b-op-20"
         id="crypto-block-container"
@@ -57,6 +58,36 @@
           />
         </div>
       </div>
+      <!-- assets display frame -->
+      <div
+        v-if="generalSetting.showTotalValue"
+        class="w-300px rd-regular p-20px bg-bg-asSecondary b-line b-solid b-1px b-op-20 text-left h-fit min-w-341px <md:min-w-unset"
+      >
+        <table class="w-full c-text-asPrimary">
+          <thead class="headline-regular">
+            <tr>
+              <th>Token</th>
+              <th>holdings</th>
+              <th>value</th>
+            </tr>
+            <tr class="h-20px"></tr>
+          </thead>
+          <tbody class="text-12px <md:text-10px">
+            <tr v-for="(ticker, index) in tickerList" :key="index" class="whitespace-nowrap">
+              <th class="font-400 w-121px overflow-hidden">{{ ticker.id }}</th>
+              <th class="font-400 w-90px overflow-hidden">{{ ticker.holding }}</th>
+              <th class="font-400 w-120px! overflow-x-hidden" v-if="ticker.holding">
+                $ {{ (ticker.holding * ticker.price).toLocaleString() }}
+              </th>
+            </tr>
+            <tr class="h-40px whitespace-nowrap">
+              <th>Total</th>
+              <th>-</th>
+              <th class="c-confirm">$ {{ addAllAssetValue.toLocaleString() }} USD</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -71,6 +102,7 @@ import { useAppStore } from '@/stores/app'
 import { storeToRefs } from 'pinia'
 import { useScreenshot } from '@/util/screenshot'
 import BasicModal from '@/components/modal/BasicModal.vue'
+import { generalSetting } from '@/hooks/useSetting'
 
 const { fetchTickerDetailByName } = useTicker()
 const { currency } = storeToRefs(useAppStore())
@@ -120,9 +152,17 @@ const handleInputNewTicker = async (value: string, slot: number) => {
   // setAllTickersDetail()
 }
 
+const addAllAssetValue = computed(() => {
+  return tickerList.value.reduce((accumulator, currentTicker) => {
+    const value = currentTicker.holding * currentTicker.price
+
+    return accumulator + (isNaN(value) ? 0 : value)
+  }, 0)
+})
+
 onMounted(() => {
   setAllTickersDetail()
-
+  console.log(tickerList.value)
   setInterval(setAllTickersDetail, 60000)
 })
 </script>

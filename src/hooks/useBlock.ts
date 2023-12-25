@@ -67,8 +67,8 @@ export const useTickerBlock = () => {
     tickerList.value.forEach((item) => {
       const newTicker = inputData.find((input) => input[Ticker.Slot] === item.tickerSlot)
       if (newTicker) {
-        item.id = newTicker.id
-        item.holding = newTicker.holding
+        item.id = newTicker.id ?? '-'
+        item.holding = newTicker.holding ?? '-'
       }
     })
   }
