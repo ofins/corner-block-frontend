@@ -61,8 +61,8 @@
     <div class="flex-col-center w-full h-full font-black text-52px c-primary">
       <!-- token image -->
       <img
-        v-if="blockDetailData?.image.large"
-        :src="blockDetailData?.image.large ?? ''"
+        v-if="blockDetailData?.image?.large"
+        :src="blockDetailData?.image?.large ?? ''"
         class="object-contain w-100px <md:w-70px"
         alt="ticker-image"
       />

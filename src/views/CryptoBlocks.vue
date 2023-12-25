@@ -122,6 +122,8 @@ const handleInputNewTicker = async (value: string, slot: number) => {
 
 onMounted(() => {
   setAllTickersDetail()
+
+  setInterval(setAllTickersDetail, 60000)
 })
 </script>
 
