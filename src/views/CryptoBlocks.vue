@@ -168,11 +168,21 @@ const addAllAssetValue = computed(() => {
 
 onMounted(() => {
   setAllTickersDetail()
-  dateTime.value = updateFormattedDateTime()
+    .then(() => {
+      dateTime.value = updateFormattedDateTime()
+    })
+    .catch((error) => {
+      console.error('Error:', error)
+    })
 
   setInterval(() => {
-    dateTime.value = updateFormattedDateTime()
     setAllTickersDetail()
+      .then(() => {
+        dateTime.value = updateFormattedDateTime()
+      })
+      .catch((error) => {
+        console.error('Error:', error)
+      })
   }, 60000)
 })
 </script>

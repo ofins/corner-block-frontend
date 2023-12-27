@@ -45,20 +45,27 @@ export const useTickerBlock = () => {
       .join(',')
   }
 
-  const setAllTickersDetail = async () => {
-    const allTickersDetailList = await fetchMultiTickersDetailByName(
-      compileAllTickerIdToString(tickerList.value),
-      Ticker.Currency
-    )
+  const setAllTickersDetail = () => {
+    return new Promise<void>(async (resolve, reject) => {
+      try {
+        const allTickersDetailList = await fetchMultiTickersDetailByName(
+          compileAllTickerIdToString(tickerList.value),
+          Ticker.Currency
+        )
 
-    tickerList.value.forEach((item: any) => {
-      const ticker = allTickersDetailList.find((ticker: any) => ticker.id === item.id)
-      if (ticker) {
-        item.price = ticker.current_price
-        item.tickerSymbol = ticker.symbol.toUpperCase()
-        item.ticker = ticker.name
-        item.imageURL = ticker.image
-        item.priceChangePercentage24h = ticker.price_change_percentage_24h
+        tickerList.value.forEach((item: any) => {
+          const ticker = allTickersDetailList.find((ticker: any) => ticker.id === item.id)
+          if (ticker) {
+            item.price = ticker.current_price
+            item.tickerSymbol = ticker.symbol.toUpperCase()
+            item.ticker = ticker.name
+            item.imageURL = ticker.image
+            item.priceChangePercentage24h = ticker.price_change_percentage_24h
+          }
+        })
+        resolve()
+      } catch (error) {
+        reject(error)
       }
     })
   }
