@@ -1,41 +1,24 @@
 import { getTickerPrice, getTickerDetail, getMultiTickersDetail } from '@/api/ticker'
 
 export const useTicker = () => {
-  const fetchTickerPriceDataByName = async (tickerParams: string, currency: string) => {
+  const fetchData = async (requestFn: Function, ...params: any) => {
     try {
-      const response = await getTickerPrice(tickerParams.toLowerCase(), currency)
-      if (response.status !== 200) {
-        throw new Error(`status-code:${response.status}`)
-      }
-      return response.data
+      const response = await requestFn(...params)
+      if (response.status !== 200) throw new Error(`status-code:${response.status}`)
+      else return response.data
     } catch (error) {
       console.error(error)
     }
   }
 
-  const fetchTickerDetailByName = async (ticker: string) => {
-    try {
-      const response = await getTickerDetail(ticker.toLowerCase())
-      if (response.status !== 200) {
-        throw new Error(`status-code:${response.status}`)
-      }
-      return response.data
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  const fetchTickerPriceDataByName = async (tickerParams: string, currency: string) =>
+    fetchData(getTickerPrice, tickerParams.toLowerCase(), currency)
 
-  const fetchMultiTickersDetailByName = async (tickers: string, currency: string) => {
-    try {
-      const response = await getMultiTickersDetail(tickers.toLowerCase(), currency)
-      if (response.status !== 200) {
-        throw new Error(`status-code:${response.status}`)
-      }
-      return response.data
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  const fetchTickerDetailByName = async (ticker: string) =>
+    fetchData(getTickerDetail, ticker.toLowerCase())
+
+  const fetchMultiTickersDetailByName = async (tickers: string, currency: string) =>
+    fetchData(getMultiTickersDetail, tickers.toLowerCase(), currency)
 
   return {
     fetchTickerPriceDataByName,
