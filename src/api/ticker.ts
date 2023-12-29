@@ -1,5 +1,5 @@
 import { fetchData } from './index'
-import { DEMO_10K_API_KEY } from '@/settings/apiBaseEndPoint'
+import { DEMO_10K_API_KEY, COINGECKO_BASE_ENDPOINT } from '@/settings/apiBaseEndPoint'
 
 const ENDPOINTS = {
   SIMPLE: '/simple',
@@ -10,7 +10,7 @@ const ENDPOINTS = {
 
 const buildUrl = (endpoint: string, params = {}) => {
   const paramString = new URLSearchParams(params)
-  return `${endpoint}?${paramString.toString()}&${DEMO_10K_API_KEY}`
+  return `${COINGECKO_BASE_ENDPOINT}${endpoint}?${paramString.toString()}&${DEMO_10K_API_KEY}`
 }
 
 export const getTickerPrice = (tickers: string, currency: string = 'usd') =>
