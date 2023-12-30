@@ -1,29 +1,24 @@
 import { fetchData } from './index'
-import { DEMO_10K_API_KEY, COINGECKO_BASE_ENDPOINT } from '@/settings/apiBaseEndPoint'
+import { SERVER_BASE_ENDPOINT } from '@/settings/apiBaseEndPoint'
 
-const ENDPOINTS = {
-  SIMPLE: '/simple',
-  PRICE: '/price',
-  COINS: '/coins',
-  MARKETS: '/markets'
-}
+const GET_TICKER_PRICE_API = '/tickers/prices'
+const GET_TICKER_DETAIL = '/tickers/details'
+const GET_MULTI_TICKER_DETAILS = '/tickers/details/multi'
 
 const buildUrl = (endpoint: string, params = {}) => {
   const paramString = new URLSearchParams(params)
-  return `${COINGECKO_BASE_ENDPOINT}${endpoint}?${paramString.toString()}&${DEMO_10K_API_KEY}`
+  return `${SERVER_BASE_ENDPOINT}${endpoint}?${paramString.toString()}`
 }
 
 export const getTickerPrice = (tickers: string, currency: string = 'usd') =>
-  fetchData(
-    buildUrl(`${ENDPOINTS.SIMPLE}${ENDPOINTS.PRICE}`, { ids: tickers, vs_currencies: currency })
-  )
+  fetchData(buildUrl(GET_TICKER_PRICE_API, { ids: tickers, vs_currencies: currency }))
 
 export const getTickerDetail = (ticker: string) =>
-  fetchData(buildUrl(`${ENDPOINTS.COINS}/${ticker}`))
+  fetchData(buildUrl(`${GET_TICKER_DETAIL}`, { ticker: ticker }))
 
 export const getMultiTickersDetail = (tickers: string, currency: string = 'usd') =>
   fetchData(
-    buildUrl(`${ENDPOINTS.COINS}${ENDPOINTS.MARKETS}`, {
+    buildUrl(`${GET_MULTI_TICKER_DETAILS}`, {
       vs_currency: currency,
       ids: tickers,
       sparkline: false,
