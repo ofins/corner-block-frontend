@@ -13,7 +13,7 @@
         <RouterLink @click="hideSideBar" to="/">
           <div
             v-tooltip.right="'Home'"
-            class="w-50px h-50px bg-transparent b-solid b-line b-1px rd-4px flex-col-center"
+            class="w-50px h-50px bg-transparent b-solid b-line b-1px rd-4px flex-col-center hover:bg-primary hover:b-transparent d-transition"
           >
             <img src="/icons/icons8-cube-100.png" class="w-30px" />
           </div>
@@ -21,14 +21,14 @@
         <RouterLink @click="hideSideBar" to="/crypto-blocks"
           ><div
             v-tooltip.right="'Crypto'"
-            class="w-50px h-50px bg-transparent b-solid b-line b-1px rd-4px flex-col-center"
+            class="w-50px h-50px bg-transparent b-solid b-line b-1px rd-4px flex-col-center hover:bg-primary hover:b-transparent d-transition"
           >
             <img src="/icons/icons8-drawstring-bag-100.png" class="w-30px" /></div
         ></RouterLink>
         <RouterLink @click="hideSideBar" to="/nft-blocks"
           ><div
             v-tooltip.right="'NFT'"
-            class="w-50px h-50px bg-transparent b-solid b-line b-1px rd-4px flex-col-center"
+            class="w-50px h-50px bg-transparent b-solid b-line b-1px rd-4px flex-col-center hover:bg-primary hover:b-transparent d-transition"
           >
             <img src="/icons/icons8-nft-64.png" class="w-30px" /></div
         ></RouterLink>
@@ -40,24 +40,25 @@
         @click="openGeneralSettingModal"
         class="cursor-pointer mb-20px"
       >
-        <img src="/icons/icons8-gear-100.png" class="w-40px" />
+        <img src="/icons/icons8-gear-100.png" class="w-30px hover:scale-110 d-transition" />
       </div>
       <div
         v-tooltip.right="'Edit'"
         @click="openTickerInputTableModal"
         class="cursor-pointer mb-20px"
       >
-        <img src="/icons/icons8-create-100.png" class="w-40px" />
+        <img src="/icons/icons8-create-100.png" class="w-30px hover:scale-110 d-transition" />
       </div>
       <div v-tooltip.right="'Reset All'" @click="openBasicModal" class="cursor-pointer mb-50px">
-        <img src="/icons/icons8-remove-100.png" class="w-40px" />
+        <img src="/icons/icons8-remove-100.png" class="w-30px hover:scale-110 d-transition" />
       </div>
-    </div>  
+    </div>
   </nav>
   <!-- background shade -->
   <div
     v-show="showSideBar"
     class="w-full h-full fixed top-0 left-0 z-1 bg-op-70 bg-bg-asSecondary"
+    @click="handleToggleSideBar"
   />
 </template>
 
@@ -129,4 +130,8 @@ const { open: openBasicModal, close: closeBasicModal } = useModal({
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.d-transition {
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+</style>
