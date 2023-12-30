@@ -80,7 +80,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, computed, onMounted } from 'vue'
+import { defineProps, computed } from 'vue'
 import { abbreviateNumber } from '@/util/number'
 import { generalSetting } from '@/hooks/useSetting'
 
@@ -97,13 +97,17 @@ const handleToggleBlockDetail = () => {
   emit('handleToggleBlockDetail')
 }
 
-// maximum percentage is 95%
+// min = 10, max = 90
 const price_percentile = computed(() => {
-  return (
-    (95 * (props.tickerList?.price - props.blockDetailData?.market_data?.low_24h.usd)) /
-    (props.blockDetailData?.market_data?.high_24h.usd -
-      props.blockDetailData?.market_data?.low_24h.usd)
-  ).toFixed(0)
+  const rawPercentile =
+    (Math.max(
+      (100 * (props.tickerList?.price - props.blockDetailData?.market_data?.low_24h.usd)) /
+        (props.blockDetailData?.market_data?.high_24h.usd -
+          props.blockDetailData?.market_data?.low_24h.usd)
+    ).toFixed(0),
+    10)
+
+  return Math.min(rawPercentile, 90)
 })
 </script>
 
