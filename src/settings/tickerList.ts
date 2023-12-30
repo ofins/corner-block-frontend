@@ -7,7 +7,8 @@ export const defaultTickerList = [
     price: 0,
     isShowInput: false,
     imageURL: '',
-    priceChangePercentage24h: 0
+    priceChangePercentage24h: 0,
+    holding:0
   },
   {
     tickerSlot: 2,

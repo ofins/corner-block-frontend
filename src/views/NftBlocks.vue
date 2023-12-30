@@ -83,7 +83,7 @@ const {
   toggleBlockDetail,
   blockDetailData,
   Ticker,
-  LOCAL_STORAGE_TICKERLIST,
+  LOCAL_STORAGE_TICKERS_LIST,
   handleToggleBlockDetail,
   setAllTickersDetail,
   editTickerListProperty,
@@ -109,7 +109,7 @@ const handleInputNewTicker = async (value: string, slot: number) => {
     editTickerListProperty(slot, Ticker.IsShowInput, false)
     editTickerListProperty(slot, Ticker.Id, data.id)
 
-    saveToLocalStorage(LOCAL_STORAGE_TICKERLIST, tickerList.value)
+    saveToLocalStorage(LOCAL_STORAGE_TICKERS_LIST, tickerList.value)
     handleToggleBlockDetail(slot)
   }
 }

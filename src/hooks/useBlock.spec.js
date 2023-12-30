@@ -16,7 +16,7 @@ describe('useTickerBlock', () => {
     toggleBlockDetail,
     blockDetailData,
     Ticker,
-    LOCAL_STORAGE_TICKERLIST,
+    LOCAL_STORAGE_TICKERS_LIST,
     compileAllTickerIdToString,
     handleToggleBlockDetail,
     setAllTickersDetail,
@@ -31,15 +31,10 @@ describe('useTickerBlock', () => {
     expect(toggleBlockDetail).toBeFalsy()
     expect(blockDetailData).toBeUndefined()
     expect(Ticker).toBeDefined()
-    expect(LOCAL_STORAGE_TICKERLIST).toBeDefined()
+    expect(LOCAL_STORAGE_TICKERS_LIST).toBeDefined()
   })
 
   it('should compile ticker id into a string with only alphabets, dash, and commas', () => {
     expect(compileAllTickerIdToString(tickerList)).toMatch(/^[a-zA-Z,-]+$/)
   })
-
-  
 })
-// await handleToggleBlockDetail(2)
-
-// expect(toggleBlockDetail).toBeTruthy()

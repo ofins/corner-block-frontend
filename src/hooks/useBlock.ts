@@ -1,12 +1,9 @@
-import TheBlock from '@/components/TheBlock.vue'
-import MainBlock from '@/components/MainBlock.vue'
-import { onMounted, ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useTicker } from '@/hooks/useTicker'
 import { defaultTickerList } from '@/settings/tickerList'
 
 export const useTickerBlock = () => {
-  const { fetchTickerPriceDataByName, fetchTickerDetailByName, fetchMultiTickersDetailByName } =
-    useTicker()
+  const { fetchTickerDetailByName, fetchMultiTickersDetailByName } = useTicker()
 
   const tickerList = ref(defaultTickerList)
   const toggleBlockDetail = ref<boolean>(false)
@@ -29,7 +26,7 @@ export const useTickerBlock = () => {
     PriceChangePercentage24h = 'priceChangePercentage24h'
   }
 
-  const LOCAL_STORAGE_TICKERLIST = 'tickerList'
+  const LOCAL_STORAGE_TICKERS_LIST = 'tickerList'
 
   // core
   const returnTargetProperty = (source: any, given: any, target: any) => {
@@ -46,6 +43,7 @@ export const useTickerBlock = () => {
   }
 
   const setAllTickersDetail = () => {
+    // eslint-disable-next-line no-async-promise-executor
     return new Promise<void>(async (resolve, reject) => {
       try {
         const allTickersDetailList = await fetchMultiTickersDetailByName(
@@ -70,9 +68,9 @@ export const useTickerBlock = () => {
     })
   }
 
-  const setAllTickerNames = (inputData) => {
+  const setAllTickerNames = (inputData: any) => {
     tickerList.value.forEach((item) => {
-      const newTicker = inputData.find((input) => input[Ticker.Slot] === item.tickerSlot)
+      const newTicker = inputData.find((input: any) => input[Ticker.Slot] === item.tickerSlot)
       if (newTicker) {
         item.id = newTicker.id ?? '-'
         item.holding = newTicker.holding ?? '-'
@@ -81,13 +79,13 @@ export const useTickerBlock = () => {
   }
 
   // get, set tickerList
-  const getTickerPropertyBySlot = (slot: number, key) => {
+  const getTickerPropertyBySlot = (slot: number, key: any) => {
     const ticker = returnTargetProperty(tickerList.value, Ticker.Slot, slot)
     if (ticker) return ticker[key]
   }
 
   const editTickerListProperty = (slot: number, targetKey: string, value: any) => {
-    tickerList.value.forEach((item) => {
+    tickerList.value.forEach((item: any) => {
       if (item.tickerSlot === slot) item[targetKey] = value
       else return item
     })
@@ -117,7 +115,7 @@ export const useTickerBlock = () => {
       toggleBlockDetail.value = true
       currentMainTickerSlot.value = slot
     }
-    saveToLocalStorage(LOCAL_STORAGE_TICKERLIST, tickerList.value)
+    saveToLocalStorage(LOCAL_STORAGE_TICKERS_LIST, tickerList.value)
   }
 
   // edit table
@@ -125,7 +123,7 @@ export const useTickerBlock = () => {
     const newEditDataList = dataList.filter((item: any) => item.id)
     setAllTickerNames(newEditDataList)
     setAllTickersDetail()
-    saveToLocalStorage(LOCAL_STORAGE_TICKERLIST, tickerList.value)
+    saveToLocalStorage(LOCAL_STORAGE_TICKERS_LIST, tickerList.value)
   }
 
   const retrieveFromLocalStorage = (key: string) => {
@@ -136,7 +134,7 @@ export const useTickerBlock = () => {
     } else {
       console.log('localStorage Empty, set default list.')
       tickerList.value = defaultTickerList
-      saveToLocalStorage(LOCAL_STORAGE_TICKERLIST, defaultTickerList)
+      saveToLocalStorage(LOCAL_STORAGE_TICKERS_LIST, defaultTickerList)
       setAllTickersDetail()
       window.location.reload()
     }
@@ -147,7 +145,7 @@ export const useTickerBlock = () => {
     localStorage.setItem(key, JSON.stringify(data))
   }
 
-  retrieveFromLocalStorage(LOCAL_STORAGE_TICKERLIST)
+  retrieveFromLocalStorage(LOCAL_STORAGE_TICKERS_LIST)
   tickerList_medium.value = tickerList.value.slice(1, 5)
   tickerList_small_one.value = tickerList.value.slice(5, 11)
 
@@ -158,7 +156,7 @@ export const useTickerBlock = () => {
     toggleBlockDetail,
     blockDetailData,
     Ticker,
-    LOCAL_STORAGE_TICKERLIST,
+    LOCAL_STORAGE_TICKERS_LIST,
     currentTickerSlot,
     compileAllTickerIdToString,
     handleToggleBlockDetail,

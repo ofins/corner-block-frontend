@@ -122,13 +122,10 @@ const {
   toggleBlockDetail,
   blockDetailData,
   Ticker,
-  LOCAL_STORAGE_TICKERLIST,
   currentTickerSlot,
   handleToggleBlockDetail,
   setAllTickersDetail,
-  editTickerListProperty,
-  saveToLocalStorage,
-  setAllTickerNames
+  editTickerListProperty
 } = useTickerBlock()
 
 const handleIsShowInput = (slot: number) => {
@@ -154,8 +151,6 @@ const handleInputNewTicker = async (value: string, slot: number) => {
 
     handleToggleBlockDetail(slot)
   }
-  // setAllTickerNames([{ tickerSlot: slot, id: value }])
-  // setAllTickersDetail()
 }
 
 const addAllAssetValue = computed(() => {
@@ -166,7 +161,7 @@ const addAllAssetValue = computed(() => {
   }, 0)
 })
 
-onMounted(() => {
+function updateAllTickersAndDateTime() {
   setAllTickersDetail()
     .then(() => {
       dateTime.value = updateFormattedDateTime()
@@ -174,15 +169,13 @@ onMounted(() => {
     .catch((error) => {
       console.error('Error:', error)
     })
+}
+
+onMounted(() => {
+  updateAllTickersAndDateTime()
 
   setInterval(() => {
-    setAllTickersDetail()
-      .then(() => {
-        dateTime.value = updateFormattedDateTime()
-      })
-      .catch((error) => {
-        console.error('Error:', error)
-      })
+    updateAllTickersAndDateTime()
   }, 60000)
 })
 </script>
