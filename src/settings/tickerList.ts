@@ -8,7 +8,7 @@ export const defaultTickerList = [
     isShowInput: false,
     imageURL: '',
     priceChangePercentage24h: 0,
-    holding:0
+    holding:100
   },
   {
     tickerSlot: 2,
@@ -17,7 +17,9 @@ export const defaultTickerList = [
     tickerSymbol: 'BTC',
     price: 0,
     isShowInput: false,
-    imageURL: ''
+    imageURL: '',
+    holding:1
+
   },
   {
     tickerSlot: 3,
@@ -26,7 +28,9 @@ export const defaultTickerList = [
     tickerSymbol: 'ETH',
     price: 0,
     isShowInput: false,
-    imageURL: ''
+    imageURL: '',
+    holding:5
+
   },
   {
     tickerSlot: 4,
@@ -35,7 +39,8 @@ export const defaultTickerList = [
     tickerSymbol: 'AXS',
     price: 0,
     isShowInput: false,
-    imageURL: ''
+    imageURL: '',
+    holding:100
   },
   {
     tickerSlot: 5,
@@ -44,37 +49,38 @@ export const defaultTickerList = [
     tickerSymbol: 'SLP',
     price: 0,
     isShowInput: false,
-    imageURL: ''
+    imageURL: '',
+    holding:100000
   },
   {
     tickerSlot: 6,
-    ticker: '',
-    id: '',
-    tickerSymbol: '',
+    ticker: 'Solana',
+    id: 'solana',
+    tickerSymbol: 'SOL',
     price: 0,
     isShowInput: false
   },
   {
     tickerSlot: 7,
-    ticker: '',
-    id: '',
-    tickerSymbol: '',
+    ticker: 'Avalanche',
+    id: 'avalanche-2',
+    tickerSymbol: 'AVAX',
     price: 0,
     isShowInput: false
   },
   {
     tickerSlot: 8,
-    ticker: '',
-    id: '',
-    tickerSymbol: '',
+    ticker: 'ApeCoin',
+    id: 'apecoin',
+    tickerSymbol: 'APE',
     price: 0,
     isShowInput: false
   },
   {
     tickerSlot: 9,
-    ticker: '',
-    id: '',
-    tickerSymbol: '',
+    ticker: 'Binance',
+    id: 'binancecoin',
+    tickerSymbol: 'BNB',
     price: 0,
     isShowInput: false
   },

@@ -6,27 +6,7 @@
         class="animate-bounce-alt animate-count-infinite animate-duration-3s"
       />
       <div class="c-text-asPrimary mt-20 text-center">
-        <p>
-          Built by
-          <a
-            v-tooltip="'my official ronin RNS'"
-            class="font-italic c-inherit"
-            target="_blank"
-            href="https://id.roninchain.com/name/ofins.ron"
-            >ofins.ron</a
-          >
-          . Created Nov 19, 2023.
-        </p>
-        <p>
-          Come say hi! 👋 ->
-          <a
-            v-tooltip.bottom="'link to my twitter page'"
-            target="_blank"
-            class="c-inherit"
-            href="https://twitter.com/ofinsNFT"
-            >my twitter</a
-          >
-        </p>
+        <p>Created Nov 19, 2023.</p>
         <RouterLink to="/crypto-blocks" class="decoration-none">
           <div
             class="bg-primary w-fit px-32px rd-regular mx-auto mt-70px py-16px c-text-asPrimary hover:scale-105 transition-all duration-300 hover:bg-transparent hover:b-solid b-primary"
@@ -40,9 +20,7 @@
       <div class="b-1px b-solid b-white p-16px rd-regular b-op-30">
         <p class="text-20px"><u>Important</u>:</p>
         <ul class="my-24px">
-          <li>
-            CornerBlock is powered by CoinGecko's free API, update frequency is every minute or so.
-          </li>
+          <li>CornerBlock is powered by CoinGecko's free API.</li>
           <li class="mt-8px">
             Currently search term only supports coin id (bitcoin, ethereum) and <u>NOT</u> coin
             symbols (BTC, ETH). If you do not know the coin id for your token, you can find it
