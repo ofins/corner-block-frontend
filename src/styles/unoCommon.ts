@@ -12,7 +12,7 @@ export default {
       }
     },
     bg: {
-      asPrimary: '#0f0f0f',
+      asPrimary: '#212529',
       asSecondary: '#1c1c1c',
       asInverse: {
         '01': '#6A6A6A',
