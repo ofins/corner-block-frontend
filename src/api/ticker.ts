@@ -1,5 +1,5 @@
+import { COINGECKO_BASE_ENDPOINT } from '@/settings/apiBaseEndPoint'
 import { fetchData } from './index'
-import { DEMO_10K_API_KEY, COINGECKO_BASE_ENDPOINT } from '@/settings/apiBaseEndPoint'
 
 const ENDPOINTS = {
   SIMPLE: '/simple',
@@ -9,8 +9,11 @@ const ENDPOINTS = {
 }
 
 const buildUrl = (endpoint: string, params = {}) => {
+  console.log(import.meta.env.VITE_CG_API_KEY)
   const paramString = new URLSearchParams(params)
-  return `${COINGECKO_BASE_ENDPOINT}${endpoint}?${paramString.toString()}&${DEMO_10K_API_KEY}`
+  return `${COINGECKO_BASE_ENDPOINT}${endpoint}?${paramString.toString()}&x_cg_demo_api_key=${
+    import.meta.env.VITE_CG_API_KEY
+  }`
 }
 
 export const getTickerPrice = (tickers: string, currency: string = 'usd') =>
